@@ -19,7 +19,17 @@ InputProcessor::InputProcessor(
   shouldExit{false},
   errorOut{newErrorOut},
   threadMetrics{std::make_shared<ThreadMetrics>("input processor")}
-  {}
+{
+  if (nullptr == inputBuffer)
+  {
+    throw(std::invalid_argument{"Input processor source buffer not defined!"});
+  }
+
+  if (nullptr == outputBuffer)
+  {
+    throw(std::invalid_argument{"Input processor destination buffer not defined!"});
+  }
+}
 
 InputProcessor::~InputProcessor()
 {
@@ -110,42 +120,145 @@ void InputProcessor::reactNotification(NotificationBroadcaster* sender)
 
 void InputProcessor::reactMessage(MessageBroadcaster* sender, Message message)
 {
-  switch (message)
+  if (messageCode(message) < 1000) // non error message
   {
-  case Message::NoMoreData:
-    if (inputBuffer.get() == sender)
+    switch(message)
     {
-      if (customBulkStarted != true)
+    case Message::NoMoreData :
+      if (noMoreData != true && inputBuffer.get() == sender)
       {
-        closeCurrentBulk();
-      }
-      sendMessage(Message::NoMoreData);
-      state = WorkerState::Finished;
-     }
-     break;
+        #ifdef _DEBUG
+          std::cout << "\n                     " << this->workerName<< " NoMoreData received\n";
+        #endif
 
-  case Message::Abort :
+        std::lock_guard<std::mutex> lockControl{controlLock};
+        noMoreData = true;
+        threadNotifier.notify_all();
+      }
+      break;
+
+    default:
+      break;
+    }
+  }
+  else                             // error message
+  {
     if (shouldExit != true)
     {
+      std::lock_guard<std::mutex> lockControl{controlLock};
       shouldExit = true;
-      sendMessage(Message::Abort);
-      state = WorkerState::Finished;
+      sendMessage(message);
     }
-    break;
-
-   default:
-     break;
   }
 }
 
 const SharedMetrics InputProcessor::getMetrics()
 {
-           return threadMetrics;
-           }
+  return threadMetrics;
+}
 
 WorkerState InputProcessor::getWorkerState()
 {
   return state;
+}
+
+bool InputProcessor::threadProcess(const size_t threadIndex)
+{
+  if (nullptr == inputBuffer)
+  {
+    errorMessage = Message::SourceNullptr;
+    throw(std::invalid_argument{"Input processor source buffer not defined!"});
+  }
+
+  decltype(inputBuffer->getItem()) bufferReply{};
+  {
+    std::lock_guard<std::mutex> lockBuffer{inputBuffer->dataLock};
+    bufferReply = inputBuffer->getItem(shared_from_this());
+  }
+
+  if (false == bufferReply.first)
+   {
+     return false;
+   }
+
+  auto nextCommand{bufferReply.second};
+
+  /* Refresh metrics */
+  ++threadMetrics->totalStringCount;
+
+  if (bulkOpenDelimiter == nextCommand)          // bulk open command received
+  {
+    /* if a custom bulk isn't started,
+     * send accumulated commands to the output buffer,
+     * then start a new custom bulk */
+    if (customBulkStarted == false)
+    {
+      startNewBulk();
+    }
+
+    ++nestingDepth;
+  }
+  else if (bulkCloseDelimiter == nextCommand)    // bulk close command received
+  {
+    if (nestingDepth >= 1)
+    {
+       --nestingDepth;
+    }
+
+    /* if a custom bulk is started,
+    * send accumulated commands to the output buffer,
+    * then label custom bulk as closed */
+    if (true == customBulkStarted &&
+       0 == nestingDepth)
+    {
+      closeCurrentBulk();
+    }
+  }
+  else                                           // any other command received
+  {
+   /* if no custom bulk started and temporary buffer is empty,
+    * reset bulk start time */
+   if (false == customBulkStarted &&
+       true == tempBuffer.empty())
+   {
+     bulkStartTime = std::chrono::system_clock::now();
+   }
+   /* put new command to the temporary buffer */
+   addCommandToBulk(std::move(nextCommand));
+   /* if custom bulk isn't started,
+    * and current bulk is complete,
+    * send it to the output buffer */
+   if (tempBuffer.size() == bulkSize &&
+       customBulkStarted == false)
+   {
+     sendCurrentBulk();
+   }
+  }
+}
+
+void InputProcessor::onThreadException(const std::exception& ex, const size_t threadIndex)
+{
+  errorOut << this->workerName << " thread #" << threadIndex << " stopped. Reason: " << ex.what() << std::endl;
+
+  if (ex.what() == "Buffer is empty!")
+  {
+    errorMessage = Message::BufferEmpty;
+  }
+
+  threadFinished[threadIndex] = true;
+  shouldExit = true;
+  threadNotifier.notify_all();
+
+  sendMessage(errorMessage);
+}
+
+void InputProcessor::onTermination(const size_t threadIndex)
+{
+  if (customBulkStarted != true)
+  {
+    closeCurrentBulk();
+  }
+  sendMessage(Message::NoMoreData);
 }
 
 void InputProcessor::sendCurrentBulk()
@@ -153,6 +266,12 @@ void InputProcessor::sendCurrentBulk()
   if (tempBuffer.empty() == true)
   {
     return;
+  }
+
+  if (nullptr == outputBuffer)
+  {
+    errorMessage = Message::DestinationNullptr;
+    throw(std::invalid_argument{"Input reader destination buffer not defined!"});
   }
 
   /* concatenate commands to a bulk */
@@ -167,8 +286,7 @@ void InputProcessor::sendCurrentBulk()
 
   /* convert bulk start time to integer ticks count */
   auto ticksCount{
-    std::chrono::duration_cast<std::chrono::seconds>
-    (
+    std::chrono::duration_cast<std::chrono::seconds>(
       bulkStartTime.time_since_epoch()
     ).count()
   };

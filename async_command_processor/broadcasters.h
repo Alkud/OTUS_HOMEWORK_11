@@ -5,23 +5,45 @@
 #include <set>
 #include <string>
 #include <memory>
+#include <type_traits>
 #include "listeners.h"
 #include "weak_ptr_less.h"
 
 /// inteprocess exchange messages
-enum class Message
+enum class Message : unsigned int
 {
+  /// Data flow messages:
+
   /// no more data will be committed
-  NoMoreData,
+  NoMoreData = 1u,
   /// all characters have been received
-  AllDataReceived,
+  AllDataReceived = 2u,
   /// all bulks  have been published
-  AllDataPublsihed,
+  AllDataPublsihed = 3u,
   /// all bulks have been written to files
-  AllDataLogged,
-  /// some exception caught, need stop all threads
-  Abort
+  AllDataLogged = 4u,
+
+
+  /// Error code messages:
+
+  /// any unknown exception
+  SystemError = 1001u,
+  /// log file exception
+  FileCreationError = 1002u,
+  /// input reader getline() exception
+  CharacterReadingError = 1003u,
+  /// source buffer pointer not defined or expired
+  SourceNullptr = 1004u,
+  /// destination buffer pointer not defined or expired
+  DestinationNullptr = 1005u,
+  /// source buffer empty while trying to read on notification
+  BufferEmpty = 1006u
 };
+
+unsigned int messageCode(const Message& message)
+{
+  return static_cast<unsigned int> (message);
+}
 
 /// Base class for a brodcaster, sending messages,
 /// containing instructions for listeners

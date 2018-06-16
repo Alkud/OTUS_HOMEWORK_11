@@ -15,7 +15,8 @@
 #include "logger_mt.h"
 
 template<size_t loggingThreadsCount = 2u>
-class CommandProcessorInstance : public MessageListener
+class CommandProcessorInstance :  public MessageBroadcaster,
+                                  public MessageListener
 {
 public:
 
@@ -63,10 +64,14 @@ public:
       externalBuffer, inputBuffer,
       errorStream
     )},
-    dataPublished{false}, dataLogged{false}, shouldExit{false},
+
+    dataReceived{fasle}, dataPublished{false},
+    dataLogged{false}, shouldExit{false},
     errorOut{errorStream}, metricsOut{metricsStream}, globalMetrics{}
   {
     /* connect broadcasters and listeners */
+    this->addMessageListener(externalBuffer);
+
     externalBuffer->addNotificationListener(inputReader);
     externalBuffer->addMessageListener(inputReader);
 
@@ -82,11 +87,11 @@ public:
     outputBuffer->addNotificationListener(logger);
     outputBuffer->addMessageListener(logger);
 
-    publisher->addMessageListener(inputReader);
-    logger->addMessageListener(inputReader);
+    publisher->addMessageListener(this);
+    logger->addMessageListener(this);
 
     /* creating metrics*/
-    globalMetrics["input reader"] = inputReader->
+    globalMetrics["input reader"] = inputReader->getMetrics();
     globalMetrics["input processor"] = inputProcessor->getMetrics();
     globalMetrics["publisher"] = publisher->getMetrics();
 
@@ -103,7 +108,10 @@ public:
 
   }
 
-  void reactMessage();
+  void reactMessage(MessageBroadcaster* sender, Message message)
+  {
+
+  }
 
   void run()
   {
@@ -146,6 +154,7 @@ private:
   std::mutex inputStreamLock{};
   std::mutex outputStreamLock{};
 
+  bool dataReceived;
   bool dataPublished;
   bool dataLogged;
   bool shouldExit;

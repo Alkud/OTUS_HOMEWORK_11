@@ -202,5 +202,7 @@ private:
   std::ostream& errorOut;
 
   std::deque<Record> data;
+
+  Message errorMessage{Message::SystemError};
 };
 

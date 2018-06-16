@@ -37,6 +37,9 @@ public:
 
 private:
 
+  using InputBufferType = SmartBuffer<std::string>;
+  using OutputBufferType = SmartBuffer<std::pair<size_t, std::string>>;
+
   bool threadProcess(const size_t threadIndex) override;
   void onThreadException(const std::exception& ex, const size_t threadIndex) override;
   void onTermination(const size_t threadIndex) override;
@@ -50,8 +53,8 @@ private:
   const std::string bulkOpenDelimiter;
   const std::string bulkCloseDelimiter;
 
-  std::shared_ptr<SmartBuffer<std::string>> inputBuffer;
-  std::shared_ptr<SmartBuffer<std::pair<size_t, std::string>>> outputBuffer;
+  std::shared_ptr<InputBufferType> inputBuffer;
+  std::shared_ptr<OutputBufferType> outputBuffer;
 
   std::deque<std::string> tempBuffer;
   bool customBulkStarted;
@@ -61,4 +64,6 @@ private:
   std::ostream& errorOut;
 
   SharedMetrics threadMetrics;
+
+  Message errorMessage{Message::SystemError};
 };

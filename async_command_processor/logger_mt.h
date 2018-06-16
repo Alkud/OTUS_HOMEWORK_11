@@ -73,22 +73,29 @@ public:
 
   void reactMessage(class MessageBroadcaster* sender, Message message) override
   {
-    switch(message)
+    if (messageCode(message) < 1000) // non error message
     {
-    case Message::NoMoreData :
-      if (this->noMoreData != true && buffer.get() == sender)
+      switch(message)
       {
-        #ifdef _DEBUG
-          std::cout << "\n                     " << this->workerName<< " NoMoreData received\n";
-        #endif
+      case Message::NoMoreData :
+        if (noMoreData != true && inputBuffer.get() == sender)
+        {
+          #ifdef _DEBUG
+            std::cout << "\n                     " << this->workerName<< " NoMoreData received\n";
+          #endif
 
-        std::lock_guard<std::mutex> lockControl{this->controlLock};
-        this->noMoreData = true;
-        this->threadNotifier.notify_all();
+          std::lock_guard<std::mutex> lockControl{controlLock};
+          noMoreData = true;
+          threadNotifier.notify_all();
+        }
+        break;
+
+      default:
+        break;
       }
-      break;
-
-    case Message::Abort :
+    }
+    else                             // error message
+    {
       if (this->shouldExit != true)
       {
         {
@@ -96,9 +103,8 @@ public:
           this->shouldExit = true;
           this->threadNotifier.notify_all();
         }
-        sendMessage(Message::Abort);
+        sendMessage(message);
       }
-      break;
     }
   }
 
@@ -113,6 +119,7 @@ private:
   {
     if (nullptr == buffer)
     {
+      errorMessage = Message::SourceNullptr;
       throw(std::invalid_argument{"Logger source buffer not defined!"});
     }
 
@@ -151,8 +158,7 @@ private:
 
     if(!logFile)
     {
-      errorOut << "Cannot create log file " <<
-                  logFileName << " !" << std::endl;
+      errorMessage = Message::FileCreationError;
       throw(std::ios_base::failure{"Log file creation error!"});
     }
 
@@ -174,14 +180,16 @@ private:
   {
     errorOut << this->workerName << " thread #" << threadIndex << " stopped. Reason: " << ex.what() << std::endl;
 
+    if (ex.what() == "Buffer is empty!")
+    {
+      errorMessage = Message::BufferEmpty;
+    }
+
     this->threadFinished[threadIndex] = true;
     this->shouldExit = true;
     this->threadNotifier.notify_all();
 
-    sendMessage(Message::Abort);
-
-    abortFlag = true;
-    terminationNotifier.notify_all();
+    sendMessage(errorMessage);
   }
 
   void onTermination(const size_t threadIndex) override
@@ -216,6 +224,8 @@ private:
   bool& terminationFlag;
   bool& abortFlag;
   std::condition_variable& terminationNotifier;
+
+  Message errorMessage{Message::SystemError};
 };
 
 

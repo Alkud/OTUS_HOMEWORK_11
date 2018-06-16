@@ -32,67 +32,37 @@ InputReader::~InputReader()
   stop();
 }
 
-
-
-void InputReader::read()
-{
-  std::string nextString{};
-  state = WorkerState::Started;
-  try
-  {
-    std::lock_guard<std::mutex> lockInput{inputLock};
-    while(shouldExit!= true
-          && std::getline(input, nextString))
-    {
-      if (nextString.size() > (size_t)InputReaderSettings::MaxInputStringSize)
-      {
-        std::cerr << "Maximum command length exceeded! String truncated";
-        nextString = nextString.substr((size_t)InputReaderSettings::MaxInputStringSize);
-      }
-      std::unique_lock<std::mutex> lockBuffer{buffer->dataLock};
-      buffer->putItem(nextString);
-      lockBuffer.unlock();
-    }
-    sendMessage(Message::NoMoreData);
-    state = WorkerState::Finished;
-  }
-  catch(std::exception& ex)
-  {
-    #ifdef _DEBUG
-      std::cout << "\n                     reader ABORT\n";
-    #endif
-
-    sendMessage(Message::Abort);
-    std::cerr << ex.what();
-    state = WorkerState::Finished;
-  }
-
-}
-
 void InputReader::reactMessage(MessageBroadcaster* sender, Message message)
 {
-  switch(message)
+  if (messageCode(message) < 1000) // non error message
   {
-  case Message::NoMoreData :
-    if (noMoreData != true && inputBuffer.get() == sender)
+    switch(message)
     {
-      #ifdef _DEBUG
-        std::cout << "\n                     " << this->workerName<< " NoMoreData received\n";
-      #endif
+    case Message::NoMoreData :
+      if (noMoreData != true && inputBuffer.get() == sender)
+      {
+        #ifdef _DEBUG
+          std::cout << "\n                     " << this->workerName<< " NoMoreData received\n";
+        #endif
 
-      std::lock_guard<std::mutex> lockControl{controlLock};
-      noMoreData = true;
-      threadNotifier.notify_all();
+        std::lock_guard<std::mutex> lockControl{controlLock};
+        noMoreData = true;
+        threadNotifier.notify_all();
+      }
+      break;
+
+    default:
+      break;
     }
-    break;
-
-  case Message::Abort :
+  }
+  else                             // error message
+  {
     if (shouldExit != true)
     {
+      std::lock_guard<std::mutex> lockControl{controlLock};
       shouldExit = true;
-      sendMessage(Message::Abort);
+      sendMessage(message);
     }
-    break;
   }
 }
 
@@ -111,34 +81,9 @@ void InputReader::reactNotification(MessageListener* sender)
 
 bool InputReader::threadProcess(const size_t threadIndex)
 {
-  getNextCharacters();
-}
-
-void InputReader::onThreadException(const std::exception& ex, const size_t threadIndex)
-{
-  errorOut << this->workerName << " thread #" << threadIndex << " stopped. Reason: " << ex.what() << std::endl;
-
-  threadFinished[threadIndex] = true;
-
-  sendMessage(Message::Abort);
-}
-
-void InputReader::onTermination(const size_t threadIndex)
-{
-  #ifdef _DEBUG
-    std::cout << "\n                     " << this->workerName<< " all characters received\n";
-  #endif
-
-  if (true == noMoreData && notificationCount.load() == 0)
-  {
-    sendMessage(Message::AllDataReceived);
-  }
-}
-
-bool InputReader::getNextCharacters()
-{
   if (nullptr == inputBuffer)
   {
+    errorMessage = Message::SourceNullptr;
     throw(std::invalid_argument{"Input reader source buffer not defined!"});
   }
 
@@ -153,8 +98,13 @@ bool InputReader::getNextCharacters()
     return false;
   }
 
+  /* Refresh metrics */
+  ++threadMetrics->totalReceptionCount;
+
   for (const auto& element : bufferReply.second)
   {
+    /* Refresh metrics */
+    ++threadMetrics->totalCharacterCount;
     if ('\n' == element)
     {
       putNextLine();
@@ -163,10 +113,39 @@ bool InputReader::getNextCharacters()
   }
 }
 
+void InputReader::onThreadException(const std::exception& ex, const size_t threadIndex)
+{
+  errorOut << this->workerName << " thread #" << threadIndex << " stopped. Reason: " << ex.what() << std::endl;
+
+  if (ex.what() == "Buffer is empty!")
+  {
+    errorMessage = Message::BufferEmpty;
+  }
+
+  threadFinished[threadIndex] = true;
+  shouldExit = true;
+  threadNotifier.notify_all();
+
+  sendMessage(errorMessage);
+}
+
+void InputReader::onTermination(const size_t threadIndex)
+{
+  #ifdef _DEBUG
+    std::cout << "\n                     " << this->workerName<< " all characters received\n";
+  #endif
+
+  if (true == noMoreData && notificationCount.load() == 0)
+  {
+    sendMessage(Message::AllDataReceived);
+  }
+}
+
 void InputReader::putNextLine()
 {
-  if (nullptr == inputBuffer)
+  if (nullptr == outputBuffer)
   {
+    errorMessage = Message::DestinationNullptr;
     throw(std::invalid_argument{"Input reader destination buffer not defined!"});
   }
 
@@ -174,11 +153,14 @@ void InputReader::putNextLine()
 
   std::getline(tempBuffer, nextString);
 
-  if (tempBuffer.fail())
+  if (tempBuffer.fail() == true)
   {
-    errorOut << "Cannot extract characters" << std::endl;
+    errorMessage = Message::CharacterReadingError;
     throw(std::ios_base::failure{"Character extraction error!"});
   }
+
+  /* Refresh metrics */
+  ++threadMetrics->totalStringCount;
 
   std::lock_guard<std::mutex> lockBuffer{outputBuffer->dataLock};
   outputBuffer->putItem(std::move(nextString));

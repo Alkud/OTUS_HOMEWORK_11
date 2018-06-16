@@ -46,7 +46,6 @@ private:
   void onThreadException(const std::exception& ex, const size_t threadIndex) override;
   void onTermination(const size_t threadIndex) override;
 
-  bool getNextCharacters();
   void putNextLine();
 
   std::shared_ptr<InputBufferType> inputBuffer;
@@ -57,4 +56,6 @@ private:
   std::stringstream tempBuffer;
 
   SharedMetrics threadMetrics;
+
+  Message errorMessage{Message::SystemError};
 };

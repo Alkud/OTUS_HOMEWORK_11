@@ -55,4 +55,6 @@ private:
   bool& terminationFlag;
   bool& abortFlag;
   std::condition_variable& terminationNotifier;
+
+  Message errorMessage{Message::SystemError};
 };
