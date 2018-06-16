@@ -200,15 +200,8 @@ private:
 
     if (true == this->noMoreData && this->notificationCount.load() == 0)
     {
-      terminationFlag = true;
+      sendMessage(Message::AllDataLogged);
     }
-
-    if (true == this->shouldExit)
-    {
-      abortFlag = true;
-    }
-
-    terminationNotifier.notify_all();
   }
 
 

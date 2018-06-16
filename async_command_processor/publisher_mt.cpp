@@ -78,6 +78,7 @@ bool Publisher::threadProcess(const size_t threadIndex)
 {
   if (nullptr == buffer)
   {
+    errorMessage = Message::SourceNullptr;
     throw(std::invalid_argument{"Logger source buffer not defined!"});
   }
 
@@ -108,13 +109,18 @@ bool Publisher::threadProcess(const size_t threadIndex)
 
 void Publisher::onThreadException(const std::exception& ex, const size_t threadIndex)
 {
-  errorOut << workerName << " thread #" << threadIndex << " stopped. Reason: " << ex.what() << std::endl;
+  errorOut << this->workerName << " thread #" << threadIndex << " stopped. Reason: " << ex.what() << std::endl;
+
+  if (ex.what() == "Buffer is empty!")
+  {
+    errorMessage = Message::BufferEmpty;
+  }
 
   threadFinished[threadIndex] = true;
   shouldExit = true;
   threadNotifier.notify_all();
 
-  sendMessage(Message::Abort);
+  sendMessage(errorMessage);
 }
 
 void Publisher::onTermination(const size_t threadIndex)
@@ -125,13 +131,6 @@ void Publisher::onTermination(const size_t threadIndex)
 
   if (true == noMoreData && notificationCount.load() == 0)
   {
-    terminationFlag = true;
+    sendMessage(Message::AllDataPublsihed);
   }
-
-  if (true == shouldExit)
-  {
-    abortFlag = true;
-  }
-
-  terminationNotifier.notify_all();
 }

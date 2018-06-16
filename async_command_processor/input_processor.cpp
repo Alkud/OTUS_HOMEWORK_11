@@ -258,6 +258,7 @@ void InputProcessor::onTermination(const size_t threadIndex)
   {
     closeCurrentBulk();
   }
+
   sendMessage(Message::NoMoreData);
 }
 
