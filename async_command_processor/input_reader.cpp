@@ -110,11 +110,12 @@ bool InputReader::threadProcess(const size_t threadIndex)
   {
     /* Refresh metrics */
     ++threadMetrics->totalCharacterCount;
+
+    tempBuffer << element;
     if ('\n' == element)
     {
       putNextLine();
     }
-    tempBuffer << element;
   }
 }
 
@@ -158,11 +159,13 @@ void InputReader::putNextLine()
 
   std::getline(tempBuffer, nextString);
 
-  if (tempBuffer.fail() == true)
-  {
-    errorMessage = Message::CharacterReadingError;
-    throw(std::ios_base::failure{"Character extraction error!"});
-  }
+//  tempBuffer.seekg(0);
+
+//  if (tempBuffer.fail() == true)
+//  {
+//    errorMessage = Message::CharacterReadingError;
+//    throw(std::ios_base::failure{"Character extraction error!"});
+//  }
 
   /* Refresh metrics */
   ++threadMetrics->totalStringCount;

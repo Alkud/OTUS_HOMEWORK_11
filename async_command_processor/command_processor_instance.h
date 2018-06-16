@@ -77,7 +77,7 @@ public:
     externalBuffer->addMessageListener(inputReader);
 
     inputReader->addMessageListener(inputBuffer);
-    inputReader->addMessageListener(shared_from_this());
+//    inputReader->addMessageListener(shared_from_this());
 
     inputBuffer->addMessageListener(inputProcessor);
     inputBuffer->addNotificationListener(inputProcessor);
@@ -89,8 +89,8 @@ public:
     outputBuffer->addNotificationListener(logger);
     outputBuffer->addMessageListener(logger);
 
-    publisher->addMessageListener(shared_from_this());
-    logger->addMessageListener(shared_from_this());
+//    publisher->addMessageListener(shared_from_this());
+//    logger->addMessageListener(shared_from_this());
 
     /* creating metrics*/
     globalMetrics["input reader"] = inputReader->getMetrics();
@@ -174,6 +174,11 @@ public:
   {
     try
     {
+      inputReader->addMessageListener(shared_from_this());
+      publisher->addMessageListener(shared_from_this());
+      logger->addMessageListener(shared_from_this());
+
+
       externalBuffer->start();
       inputBuffer->start();
       outputBuffer->start();

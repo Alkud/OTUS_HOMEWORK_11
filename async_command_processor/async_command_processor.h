@@ -23,30 +23,15 @@ public:
     std::ostream& newErrorStream = std::cerr,
     std::ostream& newMetricsStream = std::cout
   ) :
-    bulkSize{newBulkSize > 0 ? newBulkSize : 1},
+    bulkSize{newBulkSize},
     bulkOpenDelimiter{newBulkOpenDelimiter},
     bulkCloseDelimiter{newBulkCloseDelimiter},
     outputStream{newOutputStream},
     errorStream{newErrorStream},
     metricsStream{newMetricsStream},
-
-    processor{
-      std::make_shared<CommandProcessorInstance<loggingThreadsCount>>(
-        bulkSize,
-        bulkOpenDelimiter,
-        bulkCloseDelimiter,
-        outputStream,
-        errorStream,
-        metricsStream
-      )
-    },
-
-    entryPoint{processor->getEntryPoint()},
-    commandBuffer{processor->getInputBuffer()},
-    bulkBuffer{processor->getOutputBuffer()}
-  {
-    this->addMessageListener(entryPoint);
-  }
+    processor{nullptr}, entryPoint{nullptr},
+    commandBuffer{nullptr}, bulkBuffer{nullptr}
+  {}
 
   ~AsyncCommandProcessor()
   {
@@ -64,13 +49,27 @@ public:
       return;
     }
 
+    processor = std::make_shared<CommandProcessorInstance<loggingThreadsCount>>(
+      bulkSize,
+      bulkOpenDelimiter,
+      bulkCloseDelimiter,
+      outputStream,
+      errorStream,
+      metricsStream
+    );
+
+    entryPoint = processor->getEntryPoint();
+    commandBuffer = processor->getInputBuffer();
+    bulkBuffer = processor->getOutputBuffer();
+    this->addMessageListener(entryPoint);
+
 
     #ifdef _DEBUG
       std::cout << "\n                    AsyncCP working thread start\n";
     #endif
 
     workingThread = std::thread{
-        &AsyncCommandProcessor<loggingThreadsCount>::run, this, false
+        &AsyncCommandProcessor<loggingThreadsCount>::run, this, true
     };
 
     #ifdef _DEBUG
