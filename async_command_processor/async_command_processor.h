@@ -92,7 +92,7 @@ public:
 
     if (entryPoint != nullptr)
     {
-      std::list<char> newData{};
+      InputReader::EntryDataType newData{};
       for (size_t idx{0}; idx < size; ++idx)
       {
         newData.push_back(data[idx]);
@@ -133,6 +133,8 @@ private:
   std::shared_ptr<InputReader::InputBufferType> entryPoint{nullptr};
   std::shared_ptr<InputProcessor::InputBufferType> commandBuffer;
   std::shared_ptr<InputProcessor::OutputBufferType> bulkBuffer;
+
+  std::mutex dataEntryLock;
 
   std::thread workingThread;
 };

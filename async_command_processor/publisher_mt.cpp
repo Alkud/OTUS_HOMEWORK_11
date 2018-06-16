@@ -108,16 +108,13 @@ bool Publisher::threadProcess(const size_t threadIndex)
 
 void Publisher::onThreadException(const std::exception& ex, const size_t threadIndex)
 {
-  errorOut << this->workerName << " thread #" << threadIndex << " stopped. Reason: " << ex.what() << std::endl;
+  errorOut << workerName << " thread #" << threadIndex << " stopped. Reason: " << ex.what() << std::endl;
 
   threadFinished[threadIndex] = true;
   shouldExit = true;
   threadNotifier.notify_all();
 
   sendMessage(Message::Abort);
-
-  abortFlag = true;
-  terminationNotifier.notify_all();
 }
 
 void Publisher::onTermination(const size_t threadIndex)

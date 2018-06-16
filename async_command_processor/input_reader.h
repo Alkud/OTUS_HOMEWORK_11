@@ -4,9 +4,11 @@
 
 #include <iostream>
 #include <memory>
+#include <list>
 #include "broadcasters.h"
 #include "smart_buffer_mt.h"
 #include "async_worker.h"
+#include "thread_metrics.h"
 
 enum class InputReaderSettings
 {
@@ -21,28 +23,40 @@ class InputReader : public MessageBroadcaster,
 {
 public:
 
-  using InputBufferType = SmartBuffer<char>
+  using EntryDataType = std::list<char>;
+  using InputBufferType = SmartBuffer<EntryDataType>;
+  using OutputBufferType = SmartBuffer<std::string>;
 
   InputReader(const std::string& newWorkerName,
-              std::istream& newInput, std::mutex& newInputLock,
-              const std::shared_ptr<SmartBuffer<std::string>>& newBuffer);
+              const std::shared_ptr<InputBufferType>& newInputBuffer,
+              const std::shared_ptr<OutputBufferType>& newOutputBuffer,
+              std::ostream& newErrorOut);
 
   ~InputReader();
 
-  /// Read from input stream until eof
-  void read();
+  void reactMessage(MessageBroadcaster* sender, Message message) override;
 
-  void reactMessage(class MessageBroadcaster* sender, Message message) override;
+  void reactNotification(MessageListener* sender) override;
 
-  WorkerState getWorkerState();
+  bool threadProcess(const size_t threadIndex) override;
+
+  void onThreadException(const std::exception& ex, const size_t threadIndex) override;
+
+  void onTermination(const size_t threadIndex) override;
+
+  const SharedMetrics getMetrics();
 
 private:
 
-  std::istream& input;
-  std::mutex& inputLock;
-  std::shared_ptr<SmartBuffer<std::string>> buffer;
+  bool getNextCharacters();
+  void putNextLine();
 
-  bool shouldExit;
+  std::shared_ptr<InputBufferType> inputBuffer;
+  std::shared_ptr<OutputBufferType> outputBuffer;
 
-  WorkerState state;
+  std::ostream& errorOut;
+
+  std::stringstream tempBuffer;
+
+  SharedMetrics threadMetrics;
 };

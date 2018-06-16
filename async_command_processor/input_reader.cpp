@@ -5,15 +5,22 @@
 #include <stdexcept>
 #include <mutex>
 
-InputReader::InputReader(const std::string& newWorkerName, std::istream& newInput, std::mutex& newInputLock,
-                         const std::shared_ptr<SmartBuffer<std::string> >& newBuffer) :
+InputReader::InputReader(const std::string& newWorkerName,
+                         const std::shared_ptr<InputBufferType>& newInputBuffer,
+                         const std::shared_ptr<OutputBufferType>& newOutputBuffer,
+                         std::ostream& newErrorOut) :
   AsyncWorker<1>{newWorkerName},
-  input{newInput},
-  inputLock{newInputLock},
-  buffer{newBuffer},
-  shouldExit{false}, state{WorkerState::NotStarted}
+  inputBuffer{newInputBuffer},
+  outputBuffer{newOutputBuffer},
+  errorOut{newErrorOut},
+  threadMetrics{std::make_shared<ThreadMetrics>("input reader")}
 {
-  if (nullptr == buffer)
+  if (nullptr == inputBuffer)
+  {
+    throw(std::invalid_argument{"Input reader source buffer not defined!"});
+  }
+
+  if (nullptr == outputBuffer)
   {
     throw(std::invalid_argument{"Input reader destination buffer not defined!"});
   }
@@ -21,9 +28,7 @@ InputReader::InputReader(const std::string& newWorkerName, std::istream& newInpu
 
 InputReader::~InputReader()
 {
-  #ifdef _DEBUG
-    std::cout << "IR destructor\n";
-  #endif
+  stop();
 }
 
 
@@ -67,6 +72,19 @@ void InputReader::reactMessage(MessageBroadcaster* sender, Message message)
 {
   switch(message)
   {
+  case Message::NoMoreData :
+    if (noMoreData != true && inputBuffer.get() == sender)
+    {
+      #ifdef _DEBUG
+        std::cout << "\n                     " << this->workerName<< " NoMoreData received\n";
+      #endif
+
+      std::lock_guard<std::mutex> lockControl{controlLock};
+      noMoreData = true;
+      threadNotifier.notify_all();
+    }
+    break;
+
   case Message::Abort :
     if (shouldExit != true)
     {
@@ -75,6 +93,89 @@ void InputReader::reactMessage(MessageBroadcaster* sender, Message message)
     }
     break;
   }
+}
+
+void InputReader::reactNotification(MessageListener* sender)
+{
+  if (inputBuffer.get() == sender)
+  {
+    #ifdef _DEBUG
+      std::cout << this->workerName << " reactNotification\n";
+    #endif
+
+    ++notificationCount;
+    threadNotifier.notify_one();
+  }
+}
+
+bool InputReader::threadProcess(const size_t threadIndex)
+{
+  getNextCharacters();
+}
+
+void InputReader::onThreadException(const std::exception& ex, const size_t threadIndex)
+{
+  errorOut << this->workerName << " thread #" << threadIndex << " stopped. Reason: " << ex.what() << std::endl;
+
+  threadFinished[threadIndex] = true;
+  shouldExit = true;
+  threadNotifier.notify_all();
+
+  sendMessage(Message::Abort);
+}
+
+void InputReader::onTermination(const size_t threadIndex)
+{
+
+}
+
+bool InputReader::getNextCharacters()
+{
+  if (nullptr == inputBuffer)
+  {
+    throw(std::invalid_argument{"Input reader source buffer not defined!"});
+  }
+
+  decltype(inputBuffer->getItem()) bufferReply{};
+  {
+    std::lock_guard<std::mutex> lockBuffer{inputBuffer->dataLock};
+    bufferReply = inputBuffer->getItem(shared_from_this());
+  }
+
+  if (false = bufferReply.first)
+  {
+    return false;
+  }
+
+  for (const auto& element : bufferReply.second)
+  {
+    if ('\n' == element)
+    {
+      putNextLine();
+    }
+    tempBuffer << element;
+  }
+}
+
+void InputReader::putNextLine()
+{
+  if (nullptr == inputBuffer)
+  {
+    throw(std::invalid_argument{"Input reader destination buffer not defined!"});
+  }
+
+  std::string nextString{};
+
+  std::getline(tempBuffer, nextString);
+
+  if (tempBuffer.fail())
+  {
+    errorOut << "Cannot extract characters" << std::endl;
+    throw(std::ios_base::failure{"Character extraction error!"});
+  }
+
+  std::lock_guard<std::mutex> lockBuffer{outputBuffer->dataLock};
+  outputBuffer->putItem(std::move(nextString));
 }
 
 WorkerState InputReader::getWorkerState()

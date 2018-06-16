@@ -15,7 +15,7 @@
 #include "logger_mt.h"
 
 template<size_t loggingThreadsCount = 2u>
-class CommandProcessorInstance
+class CommandProcessorInstance : public MessageListener
 {
 public:
 
@@ -34,32 +34,37 @@ public:
     outputBuffer{std::make_shared<InputProcessor::OutputBufferType>("bulk buffer", errorStream)},
 
     /* creating logger */
-    logger{std::make_shared<Logger<loggingThreadsCount>>(
-           "logger", outputBuffer, "", errorStream, metricsStream
+    logger{
+      std::make_shared<Logger<loggingThreadsCount>>(
+      "logger", outputBuffer, "", errorStream
+
     )},
 
     /* creating publisher */
-    publisher{std::make_shared<Publisher>(
-              "publisher", outputBuffer, outputStream, outputStreamLock,
-              errorStream, metricsStream
+    publisher{
+      std::make_shared<Publisher>(
+      "publisher", outputBuffer, outputStream, outputStreamLock,
+      errorStream
     )},
 
     /* creating command processor */
-    inputProcessor{std::make_shared<InputProcessor>(
-                   "input processor ",bulkSize,
-                   bulkOpenDelimiter, bulkCloseDelimiter,
-                   inputBuffer, outputBuffer,
-                   errorStream, metricsStream
+    inputProcessor{
+      std::make_shared<InputProcessor>(
+      "input processor ",bulkSize,
+      bulkOpenDelimiter, bulkCloseDelimiter,
+      inputBuffer, outputBuffer,
+      errorStream
     )},
 
     /* creating command reader */
-    inputReader{std::make_shared<InputReader>(
-                "input reader",
-                externalBuffer, inputBuffer,
-                errorStream, metricsStream
+    inputReader{
+      std::make_shared<InputReader>(
+      "input reader",
+      externalBuffer, inputBuffer,
+      errorStream
     )},
     dataPublished{false}, dataLogged{false}, shouldExit{false},
-    metricsOut{metricsStream}, errorOut{errorStream}, globalMetrics{}
+    errorOut{errorStream}, metricsOut{metricsStream}, globalMetrics{}
   {
     /* connect broadcasters and listeners */
     externalBuffer->addNotificationListener(inputReader);
@@ -79,12 +84,26 @@ public:
 
     publisher->addMessageListener(inputReader);
     logger->addMessageListener(inputReader);
+
+    /* creating metrics*/
+    globalMetrics["input reader"] = inputReader->
+    globalMetrics["input processor"] = inputProcessor->getMetrics();
+    globalMetrics["publisher"] = publisher->getMetrics();
+
+    SharedMultyMetrics loggerMetrics{logger->getMetrics()};
+    for (size_t idx{0}; idx < loggingThreadsCount; ++idx)
+    {
+      auto threadName = std::string{"logger thread#"} + std::to_string(idx);
+      globalMetrics[threadName] = loggerMetrics[idx];
+    }
   }
 
   ~CommandProcessorInstance()
   {
 
   }
+
+  void reactMessage();
 
   void run()
   {
