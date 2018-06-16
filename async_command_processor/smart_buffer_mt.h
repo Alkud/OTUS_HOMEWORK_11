@@ -85,6 +85,7 @@ public:
     {
       shouldExit = true;
       threadNotifier.notify_all();
+      errorMessage = Message::BufferEmpty;
       throw std::out_of_range{"Buffer is empty!"};
     }
 
@@ -141,32 +142,35 @@ public:
 
   void reactMessage(MessageBroadcaster* sender, Message message) override
   {
-    switch(message)
+    if (messageCode(message) < 1000) // non error message
     {
-    case Message::NoMoreData :
-      if (noMoreData != true)
+      switch(message)
       {
-        #ifdef _DEBUG
-          std::cout << "\n                     " << workerName<< " NoMoreData received\n";
-        #endif
-
-        std::lock_guard<std::mutex> lockControl{this->controlLock};
-        noMoreData = true;
-        threadNotifier.notify_one();
-      }
-      break;
-
-    case Message::Abort :
-      if (shouldExit != true)
-      {
+      case Message::NoMoreData :
+        if (noMoreData != true && inputBuffer.get() == sender)
         {
-          std::lock_guard<std::mutex> lockControl{this->controlLock};
-          shouldExit = true;
+          #ifdef _DEBUG
+            std::cout << "\n                     " << this->workerName<< " NoMoreData received\n";
+          #endif
+
+          std::lock_guard<std::mutex> lockControl{controlLock};
+          noMoreData = true;
           threadNotifier.notify_all();
         }
-          sendMessage(Message::Abort);
+        break;
+
+      default:
+        break;
       }
-      break;
+    }
+    else                             // error message
+    {
+      if (shouldExit != true)
+      {
+        std::lock_guard<std::mutex> lockControl{controlLock};
+        shouldExit = true;
+        sendMessage(message);
+      }
     }
   }
 

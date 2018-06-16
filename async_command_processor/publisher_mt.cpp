@@ -40,32 +40,35 @@ void Publisher::reactNotification(NotificationBroadcaster* sender)
 
 void Publisher::reactMessage(MessageBroadcaster* sender, Message message)
 {
-  switch(message)
+  if (messageCode(message) < 1000) // non error message
   {
-  case Message::NoMoreData :
-    if (noMoreData != true && buffer.get() == sender)
+    switch(message)
     {
-      #ifdef _DEBUG
-        std::cout << "\n                    publisher NoMoreData received\n";
-      #endif
-
-      std::lock_guard<std::mutex> lockControl{this->controlLock};
-      noMoreData = true;
-      threadNotifier.notify_all();
-    }
-    break;
-
-  case Message::Abort :
-    if (shouldExit != true)
-    {
+    case Message::NoMoreData :
+      if (noMoreData != true && inputBuffer.get() == sender)
       {
-        std::lock_guard<std::mutex> lockControl{this->controlLock};
-        shouldExit = true;
+        #ifdef _DEBUG
+          std::cout << "\n                     " << this->workerName<< " NoMoreData received\n";
+        #endif
+
+        std::lock_guard<std::mutex> lockControl{controlLock};
+        noMoreData = true;
         threadNotifier.notify_all();
       }
-        sendMessage(Message::Abort);
+      break;
+
+    default:
+      break;
     }
-    break;
+  }
+  else                             // error message
+  {
+    if (shouldExit != true)
+    {
+      std::lock_guard<std::mutex> lockControl{controlLock};
+      shouldExit = true;
+      sendMessage(message);
+    }
   }
 }
 
