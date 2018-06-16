@@ -23,7 +23,7 @@ public:
     std::ostream& newErrorStream = std::cerr,
     std::ostream& newMetricsStream = std::cout
   ) :
-    bulkSize{newBulkSize},
+    bulkSize{newBulkSize > 0 ? newBulkSize : 1},
     bulkOpenDelimiter{newBulkOpenDelimiter},
     bulkCloseDelimiter{newBulkCloseDelimiter},
     outputStream{newOutputStream},
@@ -121,9 +121,9 @@ public:
   { return bulkBuffer; }
 
 private:
-  size_t bulkSize;
-  char bulkOpenDelimiter;
-  char bulkCloseDelimiter;
+  const size_t bulkSize;
+  const char bulkOpenDelimiter;
+  const char bulkCloseDelimiter;
   std::ostream& outputStream;
   std::ostream& errorStream;
   std::ostream& metricsStream;

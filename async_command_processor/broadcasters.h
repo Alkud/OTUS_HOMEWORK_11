@@ -13,6 +13,8 @@ enum class Message
 {
   /// no more data will be committed
   NoMoreData,
+  /// all characters have been received
+  AllDataReceived,
   /// all bulks  have been published
   AllDataPublsihed,
   /// all bulks have been written to files

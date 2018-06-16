@@ -50,7 +50,7 @@ public:
     /* creating command processor */
     inputProcessor{
       std::make_shared<InputProcessor>(
-      "input processor ",bulkSize,
+      "input processor ", bulkSize,
       bulkOpenDelimiter, bulkCloseDelimiter,
       inputBuffer, outputBuffer,
       errorStream

@@ -12,13 +12,15 @@
 class InputProcessor : public NotificationListener,
                        public MessageBroadcaster,
                        public MessageListener,
-                       public std::enable_shared_from_this<InputProcessor>
+                       public std::enable_shared_from_this<InputProcessor>,
+                       public AsyncWorker<1>
 {
 public:
 
-  InputProcessor(const size_t& newBulkSize,
-                 const char& newBulkOpenDelimiter,
-                 const char& newBulkCloseDelimiter,
+  InputProcessor(const std::string& newWorkerName,
+                 const size_t newBulkSize,
+                 const char newBulkOpenDelimiter,
+                 const char newBulkCloseDelimiter,
                  const std::shared_ptr<SmartBuffer<std::string>>& newInputBuffer,
                  const std::shared_ptr<SmartBuffer<std::pair<size_t, std::string>>>& newOutputBuffer,
                  std::ostream& newErrorOut);
@@ -34,6 +36,11 @@ public:
   WorkerState getWorkerState();
 
 private:
+
+  bool threadProcess(const size_t threadIndex) override;
+  void onThreadException(const std::exception& ex, const size_t threadIndex) override;
+  void onTermination(const size_t threadIndex) override;
+
   void sendCurrentBulk();
   void startNewBulk();
   void closeCurrentBulk();
@@ -51,11 +58,7 @@ private:
   size_t nestingDepth;
   std::chrono::time_point<std::chrono::system_clock> bulkStartTime;
 
-  bool shouldExit;
-
   std::ostream& errorOut;
 
   SharedMetrics threadMetrics;
-
-  WorkerState state;
 };

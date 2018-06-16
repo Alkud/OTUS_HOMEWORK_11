@@ -38,15 +38,13 @@ public:
 
   void reactNotification(MessageListener* sender) override;
 
-  bool threadProcess(const size_t threadIndex) override;
-
-  void onThreadException(const std::exception& ex, const size_t threadIndex) override;
-
-  void onTermination(const size_t threadIndex) override;
-
   const SharedMetrics getMetrics();
 
 private:
+
+  bool threadProcess(const size_t threadIndex) override;
+  void onThreadException(const std::exception& ex, const size_t threadIndex) override;
+  void onTermination(const size_t threadIndex) override;
 
   bool getNextCharacters();
   void putNextLine();

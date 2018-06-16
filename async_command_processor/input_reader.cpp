@@ -6,9 +6,10 @@
 #include <mutex>
 
 InputReader::InputReader(const std::string& newWorkerName,
-                         const std::shared_ptr<InputBufferType>& newInputBuffer,
-                         const std::shared_ptr<OutputBufferType>& newOutputBuffer,
-                         std::ostream& newErrorOut) :
+    const std::shared_ptr<InputBufferType>& newInputBuffer,
+    const std::shared_ptr<OutputBufferType>& newOutputBuffer,
+    std::ostream& newErrorOut
+  ) :
   AsyncWorker<1>{newWorkerName},
   inputBuffer{newInputBuffer},
   outputBuffer{newOutputBuffer},
@@ -118,15 +119,20 @@ void InputReader::onThreadException(const std::exception& ex, const size_t threa
   errorOut << this->workerName << " thread #" << threadIndex << " stopped. Reason: " << ex.what() << std::endl;
 
   threadFinished[threadIndex] = true;
-  shouldExit = true;
-  threadNotifier.notify_all();
 
   sendMessage(Message::Abort);
 }
 
 void InputReader::onTermination(const size_t threadIndex)
 {
+  #ifdef _DEBUG
+    std::cout << "\n                     " << this->workerName<< " all characters received\n";
+  #endif
 
+  if (true == noMoreData && notificationCount.load() == 0)
+  {
+    sendMessage(Message::AllDataReceived);
+  }
 }
 
 bool InputReader::getNextCharacters()

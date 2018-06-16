@@ -15,12 +15,22 @@ async::handle_t async::connect(std::size_t bulk)
 
 void async::receive(async::handle_t handle, const char* data, std::size_t size)
 {
+  if (nullptr == handle)
+  {
+    return;
+  }
+
   auto commandProcessor {reinterpret_cast<AsyncCommandProcessor<2>*>(handle)};
   commandProcessor->receiveData(data, size);
 }
 
 void async::disconnect(async::handle_t handle)
 {
+  if (nullptr == handle)
+  {
+    return;
+  }
+
   auto commandProcessor {reinterpret_cast<AsyncCommandProcessor<2>*>(handle)};
   commandProcessor->disconnect();
   delete commandProcessor;

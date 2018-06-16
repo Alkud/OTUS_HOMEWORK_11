@@ -2,11 +2,14 @@
 
 #include "input_processor.h"
 
-InputProcessor::InputProcessor(const size_t& newBulkSize, const char& newBulkOpenDelimiter, const char& newBulkCloseDelimiter,
-                               const std::shared_ptr<SmartBuffer<std::string> >& newInputBuffer,
-                               const std::shared_ptr<SmartBuffer<std::pair<size_t, std::string> > >& newOutputBuffer,
-                               std::ostream& newErrorOut) :
-  bulkSize{newBulkSize > 1 ? newBulkSize : 1},
+InputProcessor::InputProcessor(
+    const std::string& newWorkerName, const size_t newBulkSize, const char newBulkOpenDelimiter, const char newBulkCloseDelimiter,
+    const std::shared_ptr<SmartBuffer<std::string> >& newInputBuffer,
+    const std::shared_ptr<SmartBuffer<std::pair<size_t, std::string> > >& newOutputBuffer,
+    std::ostream& newErrorOut
+  ) :
+  AsyncWorker<1>{newWorkerName},
+  bulkSize{newBulkSize},
   bulkOpenDelimiter{newBulkOpenDelimiter},
   bulkCloseDelimiter{newBulkCloseDelimiter},
   inputBuffer{newInputBuffer},
@@ -15,9 +18,8 @@ InputProcessor::InputProcessor(const size_t& newBulkSize, const char& newBulkOpe
   nestingDepth{0},
   shouldExit{false},
   errorOut{newErrorOut},
-  threadMetrics{std::make_shared<ThreadMetrics>("input processor")},
-  state{WorkerState::Started}
-{}
+  threadMetrics{std::make_shared<ThreadMetrics>("input processor")}
+  {}
 
 InputProcessor::~InputProcessor()
 {
