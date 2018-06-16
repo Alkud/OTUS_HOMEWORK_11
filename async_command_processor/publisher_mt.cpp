@@ -4,15 +4,13 @@
 
 
 Publisher::Publisher(const std::string& newWorkerName,
-                     const std::shared_ptr<SmartBuffer<std::pair<size_t, std::string> > >& newBuffer, bool& newTerminationFlag, bool& newAbortFlag, std::condition_variable& newTerminationNotifier,
+                     const std::shared_ptr<SmartBuffer<std::pair<size_t, std::string> > >& newBuffer,
                      std::ostream& newOutput, std::mutex& newOutpuLock,
                      std::ostream& newErrorOut) :
   AsyncWorker<1>{newWorkerName},
   buffer{newBuffer}, output{newOutput}, outputLock{newOutpuLock},
   threadMetrics{std::make_shared<ThreadMetrics>("publisher")},
-  errorOut{newErrorOut},
-  terminationFlag{newTerminationFlag}, abortFlag{newAbortFlag},
-  terminationNotifier{newTerminationNotifier}
+  errorOut{newErrorOut}
 {
   if (nullptr == buffer)
   {
@@ -45,7 +43,7 @@ void Publisher::reactMessage(MessageBroadcaster* sender, Message message)
     switch(message)
     {
     case Message::NoMoreData :
-      if (noMoreData != true && inputBuffer.get() == sender)
+      if (noMoreData != true && buffer.get() == sender)
       {
         #ifdef _DEBUG
           std::cout << "\n                     " << this->workerName<< " NoMoreData received\n";

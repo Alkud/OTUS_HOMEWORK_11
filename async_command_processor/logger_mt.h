@@ -28,16 +28,12 @@ public:
 
   Logger(const std::string& newWorkerName,
          const std::shared_ptr<SmartBuffer<DataType>>& newBuffer,
-         bool& newTerminationFlag, bool& newAbortFlag,
-         std::condition_variable& newTerminationNotifier,
          const std::string& newDestinationDirectory = "",
          std::ostream& newErrorOut = std::cerr) :
     AsyncWorker<threadsCount>{newWorkerName},
     buffer{newBuffer}, destinationDirectory{newDestinationDirectory}, errorOut{newErrorOut},
     previousTimeStamp{}, additionalNameSection{},
-    threadMetrics{},
-    terminationFlag{newTerminationFlag}, abortFlag{newAbortFlag},
-    terminationNotifier{newTerminationNotifier}
+    threadMetrics{}
   {
     if (nullptr == buffer)
     {
@@ -78,15 +74,15 @@ public:
       switch(message)
       {
       case Message::NoMoreData :
-        if (noMoreData != true && inputBuffer.get() == sender)
+        if (this->noMoreData != true && buffer.get() == sender)
         {
           #ifdef _DEBUG
             std::cout << "\n                     " << this->workerName<< " NoMoreData received\n";
           #endif
 
-          std::lock_guard<std::mutex> lockControl{controlLock};
-          noMoreData = true;
-          threadNotifier.notify_all();
+          std::lock_guard<std::mutex> lockControl{this->controlLock};
+          this->noMoreData = true;
+          this->threadNotifier.notify_all();
         }
         break;
 
@@ -213,10 +209,6 @@ private:
   std::vector<size_t> additionalNameSection;
 
   SharedMultyMetrics threadMetrics;
-
-  bool& terminationFlag;
-  bool& abortFlag;
-  std::condition_variable& terminationNotifier;
 
   Message errorMessage{Message::SystemError};
 };

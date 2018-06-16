@@ -5,7 +5,8 @@ add_library(libasync
   async.h async.cpp
   async_worker.h
   command_processor_instance.h
-  broadcasters.h listeners.h
+  broadcasters.h
+  listeners.h
   async_command_processor.h  
   input_processor.h input_processor.cpp
   input_reader.h input_reader.cpp

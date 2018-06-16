@@ -16,7 +16,8 @@
 
 template<size_t loggingThreadsCount = 2u>
 class CommandProcessorInstance :  public MessageBroadcaster,
-                                  public MessageListener
+                                  public MessageListener,
+                                  public std::enable_shared_from_this<MessageListener>
 {
 public:
 
@@ -65,7 +66,7 @@ public:
       errorStream
     )},
 
-    dataReceived{fasle}, dataPublished{false},
+    dataReceived{false}, dataPublished{false},
     dataLogged{false}, shouldExit{false},
     errorOut{errorStream}, metricsOut{metricsStream}, globalMetrics{}
   {
@@ -76,6 +77,7 @@ public:
     externalBuffer->addMessageListener(inputReader);
 
     inputReader->addMessageListener(inputBuffer);
+    inputReader->addMessageListener(shared_from_this());
 
     inputBuffer->addMessageListener(inputProcessor);
     inputBuffer->addNotificationListener(inputProcessor);
@@ -87,8 +89,8 @@ public:
     outputBuffer->addNotificationListener(logger);
     outputBuffer->addMessageListener(logger);
 
-    publisher->addMessageListener(this);
-    logger->addMessageListener(this);
+    publisher->addMessageListener(shared_from_this());
+    logger->addMessageListener(shared_from_this());
 
     /* creating metrics*/
     globalMetrics["input reader"] = inputReader->getMetrics();
@@ -110,21 +112,130 @@ public:
 
   void reactMessage(MessageBroadcaster* sender, Message message)
   {
+    if (messageCode(message) < 1000) // non error message
+    {
+      switch(message)
+      {
+      case Message::AllDataReceived :
+        {
+          #ifdef _DEBUG
+            std::cout << "\n                     AllDataReceived received\n";
+          #endif
 
+          std::lock_guard<std::mutex> lockControl{controlLock};
+          dataReceived = true;
+        }
+        controlNotifier.notify_all();
+        break;
+
+      case Message::AllDataLogged :
+        {
+          #ifdef _DEBUG
+            std::cout << "\n                     AllDataLogged received\n";
+          #endif
+
+          std::lock_guard<std::mutex> lockControl{controlLock};
+          dataLogged = true;
+        }
+        controlNotifier.notify_all();
+        break;
+
+      case Message::AllDataPublsihed :
+        {
+          #ifdef _DEBUG
+            std::cout << "\n                     AllDataReceived received\n";
+          #endif
+
+          std::lock_guard<std::mutex> lockControl{controlLock};
+          dataPublished = true;
+        }
+        controlNotifier.notify_all();
+        break;
+
+      default:
+        break;
+      }
+    }
+    else                             // error message
+    {
+      if (shouldExit != true)
+      {
+        {
+          std::lock_guard<std::mutex> lockControl{controlLock};
+          shouldExit = true;
+          errorMessage = message;
+        }
+        controlNotifier.notify_all();
+      }
+    }
   }
 
-  void run()
+  SharedGlobalMetrics run()
   {
-    externalBuffer->start();
-    inputBuffer->start();
-    outputBuffer->start();
+    try
+    {
+      externalBuffer->start();
+      inputBuffer->start();
+      outputBuffer->start();
 
-    publisher->start();
-    logger->start();
+      publisher->start();
+      logger->start();
 
-    inputProcessor->start();
+      inputProcessor->start();
 
-    inputReader->startAndWait();
+      inputReader->startAndWait();
+
+      /* wait for data processing termination */
+      while (shouldExit != true
+             && ((dataReceived && dataLogged && dataPublished) != true))
+      {
+        #ifdef _DEBUG
+          std::cout << "\n                     CPInstance waiting\n";
+        #endif
+
+        std::unique_lock<std::mutex> lockControl{controlLock};
+        controlNotifier.wait_for(lockControl, std::chrono::seconds{1}, [this]()
+        {
+          return (shouldExit) || (dataReceived && dataLogged && dataPublished);
+        });
+        lockControl.unlock();
+      }
+
+      #ifdef _DEBUG
+        std::cout << "\n                     CPInsatnce waiting ended\n";
+      #endif
+
+      if (shouldExit == true)
+      {
+        sendMessage(errorMessage);
+      }
+
+      /* waiting for all workers to finish */
+      while(inputReader->getWorkerState() != WorkerState::Finished
+            && inputProcessor->getWorkerState() != WorkerState::Finished
+            && inputBuffer->getWorkerState() != WorkerState::Finished
+            && outputBuffer->getWorkerState() != WorkerState::Finished
+            && logger->getWorkerState() != WorkerState::Finished
+            && publisher->getWorkerState() != WorkerState::Finished)
+      {}
+
+      if (shouldExit == true)
+      {
+        errorOut << "Abnormal termination\n";
+        errorOut << "Error code: " << messageCode(errorMessage);
+      }
+
+      #ifdef _DEBUG
+        std::cout << "\n                     CP metrics output\n";
+      #endif
+
+      return globalMetrics;
+    }
+    catch(const std::exception& ex)
+    {
+      errorOut << ex.what();
+      return globalMetrics;
+    }
   }
 
   const std::shared_ptr<InputReader::InputBufferType>&
@@ -158,12 +269,13 @@ private:
   bool dataPublished;
   bool dataLogged;
   bool shouldExit;
-
-  std::condition_variable terminationNotifier{};
-  std::mutex notifierLock;
+  std::condition_variable controlNotifier{};
+  std::mutex controlLock;
 
   std::ostream& errorOut;
   std::ostream& metricsOut;
   SharedGlobalMetrics globalMetrics;
+
+  Message errorMessage{Message::SystemError};
 };
 

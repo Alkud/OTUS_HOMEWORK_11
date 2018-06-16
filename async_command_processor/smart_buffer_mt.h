@@ -147,7 +147,7 @@ public:
       switch(message)
       {
       case Message::NoMoreData :
-        if (noMoreData != true && inputBuffer.get() == sender)
+        if (noMoreData != true)
         {
           #ifdef _DEBUG
             std::cout << "\n                     " << this->workerName<< " NoMoreData received\n";
@@ -183,8 +183,18 @@ private:
 
   void onThreadException(const std::exception& ex, const size_t threadIndex) override
   {
-    errorOut << workerName << " stopped. Reason: " << ex.what() << std::endl;
-    sendMessage(Message::Abort);
+    errorOut << this->workerName << " thread #" << threadIndex << " stopped. Reason: " << ex.what() << std::endl;
+
+    if (ex.what() == "Buffer is empty!")
+    {
+      errorMessage = Message::BufferEmpty;
+    }
+
+    threadFinished[threadIndex] = true;
+    shouldExit = true;
+    threadNotifier.notify_all();
+
+    sendMessage(errorMessage);
   }
 
   void onTermination(const size_t threadIndex) override

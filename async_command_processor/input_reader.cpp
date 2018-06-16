@@ -66,7 +66,7 @@ void InputReader::reactMessage(MessageBroadcaster* sender, Message message)
   }
 }
 
-void InputReader::reactNotification(MessageListener* sender)
+void InputReader::reactNotification(NotificationBroadcaster* sender)
 {
   if (inputBuffer.get() == sender)
   {
@@ -77,6 +77,11 @@ void InputReader::reactNotification(MessageListener* sender)
     ++notificationCount;
     threadNotifier.notify_one();
   }
+}
+
+const SharedMetrics InputReader::getMetrics()
+{
+  return threadMetrics;
 }
 
 bool InputReader::threadProcess(const size_t threadIndex)
@@ -93,7 +98,7 @@ bool InputReader::threadProcess(const size_t threadIndex)
     bufferReply = inputBuffer->getItem(shared_from_this());
   }
 
-  if (false = bufferReply.first)
+  if (false == bufferReply.first)
   {
     return false;
   }

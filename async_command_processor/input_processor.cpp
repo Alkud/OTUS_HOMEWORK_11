@@ -16,7 +16,6 @@ InputProcessor::InputProcessor(
   outputBuffer{newOutputBuffer},
   customBulkStarted{false},
   nestingDepth{0},
-  shouldExit{false},
   errorOut{newErrorOut},
   threadMetrics{std::make_shared<ThreadMetrics>("input processor")}
 {
@@ -42,79 +41,12 @@ void InputProcessor::reactNotification(NotificationBroadcaster* sender)
 {
   if (inputBuffer.get() == sender)
   {
-    try
-    {
-      std::unique_lock<std::mutex> lockInputBuffer{inputBuffer->dataLock};
-      auto bufferReply{inputBuffer->getItem(shared_from_this())};
-      lockInputBuffer.unlock();
+    #ifdef _DEBUG
+      std::cout << this->workerName << " reactNotification\n";
+    #endif
 
-      if (false == bufferReply.first)
-       {
-         return;
-       }
-
-      auto nextCommand{bufferReply.second};
-      ++threadMetrics->totalStringCount;
-
-      if (bulkOpenDelimiter == nextCommand)          // bulk open command received
-      {
-        /* if a custom bulk isn't started,
-         * send accumulated commands to the output buffer,
-         * then start a new custom bulk */
-        if (customBulkStarted == false)
-        {
-          startNewBulk();
-        }
-
-        ++nestingDepth;
-      }
-      else if (bulkCloseDelimiter == nextCommand)    // bulk close command received
-      {
-        if (nestingDepth >= 1)
-        {
-           --nestingDepth;
-        }
-
-        /* if a custom bulk is started,
-        * send accumulated commands to the output buffer,
-        * then label custom bulk as closed */
-        if (true == customBulkStarted &&
-           0 == nestingDepth)
-        {
-         closeCurrentBulk();
-        }
-      }
-      else                                           // any other command received
-      {
-       /* if no custom bulk started and temporary buffer is empty,
-        * reset bulk start time */
-       if (false == customBulkStarted &&
-           true == tempBuffer.empty())
-       {
-         bulkStartTime = std::chrono::system_clock::now();
-       }
-       /* put new command to the temporary buffer */
-       addCommandToBulk(std::move(nextCommand));
-       /* if custom bulk isn't started,
-        * and current bulk is complete,
-        * send it to the output buffer */
-       if (tempBuffer.size() == bulkSize &&
-           customBulkStarted == false)
-       {
-         sendCurrentBulk();
-       }
-     }
-    }
-    catch(std::exception& ex)
-    {
-      #ifdef _DEBUG
-        std::cout << "\n                     processor ABORT\n";
-      #endif
-
-      shouldExit = true;
-      sendMessage(Message::Abort);
-      std::cerr << ex.what();
-    }
+    ++notificationCount;
+    threadNotifier.notify_one();
   }
 }
 

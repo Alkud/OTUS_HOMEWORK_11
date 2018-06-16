@@ -22,8 +22,6 @@ public:
 
   Publisher(const std::string& newWorkerName,
             const std::shared_ptr<SmartBuffer<std::pair<size_t, std::string>>>& newBuffer,
-            bool& newTerminationFlag, bool& newAbortFlag,
-            std::condition_variable& newTerminationNotifier,
             std::ostream& newOutput, std::mutex& newOutpuLock,
             std::ostream& newErrorOut = std::cerr);
 
@@ -51,10 +49,6 @@ private:
 
   SharedMetrics threadMetrics;
   std::ostream& errorOut;
-
-  bool& terminationFlag;
-  bool& abortFlag;
-  std::condition_variable& terminationNotifier;
 
   Message errorMessage{Message::SystemError};
 };

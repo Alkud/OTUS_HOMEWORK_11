@@ -6,6 +6,7 @@
 #include <string>
 #include <memory>
 #include <type_traits>
+#include <type_traits>
 #include "listeners.h"
 #include "weak_ptr_less.h"
 
@@ -40,9 +41,11 @@ enum class Message : unsigned int
   BufferEmpty = 1006u
 };
 
-unsigned int messageCode(const Message& message)
+template<typename T = unsigned int>
+typename std::enable_if_t<std::is_integral<T>::value, T>
+messageCode(const Message& message)
 {
-  return static_cast<unsigned int> (message);
+  return static_cast<T> (message);
 }
 
 /// Base class for a brodcaster, sending messages,

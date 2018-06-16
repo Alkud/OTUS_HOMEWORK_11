@@ -6,7 +6,7 @@
 int homework(int argc, char* argv[], std::istream& inputStream, std::ostream& outputStream,
               std::ostream& errorStream, std::ostream& metricsStream)
 {
-  std::size_t bulk = 10;
+  const size_t bulk = 10;
   auto h = async::connect(bulk);
   auto h2 = async::connect(bulk);
   async::receive(h, "1", 1);
@@ -19,4 +19,6 @@ int homework(int argc, char* argv[], std::istream& inputStream, std::ostream& ou
 //  }
   async::disconnect(h);
   async::disconnect(h2);
+
+  return 0;
 }

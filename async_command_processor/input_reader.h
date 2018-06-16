@@ -5,6 +5,7 @@
 #include <iostream>
 #include <memory>
 #include <list>
+#include <sstream>
 #include "broadcasters.h"
 #include "smart_buffer_mt.h"
 #include "async_worker.h"
@@ -36,9 +37,11 @@ public:
 
   void reactMessage(MessageBroadcaster* sender, Message message) override;
 
-  void reactNotification(MessageListener* sender) override;
+  void reactNotification(NotificationBroadcaster* sender) override;
 
   const SharedMetrics getMetrics();
+
+  WorkerState getWorkerState();
 
 private:
 

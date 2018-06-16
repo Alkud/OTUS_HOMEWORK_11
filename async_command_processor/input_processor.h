@@ -17,6 +17,9 @@ class InputProcessor : public NotificationListener,
 {
 public:
 
+  using InputBufferType = SmartBuffer<std::string>;
+  using OutputBufferType = SmartBuffer<std::pair<size_t, std::string>>;
+
   InputProcessor(const std::string& newWorkerName,
                  const size_t newBulkSize,
                  const char newBulkOpenDelimiter,
@@ -36,9 +39,6 @@ public:
   WorkerState getWorkerState();
 
 private:
-
-  using InputBufferType = SmartBuffer<std::string>;
-  using OutputBufferType = SmartBuffer<std::pair<size_t, std::string>>;
 
   bool threadProcess(const size_t threadIndex) override;
   void onThreadException(const std::exception& ex, const size_t threadIndex) override;

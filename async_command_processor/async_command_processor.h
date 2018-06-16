@@ -70,7 +70,7 @@ public:
     #endif
 
     workingThread = std::thread{
-        &AsyncCommandProcessor<loggingThreadsCount>::run, this
+        &AsyncCommandProcessor<loggingThreadsCount>::run, this, false
     };
 
     #ifdef _DEBUG
@@ -80,7 +80,33 @@ public:
 
   void run(const bool outputMetrics = false)
   {
+     auto globalMetrics {processor->run()};
 
+     if (outputMetrics != true)
+     {
+       return;
+     }
+
+     /* Output metrics */
+     metricsStream << "total received - "
+                   << globalMetrics["input reader"]->totalReceptionCount << " data chunk(s), "
+                   << globalMetrics["input reader"]->totalCharacterCount << " character(s), "
+                   << globalMetrics["input reader"]->totalStringCount << " string(s)" << std::endl
+                   << "total processed - "
+                   << globalMetrics["input processor"]->totalStringCount << " string(s), "
+                   << globalMetrics["input processor"]->totalCommandCount << " command(s), "
+                   << globalMetrics["input processor"]->totalBulkCount << " bulk(s)" << std::endl
+                   << "total displayed - "
+                   << globalMetrics["publisher"]->totalBulkCount << " bulk(s), "
+                   << globalMetrics["publisher"]->totalCommandCount << " command(s)" << std::endl;
+
+     for (size_t threadIndex{}; threadIndex < loggingThreadsCount; ++threadIndex)
+     {
+       auto threadName = std::string{"logger thread#"} + std::to_string(threadIndex);
+       metricsStream << "total saved by thread #" << threadIndex << " - "
+                     << globalMetrics[threadName]->totalBulkCount << " bulk(s), "
+                     << globalMetrics[threadName]->totalCommandCount << " command(s)" << std::endl;
+     }
   }
 
   void receiveData(const char *data, std::size_t size) const
@@ -128,7 +154,7 @@ private:
   std::ostream& errorStream;
   std::ostream& metricsStream;
 
-  std::unique_ptr<CommandProcessorInstance> processor;
+  std::shared_ptr<CommandProcessorInstance<loggingThreadsCount>> processor;
 
   std::shared_ptr<InputReader::InputBufferType> entryPoint{nullptr};
   std::shared_ptr<InputProcessor::InputBufferType> commandBuffer;
