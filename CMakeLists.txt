@@ -54,22 +54,14 @@ set_target_properties(otus_hw_11_test PROPERTIES
                       INCLUDE_DIRECTORIES ${Boost_INCLUDE_DIR}
 )
 
-#Link
-target_link_libraries(bulkasync pthread libasync)
+set_target_properties(async PROPERTIES VERSION ${PROJECT_VERSION})
 
-target_link_libraries(otus_hw_11_test pthread libasync)
+
+#Link
+target_link_libraries(bulkasync pthread async)
+
+target_link_libraries(otus_hw_11_test pthread async)
 
 target_link_libraries(otus_hw_11_test
                       ${Boost_LIBRARIES})
 
-install(TARGETS bulkasync RUNTIME DESTINATION bin)
-
-set(CPACK_GENERATOR DEB)
-
-set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
-set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
-set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
-
-set(CPACK_PACKAGE_CONTACT alexandr_kudinov@mail.ru)
-
-include(CPack)

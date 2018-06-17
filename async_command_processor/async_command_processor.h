@@ -30,7 +30,8 @@ public:
     errorStream{newErrorStream},
     metricsStream{newMetricsStream},
     processor{nullptr}, entryPoint{nullptr},
-    commandBuffer{nullptr}, bulkBuffer{nullptr}
+    commandBuffer{nullptr}, bulkBuffer{nullptr},
+    metrics{}
   {}
 
   ~AsyncCommandProcessor()
@@ -41,45 +42,57 @@ public:
     }
   }
 
-  void connect()
+  bool connect() noexcept
   {
-    /* ignore repetitive connect attempts*/
-    if (processor != nullptr || workingThread.joinable() == true)
+    try
     {
-      return;
+      /* ignore repetitive connection attempts*/
+      if (processor != nullptr || workingThread.joinable() == true)
+      {
+        return false;
+      }
+
+      processor = std::make_shared<CommandProcessorInstance<loggingThreadsCount>>(
+        bulkSize,
+        bulkOpenDelimiter,
+        bulkCloseDelimiter,
+        outputStream,
+        errorStream,
+        metricsStream
+      );
+
+      entryPoint = processor->getEntryPoint();
+      commandBuffer = processor->getInputBuffer();
+      bulkBuffer = processor->getOutputBuffer();
+      this->addMessageListener(entryPoint);
+
+
+      #ifdef _DEBUG
+        std::cout << "\n                    AsyncCP working thread start\n";
+      #endif
+
+      workingThread = std::thread{
+          &AsyncCommandProcessor<loggingThreadsCount>::run, this, true
+      };
+
+      #ifdef _DEBUG
+        std::cout << "\n                    AsyncCP connected\n";
+      #endif
+
+      return true;
     }
-
-    processor = std::make_shared<CommandProcessorInstance<loggingThreadsCount>>(
-      bulkSize,
-      bulkOpenDelimiter,
-      bulkCloseDelimiter,
-      outputStream,
-      errorStream,
-      metricsStream
-    );
-
-    entryPoint = processor->getEntryPoint();
-    commandBuffer = processor->getInputBuffer();
-    bulkBuffer = processor->getOutputBuffer();
-    this->addMessageListener(entryPoint);
-
-
-    #ifdef _DEBUG
-      std::cout << "\n                    AsyncCP working thread start\n";
-    #endif
-
-    workingThread = std::thread{
-        &AsyncCommandProcessor<loggingThreadsCount>::run, this, true
-    };
-
-    #ifdef _DEBUG
-      std::cout << "\n                    AsyncCP connected\n";
-    #endif
+    catch (const std::exception& ex)
+    {
+      std::cerr << "Connection failed. Reason: " << ex.what() << std::endl;
+      return false;
+    }
   }
 
   void run(const bool outputMetrics = false)
   {
      auto globalMetrics {processor->run()};
+
+     metrics = globalMetrics;
 
      if (outputMetrics != true)
      {
@@ -126,14 +139,18 @@ public:
       entryPoint->putItem(std::move(newData));
     }
 
-    std::cout << "\n                    AsyncCP received data\n";
+    #ifdef _DEBUG
+      std::cout << "\n                    AsyncCP received data\n";
+    #endif
   }
 
   void disconnect()
   {
     sendMessage(Message::NoMoreData);
 
-    std::cout << "\n                    AsyncCP disconnect\n";
+    #ifdef _DEBUG
+      std::cout << "\n                    AsyncCP disconnect\n";
+    #endif
   }
 
   const std::shared_ptr<InputProcessor::InputBufferType>&
@@ -144,6 +161,11 @@ public:
   const std::shared_ptr<InputProcessor::OutputBufferType>&
   getBulkBuffer() const
   { return bulkBuffer; }
+
+  const SharedGlobalMetrics getMetrics()
+  {
+    return metrics;
+  }
 
 private:
   const size_t bulkSize;
@@ -162,4 +184,6 @@ private:
   std::mutex dataEntryLock;
 
   std::thread workingThread;
+
+  SharedGlobalMetrics metrics;
 };

@@ -1,7 +1,7 @@
 #CmakeList.txt for command_processor library in OTUS Homework #10
 
 # set library name and content
-add_library(libasync
+add_library(async SHARED
   async.h async.cpp
   async_worker.h
   command_processor_instance.h
@@ -18,4 +18,16 @@ add_library(libasync
   worker_state.h
 )
 
-target_link_libraries(libasync pthread)
+target_link_libraries(async pthread)
+
+install(TARGETS async LIBRARY DESTINATION lib)
+
+set(CPACK_GENERATOR DEB)
+
+set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
+set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
+set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
+
+set(CPACK_PACKAGE_CONTACT alexandr_kudinov@mail.ru)
+
+include(CPack)

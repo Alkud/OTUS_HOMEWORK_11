@@ -9,8 +9,15 @@ async::handle_t async::connect(std::size_t bulk)
       bulk, '{', '}', std::cout, std::cerr, std::cout
     )
   };
-  newCommandProcessor->connect();
-  return reinterpret_cast<void*>(newCommandProcessor);
+
+  if (newCommandProcessor->connect() == true)
+  {
+    return reinterpret_cast<void*>(newCommandProcessor);
+  }
+  else
+  {
+    return nullptr;
+  }
 }
 
 void async::receive(async::handle_t handle, const char* data, std::size_t size)

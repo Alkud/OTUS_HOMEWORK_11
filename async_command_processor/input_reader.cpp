@@ -143,6 +143,7 @@ void InputReader::onTermination(const size_t threadIndex)
 
   if (true == noMoreData && notificationCount.load() == 0)
   {
+    sendMessage(Message::NoMoreData);
     sendMessage(Message::AllDataReceived);
   }
 }

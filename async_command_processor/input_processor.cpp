@@ -35,6 +35,8 @@ InputProcessor::~InputProcessor()
   #ifdef _DEBUG
     std::cout << "IP destructor\n";
   #endif
+
+  stop();
 }
 
 void InputProcessor::reactNotification(NotificationBroadcaster* sender)

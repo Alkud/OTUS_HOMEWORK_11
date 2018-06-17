@@ -1,6 +1,6 @@
 // otus_hw_11_test.cpp in Otus homework#11 project
 
-#define BOOST_TEST_MODULE OTUS_HW_10_TEST
+#define BOOST_TEST_MODULE OTUS_HW_11_TEST
 
 #include <boost/test/unit_test.hpp>
 #include "homework_11.h"
@@ -29,7 +29,8 @@ getProcessorOutput
   char openDelimiter,
   char closeDelimiter,
   size_t bulkSize,
-  DebugOutput debugOutput
+  DebugOutput debugOutput,
+  SharedGlobalMetrics metrics
 )
 {
   std::stringstream inputStream{inputString};  
@@ -38,15 +39,14 @@ getProcessorOutput
   std::stringstream metricsStream{};
 
   {
-  const AsyncCommandProcessor<2> testProcessor {
-    bulkSize, openDelimiter, closeDelimiter,
-    outputStream, errorStream, metricsStream
-  };
+    AsyncCommandProcessor<2> testProcessor {
+      bulkSize, openDelimiter, closeDelimiter,
+      outputStream, errorStream, metricsStream
+    };
 
-  //testProcessor.run();
+    testProcessor.run(true);
 
-  //std::this_thread::sleep_for(std::chrono::milliseconds{200});
-
+    metrics = testProcessor.getMetrics();
   }
 
   std::array<std::vector<std::string>, 3> result {};
@@ -75,68 +75,7 @@ getProcessorOutput
 }
 
 
-auto parseMetrics(std::stringstream& metricsStream)
-{
-  std::string threadMetrics{};
-  size_t searchStartPosition{};
-  size_t digitPosition{};
-
-  std::vector<std::vector<int>> result;
-  while (std::getline(metricsStream, threadMetrics))
-  {
-    result.push_back(std::vector<int>{});
-    int nextNumber{};
-    std::string tempString{};
-    std::stringstream threadMetricsStream{threadMetrics};
-    while (!threadMetricsStream.eof())
-    {
-      threadMetricsStream >> tempString;
-      if (std::stringstream{tempString} >> nextNumber)
-      {
-        result.back().push_back(nextNumber);
-      }
-      tempString = " ";
-    }
-  }
-  return result;
-}
-
-void checkMetrics(std::stringstream& metricsStream,
-                  int stringsExpected, int commandsExpected, int bulksExpected)
-{
-  auto numericMetrics {parseMetrics(metricsStream)};
-
-  BOOST_CHECK(numericMetrics.size() == 4);
-  BOOST_CHECK(numericMetrics[0].size() == 3);
-  BOOST_CHECK(numericMetrics[1].size() == 2);
-  BOOST_CHECK(numericMetrics[2].size() == 2);
-  BOOST_CHECK(numericMetrics[3].size() == 2);
-
-  int mainStringsCount{numericMetrics[0][0]};
-  int mainCommandsCount{numericMetrics[0][1]};
-  int mainBulksCount{numericMetrics[0][2]};
-
-  int logBulksCount{numericMetrics[1][0]};
-  int logCommandsCount{numericMetrics[1][1]};
-
-  int fileOneBulksCount{numericMetrics[2][0]};
-  int fileOneCommandsCount{numericMetrics[2][1]};
-
-  int fileTwoBulksCount{numericMetrics[3][0]};
-  int fileTwoCommandsCount{numericMetrics[3][1]};
-
-  BOOST_CHECK(mainStringsCount == stringsExpected);
-  BOOST_CHECK(mainCommandsCount == commandsExpected);
-  BOOST_CHECK(mainBulksCount == bulksExpected);
-
-  BOOST_CHECK(logCommandsCount == commandsExpected);
-  BOOST_CHECK(logBulksCount == bulksExpected);
-
-  BOOST_CHECK(fileOneCommandsCount + fileTwoCommandsCount == commandsExpected);
-  BOOST_CHECK(fileOneBulksCount + fileTwoBulksCount == bulksExpected);
-}
-
-BOOST_AUTO_TEST_SUITE(homework_10_test)
+BOOST_AUTO_TEST_SUITE(homework_11_test)
 
 BOOST_AUTO_TEST_CASE(objects_creation_failure)
 {

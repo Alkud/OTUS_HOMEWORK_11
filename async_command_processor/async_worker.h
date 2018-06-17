@@ -67,12 +67,12 @@ public:
 
     for (auto& result : futureResults)
     {
-      while (result.wait_for(std::chrono::milliseconds(0))
+      while (result.valid() && result.wait_for(std::chrono::milliseconds(0))
           != std::future_status::ready)
       {
         shouldExit = true;
         threadNotifier.notify_all();
-        result.wait_for(std::chrono::milliseconds(150));
+        result.wait_for(std::chrono::milliseconds(500));
       }
     }
 
@@ -125,7 +125,7 @@ protected:
     return workSuccess;
   }
 
-  virtual bool run(const size_t threadIndex)
+  virtual bool run(const size_t threadIndex) noexcept
   {
     try
     {
