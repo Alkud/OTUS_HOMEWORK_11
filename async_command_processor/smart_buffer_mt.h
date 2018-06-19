@@ -116,7 +116,8 @@ public:
       data.erase(iter);
       if (true == data.empty() && true == noMoreData)
       {
-        #ifdef _DEBUG
+        #ifdef NDEBUG
+        #else
           std::cout << "\n                    " << workerName<< " all data received\n";
         #endif
 
@@ -149,7 +150,8 @@ public:
       case Message::NoMoreData :
         if (noMoreData != true)
         {
-          #ifdef _DEBUG
+          #ifdef NDEBUG
+          #else
             std::cout << "\n                     " << this->workerName<< " NoMoreData received\n";
           #endif
 

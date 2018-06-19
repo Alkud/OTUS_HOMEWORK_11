@@ -58,7 +58,8 @@ public:
   {
     if (buffer.get() == sender)
     {
-      #ifdef _DEBUG
+      #ifdef NDEBUG
+      #else
         std::cout << this->workerName << " reactNotification\n";
       #endif
 
@@ -76,7 +77,8 @@ public:
       case Message::NoMoreData :
         if (this->noMoreData != true && buffer.get() == sender)
         {
-          #ifdef _DEBUG
+          #ifdef NDEBUG
+          #else
             std::cout << "\n                     " << this->workerName<< " NoMoreData received\n";
           #endif
 
@@ -127,7 +129,8 @@ private:
 
     if (false == bufferReply.first)
     {
-      #ifdef _DEBUG
+      #ifdef NDEBUG
+      #else
         std::cout << "\n                     " << this->workerName<< " FALSE received\n";
       #endif
 
@@ -190,7 +193,8 @@ private:
 
   void onTermination(const size_t threadIndex) override
   {
-    #ifdef _DEBUG
+    #ifdef NDEBUG
+    #else
       std::cout << "\n                     " << this->workerName<< " AllDataLogged\n";
     #endif
 

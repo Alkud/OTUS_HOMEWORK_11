@@ -41,7 +41,8 @@ void InputReader::reactMessage(MessageBroadcaster* sender, Message message)
     case Message::NoMoreData :
       if (noMoreData != true && inputBuffer.get() == sender)
       {
-        #ifdef _DEBUG
+        #ifdef NDEBUG
+        #else
           std::cout << "\n                     " << this->workerName<< " NoMoreData received\n";
         #endif
 
@@ -70,7 +71,8 @@ void InputReader::reactNotification(NotificationBroadcaster* sender)
 {
   if (inputBuffer.get() == sender)
   {
-    #ifdef _DEBUG
+    #ifdef NDEBUG
+    #else
       std::cout << this->workerName << " reactNotification\n";
     #endif
 
@@ -137,7 +139,8 @@ void InputReader::onThreadException(const std::exception& ex, const size_t threa
 
 void InputReader::onTermination(const size_t threadIndex)
 {
-  #ifdef _DEBUG
+  #ifdef NDEBUG
+  #else
     std::cout << "\n                     " << this->workerName<< " all characters received\n";
   #endif
 

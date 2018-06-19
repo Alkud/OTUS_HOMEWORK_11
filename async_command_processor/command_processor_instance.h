@@ -103,7 +103,11 @@ public:
 
   ~CommandProcessorInstance()
   {
-
+    {
+       std::lock_guard<std::mutex> lockControl(controlLock);
+       shouldExit = true;
+    }
+    controlNotifier.notify_all();
   }
 
   void reactMessage(MessageBroadcaster* sender, Message message)
@@ -114,7 +118,8 @@ public:
       {
       case Message::AllDataReceived :
         {
-          #ifdef _DEBUG
+          #ifdef NDEBUG
+          #else
             std::cout << "\n                     AllDataReceived received\n";
           #endif
 
@@ -126,7 +131,8 @@ public:
 
       case Message::AllDataLogged :
         {
-          #ifdef _DEBUG
+          #ifdef NDEBUG
+          #else
             std::cout << "\n                     AllDataLogged received\n";
           #endif
 
@@ -138,7 +144,8 @@ public:
 
       case Message::AllDataPublsihed :
         {
-          #ifdef _DEBUG
+          #ifdef NDEBUG
+          #else
             std::cout << "\n                     AllDataReceived received\n";
           #endif
 
@@ -190,7 +197,8 @@ public:
       while (shouldExit != true
              && ((dataReceived && dataLogged && dataPublished) != true))
       {
-        #ifdef _DEBUG
+        #ifdef NDEBUG
+        #else
           std::cout << "\n                     CPInstance waiting\n";
         #endif
 
@@ -202,7 +210,8 @@ public:
         lockControl.unlock();
       }
 
-      #ifdef _DEBUG
+      #ifdef NDEBUG
+      #else
         std::cout << "\n                     CPInsatnce waiting ended\n";
       #endif
 
@@ -226,7 +235,8 @@ public:
         errorOut << "Error code: " << messageCode(errorMessage);
       }
 
-      #ifdef _DEBUG
+      #ifdef NDEBUG
+      #else
         std::cout << "\n                     CP metrics output\n";
       #endif
 

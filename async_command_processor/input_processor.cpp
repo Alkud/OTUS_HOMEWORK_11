@@ -32,7 +32,8 @@ InputProcessor::InputProcessor(
 
 InputProcessor::~InputProcessor()
 {
-  #ifdef _DEBUG
+  #ifdef NDEBUG
+  #else
     std::cout << "IP destructor\n";
   #endif
 
@@ -43,7 +44,8 @@ void InputProcessor::reactNotification(NotificationBroadcaster* sender)
 {
   if (inputBuffer.get() == sender)
   {
-    #ifdef _DEBUG
+    #ifdef NDEBUG
+    #else
       std::cout << this->workerName << " reactNotification\n";
     #endif
 
@@ -61,7 +63,8 @@ void InputProcessor::reactMessage(MessageBroadcaster* sender, Message message)
     case Message::NoMoreData :
       if (noMoreData != true && inputBuffer.get() == sender)
       {
-        #ifdef _DEBUG
+        #ifdef NDEBUG
+        #else
           std::cout << "\n                     " << this->workerName<< " NoMoreData received\n";
         #endif
 

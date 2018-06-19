@@ -5,6 +5,11 @@
 
 async::handle_t async::connect(std::size_t bulk)
 {
+  if (0 == bulk)
+  {
+    return nullptr;
+  }
+
   auto newCommandProcessor {new AsyncCommandProcessor<2>(
       bulk, '{', '}', std::cout, std::cerr, std::cout
     )
@@ -40,5 +45,6 @@ void async::disconnect(async::handle_t handle)
 
   auto commandProcessor {reinterpret_cast<AsyncCommandProcessor<2>*>(handle)};
   commandProcessor->disconnect();
+
   delete commandProcessor;
 }

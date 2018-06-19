@@ -67,7 +67,8 @@ public:
       this->addMessageListener(entryPoint);
 
 
-      #ifdef _DEBUG
+      #ifdef NDEBUG
+      #else
         std::cout << "\n                    AsyncCP working thread start\n";
       #endif
 
@@ -75,7 +76,8 @@ public:
           &AsyncCommandProcessor<loggingThreadsCount>::run, this, true
       };
 
-      #ifdef _DEBUG
+      #ifdef NDEBUG
+      #else
         std::cout << "\n                    AsyncCP connected\n";
       #endif
 
@@ -139,7 +141,8 @@ public:
       entryPoint->putItem(std::move(newData));
     }
 
-    #ifdef _DEBUG
+    #ifdef NDEBUG
+    #else
       std::cout << "\n                    AsyncCP received data\n";
     #endif
   }
@@ -148,7 +151,8 @@ public:
   {
     sendMessage(Message::NoMoreData);
 
-    #ifdef _DEBUG
+    #ifdef NDEBUG
+    #else
       std::cout << "\n                    AsyncCP disconnect\n";
     #endif
   }

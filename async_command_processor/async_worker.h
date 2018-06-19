@@ -26,7 +26,8 @@ public:
 
   virtual ~AsyncWorker()
   {
-    #ifdef _DEBUG
+    #ifdef NDEBUG
+    #else
       std::cout << "\n                    " << workerName << " destructor, shouldExit = " << shouldExit << "\n";
     #endif
 
@@ -58,7 +59,8 @@ public:
       return;
     }
 
-    #ifdef _DEBUG
+    #ifdef NDEBUG
+    #else
       std::cout << "\n                    " << workerName << " trying to stop\n";
     #endif
 
@@ -136,7 +138,8 @@ protected:
 
         if (notificationCount.load() > 0)
         {
-          #ifdef _DEBUG
+          #ifdef NDEBUG
+          #else
             std::cout << this->workerName << " decrement notificationCount\n";
           #endif
 
@@ -144,7 +147,8 @@ protected:
           lockNotifier.unlock();
           threadProcess(threadIndex);
 
-          #ifdef _DEBUG
+          #ifdef NDEBUG
+          #else
             std::cout << this->workerName << " threadProcess success\n";
           #endif
         }
@@ -155,7 +159,8 @@ protected:
           {
             lockControl.unlock();
 
-            #ifdef _DEBUG
+            #ifdef NDEBUG
+            #else
               std::cout << "\n                     " << this->workerName<< " waiting. shouldExit="<< shouldExit << ", noMoreData=" << noMoreData << "\n";
             #endif
 
@@ -185,7 +190,8 @@ protected:
         }
       }
 
-      #ifdef _DEBUG
+      #ifdef NDEBUG
+      #else
         std::cout << "\n                     " << this->workerName<< " activeThreadCount=" << activeThreadCount << "\n";
       #endif
 
@@ -195,7 +201,8 @@ protected:
 
       if (0 == activeThreadCount)
       {
-        #ifdef _DEBUG
+        #ifdef NDEBUG
+        #else
           std::cout << "\n                     " << this->workerName<< " finishing\n";
         #endif
 
@@ -206,7 +213,8 @@ protected:
         state = WorkerState::Finished;
       }
 
-      #ifdef _DEBUG
+      #ifdef NDEBUG
+      #else
         std::cout << "\n                     " << this->workerName<< " finished\n";
       #endif
 

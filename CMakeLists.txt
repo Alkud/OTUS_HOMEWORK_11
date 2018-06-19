@@ -34,7 +34,7 @@ set(homework_11
 add_executable(bulkasync bulkasync.cpp ${homework_11})
 
 #Set test target_link_libraries
-add_executable(otus_hw_11_test otus_hw_11_test.cpp ${homework_11})
+add_executable(otus_hw_11_test otus_hw_11_test.cpp ${homework_11} new_delete.h)
 
 #Enable tests
 enable_testing()

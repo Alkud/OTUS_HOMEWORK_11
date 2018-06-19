@@ -4,7 +4,8 @@
 
 #include <boost/test/unit_test.hpp>
 #include "homework_11.h"
-#include "./async_command_processor/async_command_processor.h"
+#include "./async_command_processor/async.h"
+#include "new_delete.h"
 
 
 #include <string>
@@ -77,15 +78,30 @@ getProcessorOutput
 
 BOOST_AUTO_TEST_SUITE(homework_11_test)
 
-BOOST_AUTO_TEST_CASE(objects_creation_failure)
+BOOST_AUTO_TEST_CASE(memory_leak_test)
 {
-  std::mutex dummyMutex{};
-  /* can't create input reader with null buffer pointer */
-  //BOOST_CHECK_THROW((InputReader{std::cin, dummyMutex, nullptr}), std::invalid_argument);
-  /* can't create publisher with null buffer pointer */
-//  BOOST_CHECK_THROW((Publisher{nullptr, std::cout, dummyMutex}), std::invalid_argument);
-//  /* can't create logger with null buffer pointer */
-//  BOOST_CHECK_THROW((Logger<2>{nullptr, ""}), std::invalid_argument);
+  try
+  {
+    auto startAllocCounter{my::malloc_counter};
+    auto startFreeCounter{my::free_counter};
+
+    auto handle {async::connect(10)};
+
+    BOOST_CHECK(handle != nullptr);
+
+    async::disconnect(handle);
+
+    auto finalAllocCounter{my::malloc_counter};
+    auto finalFreeCounter{my::free_counter};
+
+    BOOST_CHECK((startAllocCounter - startFreeCounter)
+                == (finalAllocCounter - finalFreeCounter));
+  }
+  catch (const std::exception& ex)
+  {
+    std::cerr << "memory_leak_test failed: " << ex.what() << std::endl;
+    BOOST_FAIL("");
+  }
 }
 
 //BOOST_AUTO_TEST_CASE(log_file_creation_failure)
