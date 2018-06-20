@@ -6,7 +6,7 @@ InputProcessor::InputProcessor(const std::string& newWorkerName, const size_t ne
     const SharedStringBuffer& newInputBuffer,
     const SharedSizeStringBuffer& newOutputBuffer,
     std::ostream& newErrorOut
-  ) :
+  , std::mutex& newErrorOutLock) :
   AsyncWorker<1>{newWorkerName},
   bulkSize{newBulkSize},
   bulkOpenDelimiter{newBulkOpenDelimiter},
@@ -15,7 +15,7 @@ InputProcessor::InputProcessor(const std::string& newWorkerName, const size_t ne
   outputBuffer{newOutputBuffer},
   customBulkStarted{false},
   nestingDepth{0},
-  errorOut{newErrorOut},
+  errorOut{newErrorOut}, errorOutLock{newErrorOutLock},
   threadMetrics{std::make_shared<ThreadMetrics>("input processor")}
 {
   if (nullptr == inputBuffer)
@@ -60,17 +60,13 @@ void InputProcessor::reactMessage(MessageBroadcaster* sender, Message message)
     switch(message)
     {
     case Message::NoMoreData :
-      if (noMoreData != true && inputBuffer.get() == sender)
-      {
-        #ifdef NDEBUG
-        #else
-          //std::cout << "\n                     " << this->workerName<< " NoMoreData received\n";
-        #endif
+      #ifdef NDEBUG
+      #else
+        //std::cout << "\n                     " << this->workerName<< " NoMoreData received\n";
+      #endif
 
-        std::lock_guard<std::mutex> lockControl{controlLock};
-        noMoreData = true;
-        threadNotifier.notify_all();
-      }
+      noMoreData.store(true);
+      threadNotifier.notify_all();
       break;
 
     default:
@@ -79,10 +75,9 @@ void InputProcessor::reactMessage(MessageBroadcaster* sender, Message message)
   }
   else                             // error message
   {
-    if (shouldExit != true)
+    if (shouldExit.load() != true)
     {
-      std::lock_guard<std::mutex> lockControl{controlLock};
-      shouldExit = true;
+      shouldExit.store(true);
       sendMessage(message);
     }
   }
@@ -170,7 +165,10 @@ bool InputProcessor::threadProcess(const size_t threadIndex)
 
 void InputProcessor::onThreadException(const std::exception& ex, const size_t threadIndex)
 {
-  errorOut << this->workerName << " thread #" << threadIndex << " stopped. Reason: " << ex.what() << std::endl;
+  {
+    std::lock_guard<std::mutex> lockErrorOut{errorOutLock};
+    errorOut << this->workerName << " thread #" << threadIndex << " stopped. Reason: " << ex.what() << std::endl;
+  }
 
   if (ex.what() == "Buffer is empty!")
   {

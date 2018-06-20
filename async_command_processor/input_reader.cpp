@@ -9,11 +9,11 @@ InputReader::InputReader(const std::string& newWorkerName,
     const std::shared_ptr<InputBufferType>& newInputBuffer,
     const SharedStringBuffer& newOutputBuffer,
     std::ostream& newErrorOut
-  ) :
+  , std::mutex& newErrorOutLock) :
   AsyncWorker<1>{newWorkerName},
   inputBuffer{newInputBuffer},
   outputBuffer{newOutputBuffer},
-  errorOut{newErrorOut},
+  errorOut{newErrorOut}, errorOutLock{newErrorOutLock},
   threadMetrics{std::make_shared<ThreadMetrics>("input reader")}
 {
   if (nullptr == inputBuffer)
@@ -115,7 +115,10 @@ bool InputReader::threadProcess(const size_t threadIndex)
 
 void InputReader::onThreadException(const std::exception& ex, const size_t threadIndex)
 {
-  errorOut << this->workerName << " thread #" << threadIndex << " stopped. Reason: " << ex.what() << std::endl;
+  {
+    std::lock_guard<std::mutex> lockErrorOut{errorOutLock};
+    errorOut << this->workerName << " thread #" << threadIndex << " stopped. Reason: " << ex.what() << std::endl;
+  }
 
   if (ex.what() == "Buffer is empty!")
   {
@@ -136,7 +139,7 @@ void InputReader::onTermination(const size_t threadIndex)
     //std::cout << "\n                     " << this->workerName<< " all characters received\n";
   #endif
 
-  if (true == noMoreData && notificationCount.load() == 0)
+  if (true == noMoreData.load() && notificationCount.load() == 0)
   {
     sendMessage(Message::NoMoreData);
     sendMessage(Message::AllDataReceived);

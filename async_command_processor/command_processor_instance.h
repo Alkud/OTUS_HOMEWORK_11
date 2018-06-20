@@ -39,8 +39,7 @@ public:
     /* creating logger */
     logger{
       std::make_shared<Logger<loggingThreadsCount>>(
-      "logger", outputBuffer, "", errorStream, screenOutputLock
-
+      "logger", outputBuffer, errorStream, screenOutputLock, ""
     )},
 
     /* creating publisher */
@@ -104,11 +103,8 @@ public:
 
   ~CommandProcessorInstance()
   {
-    {
-       std::lock_guard<std::mutex> lockControl(controlLock);
-       shouldExit = true;
-    }
-    controlNotifier.notify_all();
+    shouldExit.store(true);
+    terminationNotifier.notify_all();
   }
 
   void reactMessage(MessageBroadcaster* sender, Message message)
@@ -124,7 +120,7 @@ public:
         #endif
 
         dataReceived.store(true);
-        controlNotifier.notify_all();
+        terminationNotifier.notify_all();
         break;
 
       case Message::AllDataLogged :
@@ -133,8 +129,8 @@ public:
           //std::cout << "\n                     AllDataLogged received\n";
         #endif
 
-        dataLogged.stor(true);
-        controlNotifier.notify_all();
+        dataLogged.store(true);
+        terminationNotifier.notify_all();
         break;
 
       case Message::AllDataPublsihed :
@@ -143,9 +139,8 @@ public:
           //std::cout << "\n                     AllDataReceived received\n";
         #endif
 
-        std::lock_guard<std::mutex> lockControl{controlLock};
-        dataPublished = true;
-        controlNotifier.notify_all();
+        dataPublished.store(true);
+        terminationNotifier.notify_all();
         break;
 
       default:
@@ -158,7 +153,7 @@ public:
       {
         shouldExit.store(true);
         errorMessage = message;
-        controlNotifier.notify_all();
+        terminationNotifier.notify_all();
       }
     }
   }
