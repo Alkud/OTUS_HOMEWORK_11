@@ -26,11 +26,11 @@ public:
 
   using EntryDataType = std::list<char>;
   using InputBufferType = SmartBuffer<EntryDataType>;
-  using OutputBufferType = SmartBuffer<std::string>;
+  using OutputBufferType = StringBuffer;
 
   InputReader(const std::string& newWorkerName,
               const std::shared_ptr<InputBufferType>& newInputBuffer,
-              const std::shared_ptr<OutputBufferType>& newOutputBuffer,
+              const SharedStringBuffer& newOutputBuffer,
               std::ostream& newErrorOut);
 
   ~InputReader();

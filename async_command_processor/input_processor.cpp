@@ -2,10 +2,9 @@
 
 #include "input_processor.h"
 
-InputProcessor::InputProcessor(
-    const std::string& newWorkerName, const size_t newBulkSize, const char newBulkOpenDelimiter, const char newBulkCloseDelimiter,
-    const std::shared_ptr<SmartBuffer<std::string> >& newInputBuffer,
-    const std::shared_ptr<SmartBuffer<std::pair<size_t, std::string> > >& newOutputBuffer,
+InputProcessor::InputProcessor(const std::string& newWorkerName, const size_t newBulkSize, const char newBulkOpenDelimiter, const char newBulkCloseDelimiter,
+    const SharedStringBuffer& newInputBuffer,
+    const SharedSizeStringBuffer& newOutputBuffer,
     std::ostream& newErrorOut
   ) :
   AsyncWorker<1>{newWorkerName},
@@ -34,7 +33,7 @@ InputProcessor::~InputProcessor()
 {
   #ifdef NDEBUG
   #else
-    std::cout << "IP destructor\n";
+    //std::cout << "IP destructor\n";
   #endif
 
   stop();
@@ -46,7 +45,7 @@ void InputProcessor::reactNotification(NotificationBroadcaster* sender)
   {
     #ifdef NDEBUG
     #else
-      std::cout << this->workerName << " reactNotification\n";
+      //std::cout << this->workerName << " reactNotification\n";
     #endif
 
     ++notificationCount;
@@ -65,7 +64,7 @@ void InputProcessor::reactMessage(MessageBroadcaster* sender, Message message)
       {
         #ifdef NDEBUG
         #else
-          std::cout << "\n                     " << this->workerName<< " NoMoreData received\n";
+          //std::cout << "\n                     " << this->workerName<< " NoMoreData received\n";
         #endif
 
         std::lock_guard<std::mutex> lockControl{controlLock};
@@ -107,11 +106,7 @@ bool InputProcessor::threadProcess(const size_t threadIndex)
     throw(std::invalid_argument{"Input processor source buffer not defined!"});
   }
 
-  decltype(inputBuffer->getItem()) bufferReply{};
-  {
-    std::lock_guard<std::mutex> lockBuffer{inputBuffer->dataLock};
-    bufferReply = inputBuffer->getItem(shared_from_this());
-  }
+  auto bufferReply {inputBuffer->getItem(shared_from_this())};
 
   if (false == bufferReply.first)
    {
@@ -182,8 +177,8 @@ void InputProcessor::onThreadException(const std::exception& ex, const size_t th
     errorMessage = Message::BufferEmpty;
   }
 
-  threadFinished[threadIndex] = true;
-  shouldExit = true;
+  threadFinished[threadIndex].store(true);
+  shouldExit.store(true);
   threadNotifier.notify_all();
 
   sendMessage(errorMessage);
@@ -230,10 +225,7 @@ void InputProcessor::sendCurrentBulk()
   };
 
   /* send the bulk to the output buffer */
-  {
-    std::lock_guard<std::mutex> lockOutputBuffer{outputBuffer->dataLock};
-    outputBuffer->putItem(std::make_pair(ticksCount, newBulk));
-  }
+  outputBuffer->putItem(std::make_pair(ticksCount, newBulk));
 
   /* Refresh metrics */
   threadMetrics->totalCommandCount += tempBuffer.size();

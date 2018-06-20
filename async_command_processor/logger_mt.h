@@ -24,15 +24,14 @@ class Logger : public NotificationListener,
 {
 public:
 
-  using DataType = std::pair<size_t, std::string>;
-
   Logger(const std::string& newWorkerName,
-         const std::shared_ptr<SmartBuffer<DataType>>& newBuffer,
-         const std::string& newDestinationDirectory = "",
-         std::ostream& newErrorOut = std::cerr) :
+         const SharedSizeStringBuffer& newBuffer,
+         std::ostream& newErrorOut, std::mutex& newErrorOutLock,
+         const std::string& newDestinationDirectory = "") :
     AsyncWorker<threadsCount>{newWorkerName},
-    buffer{newBuffer}, destinationDirectory{newDestinationDirectory}, errorOut{newErrorOut},
+    buffer{newBuffer}, destinationDirectory{newDestinationDirectory},
     previousTimeStamp{}, additionalNameSection{},
+    errorOut{newErrorOut}, errorOutLock{newErrorOutLock},
     threadMetrics{}
   {
     if (nullptr == buffer)
@@ -60,7 +59,7 @@ public:
     {
       #ifdef NDEBUG
       #else
-        std::cout << this->workerName << " reactNotification\n";
+        //std::cout << this->workerName << " reactNotification\n";
       #endif
 
       ++this->notificationCount;
@@ -74,19 +73,16 @@ public:
     {
       switch(message)
       {
-      case Message::NoMoreData :
-        if (this->noMoreData != true && buffer.get() == sender)
-        {
+        case Message::NoMoreData :
+        this->noMoreData.store(true);
+
           #ifdef NDEBUG
           #else
-            std::cout << "\n                     " << this->workerName<< " NoMoreData received\n";
+            //std::cout << "\n                     " << this->workerName<< " NoMoreData received\n";
           #endif
 
-          std::lock_guard<std::mutex> lockControl{this->controlLock};
-          this->noMoreData = true;
           this->threadNotifier.notify_all();
-        }
-        break;
+          break;
 
       default:
         break;
@@ -94,13 +90,10 @@ public:
     }
     else                             // error message
     {
-      if (this->shouldExit != true)
+      if (this->shouldExit.load() != true)
       {
-        {
-          std::lock_guard<std::mutex> lockControl{this->controlLock};
-          this->shouldExit = true;
-          this->threadNotifier.notify_all();
-        }
+        this->shouldExit.store(true);
+        this->threadNotifier.notify_all();
         sendMessage(message);
       }
     }
@@ -117,27 +110,22 @@ private:
   {
     if (nullptr == buffer)
     {
-      errorMessage = Message::SourceNullptr;
       throw(std::invalid_argument{"Logger source buffer not defined!"});
     }
 
-    decltype(buffer->getItem()) bufferReply{};
-    {
-      std::lock_guard<std::mutex> lockBuffer{buffer->dataLock};
-      bufferReply = buffer->getItem(shared_from_this());
-    }
+    auto bufferReply{buffer->getItem(shared_from_this())};
 
     if (false == bufferReply.first)
     {
       #ifdef NDEBUG
       #else
-        std::cout << "\n                     " << this->workerName<< " FALSE received\n";
+        //std::cout << "\n                     " << this->workerName<< " FALSE received\n";
       #endif
 
       return false;
     }
 
-    auto nextBulkInfo{bufferReply.second};    
+    auto nextBulkInfo{bufferReply.second};
 
     if (nextBulkInfo.first != previousTimeStamp)
     {
@@ -157,7 +145,8 @@ private:
 
     if(!logFile)
     {
-      errorMessage = Message::FileCreationError;
+      errorOut << "Cannot create log file " <<
+                  logFileName << " !" << std::endl;
       throw(std::ios_base::failure{"Log file creation error!"});
     }
 
@@ -177,16 +166,19 @@ private:
 
   void onThreadException(const std::exception& ex, const size_t threadIndex) override
   {
-    errorOut << this->workerName << " thread #" << threadIndex << " stopped. Reason: " << ex.what() << std::endl;
+    {
+      std::lock_guard<std::mutex> lockErrorOut{errorOutLock};
+      errorOut << this->workerName << " thread #" << threadIndex << " stopped. Reason: " << ex.what() << std::endl;
+    }
+
+    this->threadFinished[threadIndex].store(true);
+    this->shouldExit.store(true);
+    this->threadNotifier.notify_all();
 
     if (ex.what() == "Buffer is empty!")
     {
       errorMessage = Message::BufferEmpty;
     }
-
-    this->threadFinished[threadIndex] = true;
-    this->shouldExit = true;
-    this->threadNotifier.notify_all();
 
     sendMessage(errorMessage);
   }
@@ -195,26 +187,26 @@ private:
   {
     #ifdef NDEBUG
     #else
-      std::cout << "\n                     " << this->workerName<< " AllDataLogged\n";
+      //std::cout << "\n                     " << this->workerName<< " AllDataLogged\n";
     #endif
 
-    if (true == this->noMoreData && this->notificationCount.load() == 0)
+    if (true == this->noMoreData.load() && this->notificationCount.load() == 0)
     {
       sendMessage(Message::AllDataLogged);
     }
   }
 
 
-  std::shared_ptr<SmartBuffer<DataType>> buffer;
+  SharedSizeStringBuffer buffer;
   std::string destinationDirectory;
-  std::ostream& errorOut;
 
   size_t previousTimeStamp;
   std::vector<size_t> additionalNameSection;
+
+  std::ostream& errorOut;
+  std::mutex& errorOutLock;
 
   SharedMultyMetrics threadMetrics;
 
   Message errorMessage{Message::SystemError};
 };
-
-

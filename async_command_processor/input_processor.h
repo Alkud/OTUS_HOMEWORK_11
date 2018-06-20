@@ -17,15 +17,15 @@ class InputProcessor : public NotificationListener,
 {
 public:
 
-  using InputBufferType = SmartBuffer<std::string>;
-  using OutputBufferType = SmartBuffer<std::pair<size_t, std::string>>;
+  using InputBufferType = StringBuffer;
+  using OutputBufferType = SizeStringBuffer;
 
   InputProcessor(const std::string& newWorkerName,
                  const size_t newBulkSize,
                  const char newBulkOpenDelimiter,
                  const char newBulkCloseDelimiter,
-                 const std::shared_ptr<SmartBuffer<std::string>>& newInputBuffer,
-                 const std::shared_ptr<SmartBuffer<std::pair<size_t, std::string>>>& newOutputBuffer,
+                 const SharedStringBuffer& newInputBuffer,
+                 const SharedSizeStringBuffer& newOutputBuffer,
                  std::ostream& newErrorOut);
 
   ~InputProcessor();
@@ -53,8 +53,8 @@ private:
   const std::string bulkOpenDelimiter;
   const std::string bulkCloseDelimiter;
 
-  std::shared_ptr<InputBufferType> inputBuffer;
-  std::shared_ptr<OutputBufferType> outputBuffer;
+  SharedStringBuffer inputBuffer;
+  SharedSizeStringBuffer outputBuffer;
 
   std::deque<std::string> tempBuffer;
   bool customBulkStarted;

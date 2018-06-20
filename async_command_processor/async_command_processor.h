@@ -69,7 +69,7 @@ public:
 
       #ifdef NDEBUG
       #else
-        std::cout << "\n                    AsyncCP working thread start\n";
+        //std::cout << "\n                    AsyncCP working thread start\n";
       #endif
 
       workingThread = std::thread{
@@ -78,7 +78,7 @@ public:
 
       #ifdef NDEBUG
       #else
-        std::cout << "\n                    AsyncCP connected\n";
+        //std::cout << "\n                    AsyncCP connected\n";
       #endif
 
       return true;
@@ -143,7 +143,7 @@ public:
 
     #ifdef NDEBUG
     #else
-      std::cout << "\n                    AsyncCP received data\n";
+      //std::cout << "\n                    AsyncCP received data\n";
     #endif
   }
 
@@ -153,7 +153,7 @@ public:
 
     #ifdef NDEBUG
     #else
-      std::cout << "\n                    AsyncCP disconnect\n";
+      //std::cout << "\n                    AsyncCP disconnect\n";
     #endif
   }
 

@@ -15,7 +15,6 @@ add_library(async SHARED
   publisher_mt.h publisher_mt.cpp
   weak_ptr_less.h
   thread_metrics.h
-  worker_state.h
 )
 
 target_link_libraries(async pthread)
