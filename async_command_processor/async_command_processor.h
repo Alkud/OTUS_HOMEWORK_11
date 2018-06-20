@@ -137,7 +137,7 @@ public:
       {
         newData.push_back(data[idx]);
       }
-      std::lock_guard<std::mutex> lockExternalBuffer{entryPoint->dataLock};
+
       entryPoint->putItem(std::move(newData));
     }
 

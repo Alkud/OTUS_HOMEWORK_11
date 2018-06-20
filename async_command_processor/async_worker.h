@@ -38,7 +38,7 @@ public:
   {
     #ifdef NDEBUG
     #else
-      //std::cout << "\n                    " << workerName << " destructor, shouldExit = " << shouldExit << "\n";
+      std::cout << "\n                    " << workerName << " destructor, shouldExit = " << shouldExit << "\n";
     #endif
 
     assert(isStopped == true);
@@ -71,7 +71,7 @@ public:
 
     #ifdef NDEBUG
     #else
-      //std::cout << "\n                    " << workerName << " trying to stop\n";
+      std::cout << "\n                    " << workerName << " trying to stop\n";
     #endif
 
     shouldExit.store(true);
@@ -79,7 +79,7 @@ public:
 
     for (auto& result : futureResults)
     {
-      while (result.wait_for(std::chrono::milliseconds(0))
+      while (result.valid() && result.wait_for(std::chrono::milliseconds(0))
           != std::future_status::ready)
       {
         shouldExit.store(true);

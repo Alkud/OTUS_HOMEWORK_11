@@ -31,11 +31,6 @@ InputProcessor::InputProcessor(const std::string& newWorkerName, const size_t ne
 
 InputProcessor::~InputProcessor()
 {
-  #ifdef NDEBUG
-  #else
-    //std::cout << "IP destructor\n";
-  #endif
-
   stop();
 }
 
