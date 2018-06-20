@@ -61,11 +61,15 @@ public:
   /// Copy new element to the buffer
   void putItem(const T& newItem)
   {
+    std::lock_guard<std::mutex> lockData{dataLock};
+
+    /* don't accept data if NoMoreData message received! */
+    if (noMoreData.load() == true)
     {
-      std::lock_guard<std::mutex> lockData{dataLock};
-      data.emplace_back(newItem, notificationListeners);
+      return;
     }
 
+    data.emplace_back(newItem, notificationListeners);
     dataReceived.store(false);
     ++notificationCount;
     threadNotifier.notify_one();
@@ -74,11 +78,15 @@ public:
   /// Move new element to the buffer
   void putItem(T&& newItem)
   {
+    std::lock_guard<std::mutex> lockData{dataLock};
+
+    /* don't accept data if NoMoreData message received! */
+    if (noMoreData.load() == true)
     {
-      std::lock_guard<std::mutex> lockData{dataLock};
-      data.emplace_back(std::move(newItem), notificationListeners);
+      return;
     }
 
+    data.emplace_back(std::move(newItem), notificationListeners);
     dataReceived.store(false);
     ++notificationCount;
     threadNotifier.notify_one();
@@ -183,7 +191,7 @@ public:
 
         #ifdef NDEBUG
         #else
-          //std::cout << "\n                     " << this->workerName<< " NoMoreData received\n";
+          std::cout << "\n                     " << this->workerName<< " NoMoreData received\n";
         #endif
 
         threadNotifier.notify_all();
@@ -241,14 +249,15 @@ private:
     {
       #ifdef NDEBUG
         #else
-      //std::cout << "\n                    "
-      //          << workerName << " dataReceived=" << dataReceived.load()
-      //          << "data.size()=" << data.size() <<  "\n";
+      std::cout << "\n                    "
+                << workerName << " dataReceived=" << dataReceived.load()
+                << "data.size()=" << data.size()
+                << "notificationCount=" << notificationCount.load() << "\n";
       #endif
 
       std::unique_lock<std::mutex> lockNotifier{notifierLock};
       threadNotifier.wait_for(lockNotifier, std::chrono::milliseconds{1000}, [this]()
-      {
+      {        
         return dataReceived.load() == true;
       });
       lockNotifier.unlock();

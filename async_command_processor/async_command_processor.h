@@ -7,10 +7,11 @@
 #include <list>
 #include <thread>
 #include <functional>
+#include <cstdlib>
 #include <condition_variable>
 #include "command_processor_instance.h"
 
-template <size_t loggingThreadsCount = 2u>
+template <size_t loggingThreadCount = 2u>
 class AsyncCommandProcessor : public MessageBroadcaster
 {
 public:
@@ -31,7 +32,13 @@ public:
     metricsStream{newMetricsStream},
     processor{nullptr}, entryPoint{nullptr},
     commandBuffer{nullptr}, bulkBuffer{nullptr},
-    metrics{}
+    metrics{},
+    /* unique processor ID formed by */
+    timeStampID{
+      std::chrono::duration_cast<std::chrono::milliseconds>(
+        std::chrono::system_clock::now().time_since_epoch()
+      ).count() + std::rand() % 1000
+    }
   {}
 
   ~AsyncCommandProcessor()
@@ -42,7 +49,7 @@ public:
     }
   }
 
-  bool connect() noexcept
+  bool connect(const bool outputMetrics = true) noexcept
   {
     try
     {
@@ -52,7 +59,7 @@ public:
         return false;
       }
 
-      processor = std::make_shared<CommandProcessorInstance<loggingThreadsCount>>(
+      processor = std::make_shared<CommandProcessorInstance<loggingThreadCount>>(
         bulkSize,
         bulkOpenDelimiter,
         bulkCloseDelimiter,
@@ -66,6 +73,8 @@ public:
       bulkBuffer = processor->getOutputBuffer();
       this->addMessageListener(entryPoint);
 
+      metrics = processor->getMetrics();
+
 
       #ifdef NDEBUG
       #else
@@ -73,7 +82,7 @@ public:
       #endif
 
       workingThread = std::thread{
-          &AsyncCommandProcessor<loggingThreadsCount>::run, this, true
+          &AsyncCommandProcessor<loggingThreadCount>::run, this, true
       };
 
       #ifdef NDEBUG
@@ -90,11 +99,9 @@ public:
     }
   }
 
-  void run(const bool outputMetrics = false)
+  void run(const bool outputMetrics = true)
   {
      auto globalMetrics {processor->run()};
-
-     metrics = globalMetrics;
 
      if (outputMetrics != true)
      {
@@ -102,6 +109,7 @@ public:
      }
 
      /* Output metrics */
+     metricsStream << "\nCommand Processor ID: " << timeStampID << " metrics:\n";
      metricsStream << "total received - "
                    << globalMetrics["input reader"]->totalReceptionCount << " data chunk(s), "
                    << globalMetrics["input reader"]->totalCharacterCount << " character(s), "
@@ -114,13 +122,15 @@ public:
                    << globalMetrics["publisher"]->totalBulkCount << " bulk(s), "
                    << globalMetrics["publisher"]->totalCommandCount << " command(s)" << std::endl;
 
-     for (size_t threadIndex{}; threadIndex < loggingThreadsCount; ++threadIndex)
+     for (size_t threadIndex{}; threadIndex < loggingThreadCount; ++threadIndex)
      {
        auto threadName = std::string{"logger thread#"} + std::to_string(threadIndex);
        metricsStream << "total saved by thread #" << threadIndex << " - "
                      << globalMetrics[threadName]->totalBulkCount << " bulk(s), "
                      << globalMetrics[threadName]->totalCommandCount << " command(s)" << std::endl;
+
      }
+     metricsStream << std::endl;
   }
 
   void receiveData(const char *data, std::size_t size) const
@@ -137,13 +147,12 @@ public:
       {
         newData.push_back(data[idx]);
       }
-
       entryPoint->putItem(std::move(newData));
     }
 
     #ifdef NDEBUG
     #else
-      //std::cout << "\n                    AsyncCP received data\n";
+      std::cout << "\n                    AsyncCP received data\n";
     #endif
   }
 
@@ -179,7 +188,7 @@ private:
   std::ostream& errorStream;
   std::ostream& metricsStream;
 
-  std::shared_ptr<CommandProcessorInstance<loggingThreadsCount>> processor;
+  std::shared_ptr<CommandProcessorInstance<loggingThreadCount>> processor;
 
   std::shared_ptr<InputReader::InputBufferType> entryPoint{nullptr};
   std::shared_ptr<InputProcessor::InputBufferType> commandBuffer;
@@ -190,4 +199,6 @@ private:
   std::thread workingThread;
 
   SharedGlobalMetrics metrics;
+
+  std::size_t timeStampID;
 };

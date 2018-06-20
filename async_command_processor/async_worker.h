@@ -38,7 +38,7 @@ public:
   {
     #ifdef NDEBUG
     #else
-      std::cout << "\n                    " << workerName << " destructor, shouldExit = " << shouldExit << "\n";
+      //std::cout << "\n                    " << workerName << " destructor, shouldExit = " << shouldExit << "\n";
     #endif
 
     assert(isStopped == true);
@@ -71,7 +71,7 @@ public:
 
     #ifdef NDEBUG
     #else
-      std::cout << "\n                    " << workerName << " trying to stop\n";
+      //std::cout << "\n                    " << workerName << " trying to stop\n";
     #endif
 
     shouldExit.store(true);
@@ -168,10 +168,10 @@ protected:
           {
             #ifdef NDEBUG
             #else
-              //std::cout << "\n                     " << this->workerName
-              //          << " waiting. shouldExit="<< shouldExit
-              //          << ", noMoreData=" << noMoreData
-              //          << "notificationCount=" << notificationCount.load() << "\n";
+//              std::cout << "\n                     " << this->workerName
+//                        << " waiting. shouldExit="<< shouldExit
+//                        << ", noMoreData=" << noMoreData
+//                        << "notificationCount=" << notificationCount.load() << "\n";
             #endif
 
             threadNotifier.wait_for(lockNotifier, std::chrono::milliseconds(1000), [this]()
@@ -183,6 +183,14 @@ protected:
           }
         }
       }
+
+      #ifdef NDEBUG
+      #else
+         std::cout << "\n                     " << this->workerName
+                   << " terminating. shouldExit="<< shouldExit
+                   << ", noMoreData=" << noMoreData
+                   << "notificationCount=" << notificationCount.load() << "\n";
+      #endif
 
       /*check if this thread is the only active one */
       std::unique_lock<std::mutex> lockTermination{terminationLock};
@@ -222,7 +230,7 @@ protected:
 
       #ifdef NDEBUG
       #else
-        //std::cout << "\n                     " << this->workerName<< " finished\n";
+        std::cout << "\n                     " << this->workerName<< " finished\n";
       #endif
 
       return true;

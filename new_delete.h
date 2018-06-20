@@ -6,9 +6,9 @@
 
 namespace my {
 
-  std::size_t free_counter = 0;
+  std::atomic<std::size_t> free_counter{0};
 
-  std::size_t malloc_counter = 0;
+  std::atomic<std::size_t> malloc_counter{0};
 
   void* malloc(std::size_t size)  throw (std::bad_alloc)
   {

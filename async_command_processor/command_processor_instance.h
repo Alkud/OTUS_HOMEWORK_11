@@ -14,7 +14,7 @@
 #include "publisher_mt.h"
 #include "logger_mt.h"
 
-template<size_t loggingThreadsCount = 2u>
+template<size_t loggingThreadCount = 2u>
 class CommandProcessorInstance :  public MessageBroadcaster,
                                   public MessageListener,
                                   public std::enable_shared_from_this<MessageListener>
@@ -38,7 +38,7 @@ public:
 
     /* creating logger */
     logger{
-      std::make_shared<Logger<loggingThreadsCount>>(
+      std::make_shared<Logger<loggingThreadCount>>(
       "logger", outputBuffer, errorStream, screenOutputLock, ""
     )},
 
@@ -94,7 +94,7 @@ public:
     globalMetrics["publisher"] = publisher->getMetrics();
 
     SharedMultyMetrics loggerMetrics{logger->getMetrics()};
-    for (size_t idx{0}; idx < loggingThreadsCount; ++idx)
+    for (size_t idx{0}; idx < loggingThreadCount; ++idx)
     {
       auto threadName = std::string{"logger thread#"} + std::to_string(idx);
       globalMetrics[threadName] = loggerMetrics[idx];
@@ -252,6 +252,9 @@ public:
   getOutputBuffer() const
   { return outputBuffer; }
 
+  const SharedGlobalMetrics getMetrics()
+  { return globalMetrics;}
+
 
 private:
   std::mutex screenOutputLock;
@@ -260,7 +263,7 @@ private:
   std::shared_ptr<InputProcessor::InputBufferType> inputBuffer;
   std::shared_ptr<InputProcessor::OutputBufferType> outputBuffer;
   std::shared_ptr<InputReader> inputReader;
-  std::shared_ptr<Logger<loggingThreadsCount>> logger;
+  std::shared_ptr<Logger<loggingThreadCount>> logger;
   std::shared_ptr<Publisher> publisher;
   std::shared_ptr<InputProcessor> inputProcessor;
 

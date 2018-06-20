@@ -8,7 +8,7 @@ int main(int argc, char* argv[])
 {
   try
   {
-    homework(argc, argv, std::cin, std::cout);
+    homework();
   }
   catch(const std::exception& ex)
   {

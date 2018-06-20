@@ -69,7 +69,7 @@ void InputReader::reactNotification(NotificationBroadcaster* sender)
   {
     #ifdef NDEBUG
     #else
-      //std::cout << this->workerName << " reactNotification\n";
+      std::cout << this->workerName << " reactNotification\n";
     #endif
 
     ++notificationCount;
@@ -157,6 +157,13 @@ void InputReader::putNextLine()
   std::string nextString{};
 
   std::getline(tempBuffer, nextString);
+
+  if (nextString.size() > (size_t)InputReaderSettings::MaxInputStringSize)
+  {
+    std::lock_guard<std::mutex> lockErrorOut{errorOutLock};
+    errorOut << "Maximum command length exceeded! String truncated";
+    nextString = nextString.substr(0, (size_t)InputReaderSettings::MaxInputStringSize);
+  }
 
   /* Refresh metrics */
   ++threadMetrics->totalStringCount;

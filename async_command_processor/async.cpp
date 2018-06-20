@@ -43,6 +43,11 @@ void async::disconnect(async::handle_t handle)
     return;
   }
 
+  #ifdef NDEBUG
+  #else
+    //std::cout << "\n                    async::disconnect\n";
+  #endif
+
   auto commandProcessor {reinterpret_cast<AsyncCommandProcessor<2>*>(handle)};
   commandProcessor->disconnect();
 
