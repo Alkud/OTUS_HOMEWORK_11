@@ -1,10 +1,10 @@
-Start testing: Jun 21 12:05 UTC
+Start testing: Jun 21 14:11 UTC
 ----------------------------------------------------------
 1/1 Testing: test_hw_11
 1/1 Test: test_hw_11
 Command: "/home/travis/build/Alkud/OTUS_HOMEWORK_11/otus_hw_11_test"
 Directory: /home/travis/build/Alkud/OTUS_HOMEWORK_11
-"test_hw_11" start time: Jun 21 12:05 UTC
+"test_hw_11" start time: Jun 21 14:11 UTC
 Output:
 ----------------------------------------------------------
 Running 7 test cases...
@@ -19,27 +19,19 @@ Running 7 test cases...
 
                      bulk buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
 
-                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
-
                      publisher terminating. shouldExit=0, noMoreData=1notificationCount=0
 
-Command Processor ID: 1529582747555 metrics:
+                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+Command Processor ID: 1529590308351 metrics:
 total received - 0 data chunk(s), 0 character(s), 0 string(s)
 total processed - 0 string(s), 0 command(s), 0 bulk(s)
 total displayed - 0 bulk(s), 0 command(s)
 total saved by thread #0 - 0 bulk(s), 0 command(s)
 total saved by thread #1 - 0 bulk(s), 0 command(s)
 
-
-                    AsyncCP received data
-
-                    AsyncCP received data
-
-                    AsyncCP received data
-
-                    AsyncCP received data
 
                      character buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
 
@@ -57,12 +49,12 @@ total saved by thread #1 - 0 bulk(s), 0 command(s)
 
                      logger terminating. shouldExit=0, noMoreData=1notificationCount=0
 
-Command Processor ID: 1529582748059 metrics:
+Command Processor ID: 1529590308855 metrics:
 total received - 3 data chunk(s), 27 character(s), 13 string(s)
 total processed - 13 string(s), 11 command(s), 3 bulk(s)
 total displayed - 3 bulk(s), 11 command(s)
-total saved by thread #0 - 2 bulk(s), 5 command(s)
-total saved by thread #1 - 1 bulk(s), 6 command(s)
+total saved by thread #0 - 0 bulk(s), 0 command(s)
+total saved by thread #1 - 3 bulk(s), 11 command(s)
 
 
                      character buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
@@ -75,23 +67,25 @@ total saved by thread #1 - 1 bulk(s), 6 command(s)
 
                      bulk buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
 
+                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
+
                      publisher terminating. shouldExit=0, noMoreData=1notificationCount=0
 
                      logger terminating. shouldExit=0, noMoreData=1notificationCount=0
 
-                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-Command Processor ID: 1529582747950 metrics:
+Command Processor ID: 1529590308746 metrics:
 total received - 1 data chunk(s), 2 character(s), 1 string(s)
 total processed - 1 string(s), 1 command(s), 1 bulk(s)
 total displayed - 1 bulk(s), 1 command(s)
-total saved by thread #0 - 1 bulk(s), 1 command(s)
-total saved by thread #1 - 0 bulk(s), 0 command(s)
+total saved by thread #0 - 0 bulk(s), 0 command(s)
+total saved by thread #1 - 1 bulk(s), 1 command(s)
 
 
                      character buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
 
                      input reader terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     character buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
 
                      command buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
 
@@ -105,9 +99,7 @@ total saved by thread #1 - 0 bulk(s), 0 command(s)
 
                      logger terminating. shouldExit=0, noMoreData=1notificationCount=0
 
-                     character buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-Command Processor ID: 1529582748089 metrics:
+Command Processor ID: 1529590308885 metrics:
 total received - 0 data chunk(s), 0 character(s), 0 string(s)
 total processed - 0 string(s), 0 command(s), 0 bulk(s)
 total displayed - 0 bulk(s), 0 command(s)
@@ -123,15 +115,205 @@ total saved by thread #1 - 0 bulk(s), 0 command(s)
 
                      bulk buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
 
+                     publisher terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     character buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+Command Processor ID: 1529590308763 metrics:
+total received - 0 data chunk(s), 0 character(s), 0 string(s)
+total processed - 0 string(s), 0 command(s), 0 bulk(s)
+total displayed - 0 bulk(s), 0 command(s)
+total saved by thread #0 - 0 bulk(s), 0 command(s)
+total saved by thread #1 - 0 bulk(s), 0 command(s)
+
+
+                     character buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     character buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     input reader terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     command buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     input processor  terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     bulk buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
+
                      logger terminating. shouldExit=0, noMoreData=1notificationCount=0
 
                      publisher terminating. shouldExit=0, noMoreData=1notificationCount=0
 
+Command Processor ID: 1529590307998 metrics:
+total received - 0 data chunk(s), 0 character(s), 0 string(s)
+total processed - 0 string(s), 0 command(s), 0 bulk(s)
+total displayed - 0 bulk(s), 0 command(s)
+total saved by thread #0 - 0 bulk(s), 0 command(s)
+total saved by thread #1 - 0 bulk(s), 0 command(s)
+
+
                      character buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     character buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     input reader terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     command buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     input processor  terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     bulk buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     publisher terminating. shouldExit=0, noMoreData=1notificationCount=0
 
                      logger terminating. shouldExit=0, noMoreData=1notificationCount=0
 
-Command Processor ID: 1529582747967 metrics:
+                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+Command Processor ID: 1529590308463 metrics:
+total received - 0 data chunk(s), 0 character(s), 0 string(s)
+total processed - 0 string(s), 0 command(s), 0 bulk(s)
+total displayed - 0 bulk(s), 0 command(s)
+total saved by thread #0 - 0 bulk(s), 0 command(s)
+total saved by thread #1 - 0 bulk(s), 0 command(s)
+
+
+                     input reader terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     input reader terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     command buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     input processor  terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     bulk buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     publisher terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     command buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     input processor  terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     character buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     bulk buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     publisher terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+Command Processor ID: 1529590308620 metrics:
+total received - 0 data chunk(s), 0 character(s), 0 string(s)
+total processed - 0 string(s), 0 command(s), 0 bulk(s)
+total displayed - 0 bulk(s), 0 command(s)
+total saved by thread #0 - 0 bulk(s), 0 command(s)
+total saved by thread #1 - 0 bulk(s), 0 command(s)
+
+
+Command Processor ID: 1529590308356 metrics:
+total received - 0 data chunk(s), 0 character(s), 0 string(s)
+total processed - 0 string(s), 0 command(s), 0 bulk(s)
+total displayed - 0 bulk(s), 0 command(s)
+total saved by thread #0 - 0 bulk(s), 0 command(s)
+total saved by thread #1 - 0 bulk(s), 0 command(s)
+
+
+                     character buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     input reader terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     command buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     input processor  terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     bulk buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     publisher terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     input reader terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     command buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+Command Processor ID: 1529590308305 metrics:
+total received - 0 data chunk(s), 0 character(s), 0 string(s)
+
+                     input processor  terminating. shouldExit=total processed - 0 string(s), 0 command(s), 0 bulk(s)
+total displayed - 0 bulk(s), 0 command(s)
+total saved by thread #0 - 0 bulk(s), 0 command(s)
+total saved by thread #1 - 0 bulk(s), 0 command(s)
+
+
+                     character buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
+0, noMoreData=1notificationCount=0
+
+                     bulk buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     publisher terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     input reader terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+Command Processor ID: 1529590308333 metrics:
+total received - 0 data chunk(s), 0 character(s), 0 string(s)
+total processed - 0 string(s), 0 command(s), 0 bulk(s)
+total displayed - 0 bulk(s), 0 command(s)
+total saved by thread #0 - 0 bulk(s), 0 command(s)
+total saved by thread #1 - 0 bulk(s), 0 command(s)
+
+
+                     command buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     input processor  terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     bulk buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     publisher terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     input reader terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+Command Processor ID: 1529590308392 metrics:
+total received - 0 data chunk(s), 0 character(s), 0 string(s)
+total processed - 0 string(s), 0 command(s), 0 bulk(s)
+total displayed - 0 bulk(s), 0 command(s)
+total saved by thread #0 - 0 bulk(s), 0 command(s)
+total saved by thread #1 - 0 bulk(s), 0 command(s)
+
+
+                     command buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     input processor  terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     bulk buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+                     publisher terminating. shouldExit=0, noMoreData=1notificationCount=0
+
+Command Processor ID: 1529590308661 metrics:
 total received - 0 data chunk(s), 0 character(s), 0 string(s)
 total processed - 0 string(s), 0 command(s), 0 bulk(s)
 total displayed - 0 bulk(s), 0 command(s)
@@ -155,222 +337,12 @@ total saved by thread #1 - 0 bulk(s), 0 command(s)
 
                      logger terminating. shouldExit=0, noMoreData=1notificationCount=0
 
-                     input reader terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     command buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     input processor  terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     bulk buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     publisher terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-Command Processor ID: 1529582747560 metrics:
-total received - 0 data chunk(s), 0 character(s), 0 string(s)
-total processed - 0 string(s), 0 command(s), 0 bulk(s)
-total displayed - 0 bulk(s), 0 command(s)
-total saved by thread #0 - 0 bulk(s), 0 command(s)
-total saved by thread #1 - 0 bulk(s), 0 command(s)
-
-
-                     character buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     character buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-Command Processor ID: 1529582747509 metrics:
-total received - 0 data chunk(s), 0 character(s), 0 string(s)
-total processed - 0 string(s), 0 command(s), 0 bulk(s)
-total displayed - 0 bulk(s), 0 command(s)
-total saved by thread #0 - 0 bulk(s), 0 command(s)
-total saved by thread #1 - 0 bulk(s), 0 command(s)
-
-
-                     character buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     input reader terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     command buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     input processor  terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     bulk buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     publisher terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-Command Processor ID: 1529582747203 metrics:
-total received - 0 data chunk(s), 0 character(s), 0 string(s)
-total processed - 0 string(s), 0 command(s), 0 bulk(s)
-total displayed - 0 bulk(s), 0 command(s)
-total saved by thread #0 - 0 bulk(s), 0 command(s)
-total saved by thread #1 - 0 bulk(s), 0 command(s)
-
-
-                     character buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     character buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     character buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     input reader terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     command buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     input processor  terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     bulk buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     publisher terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-Command Processor ID: 1529582747538 metrics:
-
-                     input reader terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     command buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     input processor  terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     bulk buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     publisher terminating. shouldExit=0, noMoreData=1notificationCount=0
-total received - 0 data chunk(s), 0 character(s), 0 string(s)
-total processed - 0 string(s), 0 command(s), 0 bulk(s)
-total displayed - 0 bulk(s), 0 command(s)
-total saved by thread #0 - 0 bulk(s), 0 command(s)
-total saved by thread #1 - 0 bulk(s), 0 command(s)
-
-
-Command Processor ID: 1529582747667 metrics:
-total received - 0 data chunk(s), 0 character(s), 0 string(s)
-total processed - 0 string(s), 0 command(s), 0 bulk(s)
-total displayed - 0 bulk(s), 0 command(s)
-total saved by thread #0 - 0 bulk(s), 0 command(s)
-total saved by thread #1 - 0 bulk(s), 0 command(s)
-
-
-                     input reader terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     command buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     input processor  terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     input reader terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     bulk buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     command buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     publisher terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     input processor  terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     bulk buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     input reader terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     command buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     publisher terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     input processor  terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-Command Processor ID: 1529582747597 metrics:
-total received - 0 data chunk(s), 0 character(s), 0 string(s)
-total processed - 0 string(s), 0 command(s), 0 bulk(s)
-total displayed - 0 bulk(s), 0 command(s)
-total saved by thread #0 - 0 bulk(s), 0 command(s)
-total saved by thread #1 - 0 bulk(s), 0 command(s)
-
-
-                     bulk buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-Command Processor ID: 1529582747825 metrics:
-
-                     publisher terminating. shouldExit=0, noMoreData=1notificationCount=0
-total received - 0 data chunk(s), 0 character(s), 0 string(s)
-total processed - 0 string(s), 0 command(s), 0 bulk(s)
-total displayed - 0 bulk(s), 0 command(s)
-total saved by thread #0 - 0 bulk(s), 0 command(s)
-total saved by thread #1 - 0 bulk(s), 0 command(s)
-
-
-                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-Command Processor ID: 1529582747866 metrics:
-total received - 0 data chunk(s), 0 character(s), 0 string(s)
-total processed - 0 string(s), 0 command(s), 0 bulk(s)
-total displayed - 0 bulk(s), 0 command(s)
-total saved by thread #0 - 0 bulk(s), 0 command(s)
-total saved by thread #1 - 0 bulk(s), 0 command(s)
-
-
-                    AsyncCP received data
-
-                    AsyncCP received data
-
-                    AsyncCP received data
-
-                    AsyncCP received data
-
-                    AsyncCP received data
-
-                    AsyncCP received data
-
-                    AsyncCP received data
-
-                    AsyncCP received data
-
-                    AsyncCP received data
-
-                    AsyncCP received data
-
-                     character buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     input reader terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     command buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     input processor  terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     bulk buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     publisher terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-Command Processor ID: 1529582747243 metrics:
+Command Processor ID: 1529590308039 metrics:
 total received - 10 data chunk(s), 40 character(s), 10 string(s)
 total processed - 10 string(s), 10 command(s), 2 bulk(s)
 total displayed - 2 bulk(s), 10 command(s)
-total saved by thread #0 - 2 bulk(s), 10 command(s)
-total saved by thread #1 - 0 bulk(s), 0 command(s)
+total saved by thread #0 - 1 bulk(s), 5 command(s)
+total saved by thread #1 - 1 bulk(s), 5 command(s)
 
 
                      character buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
@@ -383,13 +355,13 @@ total saved by thread #1 - 0 bulk(s), 0 command(s)
 
                      bulk buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
 
+                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
+
                      publisher terminating. shouldExit=0, noMoreData=1notificationCount=0
 
                      logger terminating. shouldExit=0, noMoreData=1notificationCount=0
 
-                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-Command Processor ID: 1529582747948 metrics:
+Command Processor ID: 1529590308744 metrics:
 total received - 0 data chunk(s), 0 character(s), 0 string(s)
 total processed - 0 string(s), 0 command(s), 0 bulk(s)
 total displayed - 0 bulk(s), 0 command(s)
@@ -397,12 +369,6 @@ total saved by thread #0 - 0 bulk(s), 0 command(s)
 total saved by thread #1 - 0 bulk(s), 0 command(s)
 
 
-                    AsyncCP received data
-
-                    AsyncCP received data
-
-                    AsyncCP received data
-
                      character buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
 
                      input reader terminating. shouldExit=0, noMoreData=1notificationCount=0
@@ -419,7 +385,7 @@ total saved by thread #1 - 0 bulk(s), 0 command(s)
 
                      logger terminating. shouldExit=0, noMoreData=1notificationCount=0
 
-Command Processor ID: 1529582748112 metrics:
+Command Processor ID: 1529590308907 metrics:
 total received - 3 data chunk(s), 31 character(s), 11 string(s)
 total processed - 11 string(s), 6 command(s), 1 bulk(s)
 total displayed - 1 bulk(s), 6 command(s)
@@ -427,8 +393,6 @@ total saved by thread #0 - 1 bulk(s), 6 command(s)
 total saved by thread #1 - 0 bulk(s), 0 command(s)
 
 
-                    AsyncCP received data
-
                      character buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
 
                      input reader terminating. shouldExit=0, noMoreData=1notificationCount=0
@@ -439,13 +403,13 @@ total saved by thread #1 - 0 bulk(s), 0 command(s)
 
                      bulk buffer terminating. shouldExit=0, noMoreData=1notificationCount=0
 
+                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
+
                      publisher terminating. shouldExit=0, noMoreData=1notificationCount=0
 
                      logger terminating. shouldExit=0, noMoreData=1notificationCount=0
 
-                     logger terminating. shouldExit=0, noMoreData=1notificationCount=0
-
-Command Processor ID: 1529582747727 metrics:
+Command Processor ID: 1529590308522 metrics:
 total received - 1 data chunk(s), 101 character(s), 1 string(s)
 total processed - 1 string(s), 1 command(s), 1 bulk(s)
 total displayed - 1 bulk(s), 1 command(s)
@@ -458,8 +422,8 @@ total saved by thread #1 - 0 bulk(s), 0 command(s)
 Test time =   0.02 sec
 ----------------------------------------------------------
 Test Passed.
-"test_hw_11" end time: Jun 21 12:05 UTC
+"test_hw_11" end time: Jun 21 14:11 UTC
 "test_hw_11" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Jun 21 12:05 UTC
+End testing: Jun 21 14:11 UTC
