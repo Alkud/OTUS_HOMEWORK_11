@@ -230,7 +230,7 @@ protected:
 
       #ifdef NDEBUG
       #else
-        std::cout << "\n                     " << this->workerName<< " finished\n";
+        //std::cout << "\n                     " << this->workerName<< " finished\n";
       #endif
 
       return true;

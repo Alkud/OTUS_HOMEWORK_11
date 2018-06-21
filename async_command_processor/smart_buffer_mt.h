@@ -191,7 +191,7 @@ public:
 
         #ifdef NDEBUG
         #else
-          std::cout << "\n                     " << this->workerName<< " NoMoreData received\n";
+          //std::cout << "\n                     " << this->workerName<< " NoMoreData received\n";
         #endif
 
         threadNotifier.notify_all();
@@ -249,10 +249,10 @@ private:
     {
       #ifdef NDEBUG
         #else
-      std::cout << "\n                    "
-                << workerName << " dataReceived=" << dataReceived.load()
-                << "data.size()=" << data.size()
-                << "notificationCount=" << notificationCount.load() << "\n";
+//      std::cout << "\n                    "
+//                << workerName << " dataReceived=" << dataReceived.load()
+//                << "data.size()=" << data.size()
+//                << "notificationCount=" << notificationCount.load() << "\n";
       #endif
 
       std::unique_lock<std::mutex> lockNotifier{notifierLock};

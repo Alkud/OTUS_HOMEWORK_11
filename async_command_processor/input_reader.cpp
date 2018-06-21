@@ -69,7 +69,7 @@ void InputReader::reactNotification(NotificationBroadcaster* sender)
   {
     #ifdef NDEBUG
     #else
-      std::cout << this->workerName << " reactNotification\n";
+      //std::cout << this->workerName << " reactNotification\n";
     #endif
 
     ++notificationCount;
