@@ -57,8 +57,19 @@ struct ThreadMetrics
     return *this;
   }
 
+  ThreadMetrics& operator+=(const ThreadMetrics& other)
+  {
+    totalBulkCount += other.totalBulkCount;
+    totalCharacterCount +=other.totalCharacterCount;
+    totalCommandCount += other.totalCommandCount;
+    totalReceptionCount += other.totalReceptionCount;
+    totalStringCount += other.totalStringCount;
+
+    return *this;
+  }
+
   /// Metrics comparison operation
-  bool operator==(const ThreadMetrics& other)
+  bool operator==(const ThreadMetrics& other) const
   {
     return (totalBulkCount == other.totalBulkCount &&
             totalCharacterCount == other.totalCharacterCount &&

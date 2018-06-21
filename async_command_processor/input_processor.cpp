@@ -2,12 +2,11 @@
 
 #include "input_processor.h"
 
-InputProcessor::InputProcessor(
-    const std::string& newWorkerName, const size_t newBulkSize, const char newBulkOpenDelimiter, const char newBulkCloseDelimiter,
-    const std::shared_ptr<SmartBuffer<std::string> >& newInputBuffer,
-    const std::shared_ptr<SmartBuffer<std::pair<size_t, std::string> > >& newOutputBuffer,
+InputProcessor::InputProcessor(const std::string& newWorkerName, const size_t newBulkSize, const char newBulkOpenDelimiter, const char newBulkCloseDelimiter,
+    const SharedStringBuffer& newInputBuffer,
+    const SharedSizeStringBuffer& newOutputBuffer,
     std::ostream& newErrorOut
-  ) :
+  , std::mutex& newErrorOutLock) :
   AsyncWorker<1>{newWorkerName},
   bulkSize{newBulkSize},
   bulkOpenDelimiter{newBulkOpenDelimiter},
@@ -16,7 +15,7 @@ InputProcessor::InputProcessor(
   outputBuffer{newOutputBuffer},
   customBulkStarted{false},
   nestingDepth{0},
-  errorOut{newErrorOut},
+  errorOut{newErrorOut}, errorOutLock{newErrorOutLock},
   threadMetrics{std::make_shared<ThreadMetrics>("input processor")}
 {
   if (nullptr == inputBuffer)
@@ -32,11 +31,6 @@ InputProcessor::InputProcessor(
 
 InputProcessor::~InputProcessor()
 {
-  #ifdef NDEBUG
-  #else
-    std::cout << "IP destructor\n";
-  #endif
-
   stop();
 }
 
@@ -46,7 +40,7 @@ void InputProcessor::reactNotification(NotificationBroadcaster* sender)
   {
     #ifdef NDEBUG
     #else
-      std::cout << this->workerName << " reactNotification\n";
+      //std::cout << this->workerName << " reactNotification\n";
     #endif
 
     ++notificationCount;
@@ -61,17 +55,13 @@ void InputProcessor::reactMessage(MessageBroadcaster* sender, Message message)
     switch(message)
     {
     case Message::NoMoreData :
-      if (noMoreData != true && inputBuffer.get() == sender)
-      {
-        #ifdef NDEBUG
-        #else
-          std::cout << "\n                     " << this->workerName<< " NoMoreData received\n";
-        #endif
+      #ifdef NDEBUG
+      #else
+        //std::cout << "\n                     " << this->workerName<< " NoMoreData received\n";
+      #endif
 
-        std::lock_guard<std::mutex> lockControl{controlLock};
-        noMoreData = true;
-        threadNotifier.notify_all();
-      }
+      noMoreData.store(true);
+      threadNotifier.notify_all();
       break;
 
     default:
@@ -80,10 +70,9 @@ void InputProcessor::reactMessage(MessageBroadcaster* sender, Message message)
   }
   else                             // error message
   {
-    if (shouldExit != true)
+    if (shouldExit.load() != true)
     {
-      std::lock_guard<std::mutex> lockControl{controlLock};
-      shouldExit = true;
+      shouldExit.store(true);
       sendMessage(message);
     }
   }
@@ -107,11 +96,7 @@ bool InputProcessor::threadProcess(const size_t threadIndex)
     throw(std::invalid_argument{"Input processor source buffer not defined!"});
   }
 
-  decltype(inputBuffer->getItem()) bufferReply{};
-  {
-    std::lock_guard<std::mutex> lockBuffer{inputBuffer->dataLock};
-    bufferReply = inputBuffer->getItem(shared_from_this());
-  }
+  auto bufferReply {inputBuffer->getItem(shared_from_this())};
 
   if (false == bufferReply.first)
    {
@@ -175,15 +160,18 @@ bool InputProcessor::threadProcess(const size_t threadIndex)
 
 void InputProcessor::onThreadException(const std::exception& ex, const size_t threadIndex)
 {
-  errorOut << this->workerName << " thread #" << threadIndex << " stopped. Reason: " << ex.what() << std::endl;
+  {
+    std::lock_guard<std::mutex> lockErrorOut{errorOutLock};
+    errorOut << this->workerName << " thread #" << threadIndex << " stopped. Reason: " << ex.what() << std::endl;
+  }
 
   if (ex.what() == "Buffer is empty!")
   {
     errorMessage = Message::BufferEmpty;
   }
 
-  threadFinished[threadIndex] = true;
-  shouldExit = true;
+  threadFinished[threadIndex].store(true);
+  shouldExit.store(true);
   threadNotifier.notify_all();
 
   sendMessage(errorMessage);
@@ -230,10 +218,7 @@ void InputProcessor::sendCurrentBulk()
   };
 
   /* send the bulk to the output buffer */
-  {
-    std::lock_guard<std::mutex> lockOutputBuffer{outputBuffer->dataLock};
-    outputBuffer->putItem(std::make_pair(ticksCount, newBulk));
-  }
+  outputBuffer->putItem(std::make_pair(ticksCount, newBulk));
 
   /* Refresh metrics */
   threadMetrics->totalCommandCount += tempBuffer.size();

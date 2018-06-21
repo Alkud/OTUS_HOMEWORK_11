@@ -21,9 +21,9 @@ class Publisher : public NotificationListener,
 public:
 
   Publisher(const std::string& newWorkerName,
-            const std::shared_ptr<SmartBuffer<std::pair<size_t, std::string>>>& newBuffer,
+            const SharedSizeStringBuffer& newBuffer,
             std::ostream& newOutput, std::mutex& newOutpuLock,
-            std::ostream& newErrorOut = std::cerr);
+            std::ostream& newErrorOut, std::mutex& newErrorOutLock);
 
   ~Publisher();
 
@@ -41,14 +41,14 @@ private:
 
   void onTermination(const size_t threadIndex) override;
 
-  using DataType = std::pair<size_t, std::string>;
-
-  std::shared_ptr<SmartBuffer<DataType>> buffer;
+  SharedSizeStringBuffer buffer;
   std::ostream& output;
-  std::mutex& outputLock;  
+  std::mutex& outputLock;
+
+  std::ostream& errorOut;
+  std::mutex& errorOutLock;
 
   SharedMetrics threadMetrics;
-  std::ostream& errorOut;
 
   Message errorMessage{Message::SystemError};
 };

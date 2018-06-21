@@ -7,13 +7,13 @@
 
 InputReader::InputReader(const std::string& newWorkerName,
     const std::shared_ptr<InputBufferType>& newInputBuffer,
-    const std::shared_ptr<OutputBufferType>& newOutputBuffer,
+    const SharedStringBuffer& newOutputBuffer,
     std::ostream& newErrorOut
-  ) :
+  , std::mutex& newErrorOutLock) :
   AsyncWorker<1>{newWorkerName},
   inputBuffer{newInputBuffer},
   outputBuffer{newOutputBuffer},
-  errorOut{newErrorOut},
+  errorOut{newErrorOut}, errorOutLock{newErrorOutLock},
   threadMetrics{std::make_shared<ThreadMetrics>("input reader")}
 {
   if (nullptr == inputBuffer)
@@ -39,17 +39,14 @@ void InputReader::reactMessage(MessageBroadcaster* sender, Message message)
     switch(message)
     {
     case Message::NoMoreData :
-      if (noMoreData != true && inputBuffer.get() == sender)
-      {
-        #ifdef NDEBUG
-        #else
-          std::cout << "\n                     " << this->workerName<< " NoMoreData received\n";
-        #endif
+      noMoreData.store(true);
 
-        std::lock_guard<std::mutex> lockControl{controlLock};
-        noMoreData = true;
-        threadNotifier.notify_all();
-      }
+      #ifdef NDEBUG
+      #else
+        //std::cout << "\n                     " << this->workerName<< " NoMoreData received\n";
+      #endif
+
+      threadNotifier.notify_all();
       break;
 
     default:
@@ -58,10 +55,9 @@ void InputReader::reactMessage(MessageBroadcaster* sender, Message message)
   }
   else                             // error message
   {
-    if (shouldExit != true)
+    if (shouldExit.load() != true)
     {
-      std::lock_guard<std::mutex> lockControl{controlLock};
-      shouldExit = true;
+      shouldExit.store(true);
       sendMessage(message);
     }
   }
@@ -94,11 +90,7 @@ bool InputReader::threadProcess(const size_t threadIndex)
     throw(std::invalid_argument{"Input reader source buffer not defined!"});
   }
 
-  decltype(inputBuffer->getItem()) bufferReply{};
-  {
-    std::lock_guard<std::mutex> lockBuffer{inputBuffer->dataLock};
-    bufferReply = inputBuffer->getItem(shared_from_this());
-  }
+  auto bufferReply {inputBuffer->getItem(shared_from_this())};
 
   if (false == bufferReply.first)
   {
@@ -123,15 +115,18 @@ bool InputReader::threadProcess(const size_t threadIndex)
 
 void InputReader::onThreadException(const std::exception& ex, const size_t threadIndex)
 {
-  errorOut << this->workerName << " thread #" << threadIndex << " stopped. Reason: " << ex.what() << std::endl;
+  {
+    std::lock_guard<std::mutex> lockErrorOut{errorOutLock};
+    errorOut << this->workerName << " thread #" << threadIndex << " stopped. Reason: " << ex.what() << std::endl;
+  }
 
   if (ex.what() == "Buffer is empty!")
   {
     errorMessage = Message::BufferEmpty;
   }
 
-  threadFinished[threadIndex] = true;
-  shouldExit = true;
+  threadFinished[threadIndex].store(true);
+  shouldExit.store(true);
   threadNotifier.notify_all();
 
   sendMessage(errorMessage);
@@ -141,10 +136,10 @@ void InputReader::onTermination(const size_t threadIndex)
 {
   #ifdef NDEBUG
   #else
-    std::cout << "\n                     " << this->workerName<< " all characters received\n";
+    //std::cout << "\n                     " << this->workerName<< " all characters received\n";
   #endif
 
-  if (true == noMoreData && notificationCount.load() == 0)
+  if (true == noMoreData.load() && notificationCount.load() == 0)
   {
     sendMessage(Message::NoMoreData);
     sendMessage(Message::AllDataReceived);
@@ -163,18 +158,16 @@ void InputReader::putNextLine()
 
   std::getline(tempBuffer, nextString);
 
-//  tempBuffer.seekg(0);
-
-//  if (tempBuffer.fail() == true)
-//  {
-//    errorMessage = Message::CharacterReadingError;
-//    throw(std::ios_base::failure{"Character extraction error!"});
-//  }
+  if (nextString.size() > (size_t)InputReaderSettings::MaxInputStringSize)
+  {
+    std::lock_guard<std::mutex> lockErrorOut{errorOutLock};
+    errorOut << "Maximum command length exceeded! String truncated";
+    nextString = nextString.substr(0, (size_t)InputReaderSettings::MaxInputStringSize);
+  }
 
   /* Refresh metrics */
   ++threadMetrics->totalStringCount;
 
-  std::lock_guard<std::mutex> lockBuffer{outputBuffer->dataLock};
   outputBuffer->putItem(std::move(nextString));
 }
 

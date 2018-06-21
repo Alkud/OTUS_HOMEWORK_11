@@ -4,13 +4,13 @@
 
 
 Publisher::Publisher(const std::string& newWorkerName,
-                     const std::shared_ptr<SmartBuffer<std::pair<size_t, std::string> > >& newBuffer,
+                     const SharedSizeStringBuffer& newBuffer,
                      std::ostream& newOutput, std::mutex& newOutpuLock,
-                     std::ostream& newErrorOut) :
+                     std::ostream& newErrorOut, std::mutex& newErrorOutLock) :
   AsyncWorker<1>{newWorkerName},
   buffer{newBuffer}, output{newOutput}, outputLock{newOutpuLock},
   threadMetrics{std::make_shared<ThreadMetrics>("publisher")},
-  errorOut{newErrorOut}
+  errorOut{newErrorOut}, errorOutLock{newErrorOutLock}
 {
   if (nullptr == buffer)
   {
@@ -29,10 +29,10 @@ void Publisher::reactNotification(NotificationBroadcaster* sender)
   {
     #ifdef NDEBUG
     #else
-      std::cout << this->workerName << " reactNotification\n";
+      //std::cout << this->workerName << " reactNotification\n";
     #endif
 
-    ++notificationCount;    
+    ++notificationCount;
     threadNotifier.notify_one();
   }
 }
@@ -44,17 +44,14 @@ void Publisher::reactMessage(MessageBroadcaster* sender, Message message)
     switch(message)
     {
     case Message::NoMoreData :
-      if (noMoreData != true && buffer.get() == sender)
-      {
-        #ifdef NDEBUG
-        #else
-          std::cout << "\n                     " << this->workerName<< " NoMoreData received\n";
-        #endif
+      noMoreData.store(true);
 
-        std::lock_guard<std::mutex> lockControl{controlLock};
-        noMoreData = true;
-        threadNotifier.notify_all();
-      }
+      #ifdef NDEBUG
+      #else
+        //std::cout << "\n                     " << this->workerName<< " NoMoreData received\n";
+      #endif
+
+      threadNotifier.notify_all();
       break;
 
     default:
@@ -63,10 +60,9 @@ void Publisher::reactMessage(MessageBroadcaster* sender, Message message)
   }
   else                             // error message
   {
-    if (shouldExit != true)
+    if (shouldExit.load() != true)
     {
-      std::lock_guard<std::mutex> lockControl{controlLock};
-      shouldExit = true;
+      shouldExit.store(true);
       sendMessage(message);
     }
   }
@@ -81,15 +77,10 @@ bool Publisher::threadProcess(const size_t threadIndex)
 {
   if (nullptr == buffer)
   {
-    errorMessage = Message::SourceNullptr;
     throw(std::invalid_argument{"Logger source buffer not defined!"});
   }
 
-  decltype(buffer->getItem()) bufferReply{};
-  {
-    std::lock_guard<std::mutex> lockBuffer{buffer->dataLock};
-    bufferReply = buffer->getItem(shared_from_this());
-  }
+  auto bufferReply{buffer->getItem(shared_from_this())};
 
   if (false == bufferReply.first)
   {
@@ -112,16 +103,19 @@ bool Publisher::threadProcess(const size_t threadIndex)
 
 void Publisher::onThreadException(const std::exception& ex, const size_t threadIndex)
 {
-  errorOut << this->workerName << " thread #" << threadIndex << " stopped. Reason: " << ex.what() << std::endl;
+  {
+    std::lock_guard<std::mutex> lockErrorOut{errorOutLock};
+    errorOut << this->workerName << " thread #" << threadIndex << " stopped. Reason: " << ex.what() << std::endl;
+  }
+
+  threadFinished[threadIndex] = true;
+  shouldExit.store(true);
+  threadNotifier.notify_all();
 
   if (ex.what() == "Buffer is empty!")
   {
     errorMessage = Message::BufferEmpty;
   }
-
-  threadFinished[threadIndex] = true;
-  shouldExit = true;
-  threadNotifier.notify_all();
 
   sendMessage(errorMessage);
 }
@@ -130,10 +124,10 @@ void Publisher::onTermination(const size_t threadIndex)
 {
   #ifdef NDEBUG
   #else
-    std::cout << "\n                     " << this->workerName<< " AllDataLogged\n";
+    //std::cout << "\n                     " << this->workerName<< " AllDataPublished\n";
   #endif
 
-  if (true == noMoreData && notificationCount.load() == 0)
+  if (true == noMoreData.load() && notificationCount.load() == 0)
   {
     sendMessage(Message::AllDataPublsihed);
   }

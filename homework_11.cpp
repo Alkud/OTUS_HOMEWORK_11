@@ -3,8 +3,7 @@
 #include "homework_11.h"
 #include "./async_command_processor/async.h"
 
-int homework(int argc, char* argv[], std::istream& inputStream, std::ostream& outputStream,
-              std::ostream& errorStream, std::ostream& metricsStream)
+int homework()
 {
   const size_t bulk = 10;
   auto h = async::connect(bulk);
