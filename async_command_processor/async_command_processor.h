@@ -152,7 +152,7 @@ public:
 
     #ifdef NDEBUG
     #else
-      std::cout << "\n                    AsyncCP received data\n";
+      //std::cout << "\n                    AsyncCP received data\n";
     #endif
   }
 
