@@ -186,10 +186,10 @@ protected:
 
       #ifdef NDEBUG
       #else
-         std::cout << "\n                     " << this->workerName
-                   << " terminating. shouldExit="<< shouldExit
-                   << ", noMoreData=" << noMoreData
-                   << "notificationCount=" << notificationCount.load() << "\n";
+//         std::cout << "\n                     " << this->workerName
+//                   << " terminating. shouldExit="<< shouldExit
+//                   << ", noMoreData=" << noMoreData
+//                   << "notificationCount=" << notificationCount.load() << "\n";
       #endif
 
       /*check if this thread is the only active one */
