@@ -26,7 +26,7 @@ deploy:
   - provider: script
     skip_cleanup: true
     script:
-    - curl -T bulkasync-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -ualkud:$BINTRAY_KEY "https://api.bintray.com/content/alkud/OTUS_HOMEWORK_11/libasync/$TRAVIS_BUILD_NUMBER/libasync-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=trusty;deb_component=main;deb_architecture=amd64;publsih=1"
+    - curl -T async-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb -ualkud:$BINTRAY_KEY "https://api.bintray.com/content/alkud/OTUS_HOMEWORK_11/libasync/$TRAVIS_BUILD_NUMBER/libasync-0.0.$TRAVIS_BUILD_NUMBER-Linux.deb;deb_distribution=trusty;deb_component=main;deb_architecture=amd64;publsih=1"
   - provider: pages
     skip-cleanup: true
     github-token: $GITHUB_TOKEN
