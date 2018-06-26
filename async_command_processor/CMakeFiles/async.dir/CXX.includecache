@@ -157,6 +157,10 @@ thread
 -
 fstream
 -
+sstream
+-
+unistd.h
+-
 listeners.h
 /home/travis/build/Alkud/OTUS_HOMEWORK_11/async_command_processor/listeners.h
 smart_buffer_mt.h

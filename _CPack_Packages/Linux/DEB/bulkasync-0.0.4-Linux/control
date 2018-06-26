@@ -1,9 +1,0 @@
-Package: bulkasync
-Version: 0.0.4
-Section: devel
-Priority: optional
-Architecture: amd64
-Installed-Size: 2822
-Maintainer: alexandr_kudinov@mail.ru
-Description: bulkasync built using CMake
-

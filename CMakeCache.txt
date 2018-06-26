@@ -148,7 +148,7 @@ CMAKE_OBJCOPY:FILEPATH=/usr/bin/objcopy
 CMAKE_OBJDUMP:FILEPATH=/usr/bin/objdump
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=bulkasync
+CMAKE_PROJECT_NAME:STATIC=async
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -217,14 +217,14 @@ CPACK_SOURCE_TZ:BOOL=ON
 //Enable to build ZIP source packages
 CPACK_SOURCE_ZIP:BOOL=OFF
 
+//Value Computed by CMake
+async_BINARY_DIR:STATIC=/home/travis/build/Alkud/OTUS_HOMEWORK_11
+
 //Dependencies for the target
 async_LIB_DEPENDS:STATIC=general;pthread;
 
 //Value Computed by CMake
-bulkasync_BINARY_DIR:STATIC=/home/travis/build/Alkud/OTUS_HOMEWORK_11
-
-//Value Computed by CMake
-bulkasync_SOURCE_DIR:STATIC=/home/travis/build/Alkud/OTUS_HOMEWORK_11
+async_SOURCE_DIR:STATIC=/home/travis/build/Alkud/OTUS_HOMEWORK_11
 
 
 ########################

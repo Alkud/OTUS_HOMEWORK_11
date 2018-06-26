@@ -12,7 +12,7 @@ endif()
 
 set(CMAKE_CXX_STANDARD 14)
 
-project(bulkasync VERSION 0.0.${VERSION_PATCH})
+project(async VERSION 0.0.${VERSION_PATCH})
 
 #add library subdirectory
 add_subdirectory(async_command_processor)
@@ -64,4 +64,3 @@ target_link_libraries(otus_hw_11_test pthread async)
 
 target_link_libraries(otus_hw_11_test
                       ${Boost_LIBRARIES})
-
