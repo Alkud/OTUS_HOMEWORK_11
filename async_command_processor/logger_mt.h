@@ -9,6 +9,8 @@
 #include <vector>
 #include <thread>
 #include <fstream>
+#include <sstream>
+#include <unistd.h>
 #include "listeners.h"
 #include "smart_buffer_mt.h"
 #include "thread_metrics.h"
@@ -137,10 +139,9 @@ private:
       destinationDirectory + std::to_string(nextBulkInfo.first)
     };
 
-    auto fileNameSuffix {std::to_string(additionalNameSection[threadIndex])
-          + std::to_string(threadIndex + 1)};
-    auto logFileName {bulkFileName + "_" + fileNameSuffix +  ".log"};
-
+    std::stringstream fileNameSuffix{};
+        fileNameSuffix << ::getpid() << threadIndex << "_" << additionalNameSection[threadIndex];
+        auto logFileName {bulkFileName + "_" + fileNameSuffix.str() + ".log"};
     std::ofstream logFile{logFileName};
 
     if(!logFile)
