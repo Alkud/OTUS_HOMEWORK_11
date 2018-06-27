@@ -1,2 +1,2 @@
-/usr/lib/libasync.so.0.0.7
+/usr/lib/libasync.so.0.0.8
 /usr/lib/libasync.so

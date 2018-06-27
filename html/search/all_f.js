@@ -8,7 +8,7 @@ var searchData=
   ['sharedmultymetrics',['SharedMultyMetrics',['../thread__metrics_8h.html#ae5877028144abdb2fd0d601eae9bcf2e',1,'thread_metrics.h']]],
   ['sharedsizestringbuffer',['SharedSizeStringBuffer',['../smart__buffer__mt_8h.html#a74179bee4f33e3fb26e7adbcfa2e17d4',1,'smart_buffer_mt.h']]],
   ['sharedstringbuffer',['SharedStringBuffer',['../smart__buffer__mt_8h.html#ac3089a6c099deb305c66a331430bafc6',1,'smart_buffer_mt.h']]],
-  ['shouldexit',['shouldExit',['../class_async_worker.html#a492940354a7699dc5c3aa70e65a16f49',1,'AsyncWorker::shouldExit()'],['../class_command_processor_instance.html#ae934fb344a66f329340d431ca66a2b55',1,'CommandProcessorInstance::shouldExit()']]],
+  ['shouldexit',['shouldExit',['../class_async_worker.html#ad9ddf369aab8745b691ba4f24676c88f',1,'AsyncWorker::shouldExit()'],['../class_command_processor_instance.html#ae934fb344a66f329340d431ca66a2b55',1,'CommandProcessorInstance::shouldExit()']]],
   ['sizestringbuffer',['SizeStringBuffer',['../smart__buffer__mt_8h.html#a5361e213eca45e3808a2b9a17da84cf9',1,'smart_buffer_mt.h']]],
   ['smart_5fbuffer_5fmt_2eh',['smart_buffer_mt.h',['../smart__buffer__mt_8h.html',1,'']]],
   ['smartbuffer',['SmartBuffer',['../class_smart_buffer.html',1,'SmartBuffer&lt; T &gt;'],['../class_smart_buffer.html#aa50c10adc256c135c3d38068be132900',1,'SmartBuffer::SmartBuffer()=delete'],['../class_smart_buffer.html#a65f8e736c96b7f63ec7e75c8809d99cd',1,'SmartBuffer::SmartBuffer(const std::string &amp;newWorkerName, std::ostream &amp;newErrorOut, std::mutex &amp;newErrorOutLock)']]],
@@ -21,5 +21,6 @@ var searchData=
   ['state',['state',['../class_async_worker.html#a586cf4490e20774a5f740b7fc5045cf1',1,'AsyncWorker']]],
   ['stop',['stop',['../class_async_worker.html#a13c539c8916321931bf79def8ffcffec',1,'AsyncWorker']]],
   ['stringbuffer',['StringBuffer',['../smart__buffer__mt_8h.html#a9166a8e78fd6f09969cd64d77289298d',1,'smart_buffer_mt.h']]],
+  ['stringthreadid',['stringThreadID',['../class_logger.html#a1e067056657638942881f0b002a5d4bb',1,'Logger::stringThreadID()'],['../class_logger.html#a7bc5cb459c66858b7450d19e9ce8b001',1,'Logger::stringThreadID()']]],
   ['systemerror',['SystemError',['../broadcasters_8h.html#aff97733e4706e994965da50c70605422ab932b91f686c2aa588adfd9a407155ca',1,'broadcasters.h']]]
 ];
