@@ -22,5 +22,7 @@ var searchData=
   ['stop',['stop',['../class_async_worker.html#a13c539c8916321931bf79def8ffcffec',1,'AsyncWorker']]],
   ['stringbuffer',['StringBuffer',['../smart__buffer__mt_8h.html#a9166a8e78fd6f09969cd64d77289298d',1,'smart_buffer_mt.h']]],
   ['stringthreadid',['stringThreadID',['../class_logger.html#a1e067056657638942881f0b002a5d4bb',1,'Logger::stringThreadID()'],['../class_logger.html#a7bc5cb459c66858b7450d19e9ce8b001',1,'Logger::stringThreadID()']]],
-  ['systemerror',['SystemError',['../broadcasters_8h.html#aff97733e4706e994965da50c70605422ab932b91f686c2aa588adfd9a407155ca',1,'broadcasters.h']]]
+  ['systemerror',['SystemError',['../broadcasters_8h.html#aff97733e4706e994965da50c70605422ab932b91f686c2aa588adfd9a407155ca',1,'broadcasters.h']]],
+  ['sz1',['sz1',['../test4_8cpp.html#ab76d3852686941b6f71655f1fd25f2e1',1,'test4.cpp']]],
+  ['sz2',['sz2',['../test4_8cpp.html#a90bf98ab5aa3066915c6fad60b0cdf76',1,'test4.cpp']]]
 ];

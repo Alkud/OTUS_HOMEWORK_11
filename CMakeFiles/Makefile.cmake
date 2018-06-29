@@ -120,6 +120,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
+  "CMakeFiles/test4.dir/DependInfo.cmake"
   "CMakeFiles/bulkasync.dir/DependInfo.cmake"
   "CMakeFiles/otus_hw_11_test.dir/DependInfo.cmake"
   "async_command_processor/CMakeFiles/async.dir/DependInfo.cmake"

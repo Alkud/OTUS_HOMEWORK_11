@@ -119,8 +119,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ac057b32f4faa0cd644af2c64aafb4a50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4de8f5dcca5e3b1a8fbc08017b6e1a22"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_async_command_processor.html#a4de8f5dcca5e3b1a8fbc08017b6e1a22">run</a> (const bool outputMetrics=true)</td></tr>
 <tr class="separator:a4de8f5dcca5e3b1a8fbc08017b6e1a22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa5308f9b2ceb90c20a99baec81244b7b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_async_command_processor.html#aa5308f9b2ceb90c20a99baec81244b7b">receiveData</a> (const char *data, std::size_t size) const </td></tr>
-<tr class="separator:aa5308f9b2ceb90c20a99baec81244b7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a358adca8990f56573154c42e095a0675"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_async_command_processor.html#a358adca8990f56573154c42e095a0675">receiveData</a> (const char *data, std::size_t size)</td></tr>
+<tr class="separator:a358adca8990f56573154c42e095a0675"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1757bd870687e5babd9f744b361ebab6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_async_command_processor.html#a1757bd870687e5babd9f744b361ebab6">disconnect</a> ()</td></tr>
 <tr class="separator:a1757bd870687e5babd9f744b361ebab6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2f518ac2aa8542f0f58bfc1206519f44"><td class="memItemLeft" align="right" valign="top">const std::shared_ptr<br class="typebreak"/>
@@ -174,8 +174,10 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:abb83fe991b6a3059f4966f4228d3b732"><td class="memItemLeft" align="right" valign="top">std::shared_ptr<br class="typebreak"/>
 &lt; <a class="el" href="class_input_processor.html#a80ed4b5c0fcfd1297bea56a9bc6fb2ca">InputProcessor::OutputBufferType</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_async_command_processor.html#abb83fe991b6a3059f4966f4228d3b732">bulkBuffer</a></td></tr>
 <tr class="separator:abb83fe991b6a3059f4966f4228d3b732"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad35963ce9bad1c3f02faa9617f810288"><td class="memItemLeft" align="right" valign="top">std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_async_command_processor.html#ad35963ce9bad1c3f02faa9617f810288">dataEntryLock</a></td></tr>
-<tr class="separator:ad35963ce9bad1c3f02faa9617f810288"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0eac12c1e7d154e94a958c5a231fcc5"><td class="memItemLeft" align="right" valign="top">std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_async_command_processor.html#ab0eac12c1e7d154e94a958c5a231fcc5">accessLock</a></td></tr>
+<tr class="separator:ab0eac12c1e7d154e94a958c5a231fcc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afefe4a11da713faf1115d69e3256f0aa"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_async_command_processor.html#afefe4a11da713faf1115d69e3256f0aa">isDisconnected</a></td></tr>
+<tr class="separator:afefe4a11da713faf1115d69e3256f0aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab36f5b2fdc41e1e8552889087c755ba9"><td class="memItemLeft" align="right" valign="top">std::thread&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_async_command_processor.html#ab36f5b2fdc41e1e8552889087c755ba9">workingThread</a></td></tr>
 <tr class="separator:ab36f5b2fdc41e1e8552889087c755ba9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a09b89dc8aaf6a0005e30cb8c8904bbae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="thread__metrics_8h.html#ac1589e063b43543469fafabc05566bcc">SharedGlobalMetrics</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_async_command_processor.html#a09b89dc8aaf6a0005e30cb8c8904bbae">metrics</a></td></tr>
@@ -404,7 +406,7 @@ template&lt;size_t loggingThreadCount = 2u&gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="aa5308f9b2ceb90c20a99baec81244b7b"></a>
+<a class="anchor" id="a358adca8990f56573154c42e095a0675"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -428,7 +430,7 @@ template&lt;size_t loggingThreadCount = 2u&gt; </div>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> const</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -467,6 +469,28 @@ template&lt;size_t loggingThreadCount = 2u&gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="ab0eac12c1e7d154e94a958c5a231fcc5"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;size_t loggingThreadCount = 2u&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::mutex <a class="el" href="class_async_command_processor.html">AsyncCommandProcessor</a>&lt; loggingThreadCount &gt;::accessLock</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="abb83fe991b6a3059f4966f4228d3b732"></a>
 <div class="memitem">
 <div class="memproto">
@@ -577,28 +601,6 @@ template&lt;size_t loggingThreadCount = 2u&gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ad35963ce9bad1c3f02faa9617f810288"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;size_t loggingThreadCount = 2u&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::mutex <a class="el" href="class_async_command_processor.html">AsyncCommandProcessor</a>&lt; loggingThreadCount &gt;::dataEntryLock</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="a444eb1d16edc769e737ece323aec7bc6"></a>
 <div class="memitem">
 <div class="memproto">
@@ -632,6 +634,28 @@ template&lt;size_t loggingThreadCount = 2u&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">std::ostream&amp; <a class="el" href="class_async_command_processor.html">AsyncCommandProcessor</a>&lt; loggingThreadCount &gt;::errorStream</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="afefe4a11da713faf1115d69e3256f0aa"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;size_t loggingThreadCount = 2u&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="class_async_command_processor.html">AsyncCommandProcessor</a>&lt; loggingThreadCount &gt;::isDisconnected</td>
         </tr>
       </table>
   </td>

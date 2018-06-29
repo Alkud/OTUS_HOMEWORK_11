@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['nestingdepth',['nestingDepth',['../class_input_processor.html#a22675f19ec084b34605439f4e841f82e',1,'InputProcessor::nestingDepth()'],['../input__processor_8cpp.html#ad070a5f68533fea449416cd5ba3ce598',1,'nestingDepth():&#160;input_processor.cpp']]],
-  ['nomoredata',['noMoreData',['../class_async_worker.html#aada84414491e4b995f2d95c0136ca265',1,'AsyncWorker']]],
-  ['notificationcount',['notificationCount',['../class_async_worker.html#a9f1eaf097abba38a681a83c22da5e6d2',1,'AsyncWorker']]],
-  ['notificationlisteners',['notificationListeners',['../class_notification_broadcaster.html#a9d3dfdeed17b0f5f611d249218e2cf63',1,'NotificationBroadcaster']]],
-  ['notifierlock',['notifierLock',['../class_async_worker.html#a84909224522bcb8752f26b814cdbab20',1,'AsyncWorker::notifierLock()'],['../class_command_processor_instance.html#a84286333e3e6f3f145a99ba89f3a36b8',1,'CommandProcessorInstance::notifierLock()']]]
+  ['malloc_5fcounter',['malloc_counter',['../namespacemy.html#af5637bab6f9559a1fc5602a628854d3d',1,'my']]],
+  ['messagelisteners',['messageListeners',['../class_message_broadcaster.html#a95a811516fbd1370acf7335b1c663fb8',1,'MessageBroadcaster']]],
+  ['metrics',['metrics',['../class_async_command_processor.html#a09b89dc8aaf6a0005e30cb8c8904bbae',1,'AsyncCommandProcessor']]],
+  ['metricsout',['metricsOut',['../class_command_processor_instance.html#a7e217592fb0e4836e12b53552ba97b32',1,'CommandProcessorInstance']]],
+  ['metricsstream',['metricsStream',['../class_async_command_processor.html#a961eb744e665b2c64e149f9e467ecaa2',1,'AsyncCommandProcessor']]]
 ];

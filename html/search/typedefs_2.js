@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['handle_5ft',['handle_t',['../namespaceasync.html#aa316889e453d00e4b6072f9026b72fde',1,'async']]]
+  ['globalmetrics',['GlobalMetrics',['../thread__metrics_8h.html#a2db7ab3e177db9bd5ea41c3fcbaeb17d',1,'thread_metrics.h']]]
 ];
