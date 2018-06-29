@@ -141,13 +141,11 @@ public:
       return;
     }
 
-    {
-      std::lock_guard<std::mutex> lockAccess{accessLock};
+    std::lock_guard<std::mutex> lockAccess{accessLock};
 
-      if (isDisconnected)
-      {
-        return;
-      }
+    if (isDisconnected)
+    {
+      return;
     }
 
     if (entryPoint != nullptr && entryPoint->getWorkerState() != WorkerState::Finished)
@@ -168,16 +166,14 @@ public:
 
   void disconnect()
   {
+    std::lock_guard<std::mutex> lockAccess{accessLock};
+
+    if (isDisconnected)
     {
-      std::lock_guard<std::mutex> lockAccess{accessLock};
-
-      if (isDisconnected)
-      {
-        return;
-      }
-
-      isDisconnected = true;
+      return;
     }
+
+    isDisconnected = true;
 
     sendMessage(Message::NoMoreData);
 

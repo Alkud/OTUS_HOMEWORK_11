@@ -1,15 +1,15 @@
-Start testing: Jun 29 13:20 UTC
+Start testing: Jun 29 14:11 UTC
 ----------------------------------------------------------
 1/1 Testing: test_hw_11
 1/1 Test: test_hw_11
 Command: "/home/travis/build/Alkud/OTUS_HOMEWORK_11/otus_hw_11_test"
 Directory: /home/travis/build/Alkud/OTUS_HOMEWORK_11
-"test_hw_11" start time: Jun 29 13:20 UTC
+"test_hw_11" start time: Jun 29 14:11 UTC
 Output:
 ----------------------------------------------------------
 Running 7 test cases...
 
-Command Processor ID: 1530278438342 metrics:
+Command Processor ID: 1530281492168 metrics:
 total received - 0 data chunk(s), 0 character(s), 0 string(s)
 total processed - 0 string(s), 0 command(s), 0 bulk(s)
 total displayed - 0 bulk(s), 0 command(s)
@@ -17,7 +17,7 @@ total saved by thread #0 - 0 bulk(s), 0 command(s)
 total saved by thread #1 - 0 bulk(s), 0 command(s)
 
 
-Command Processor ID: 1530278438846 metrics:
+Command Processor ID: 1530281492672 metrics:
 total received - 3 data chunk(s), 27 character(s), 13 string(s)
 total processed - 13 string(s), 11 command(s), 3 bulk(s)
 total displayed - 3 bulk(s), 11 command(s)
@@ -25,7 +25,7 @@ total saved by thread #0 - 2 bulk(s), 5 command(s)
 total saved by thread #1 - 1 bulk(s), 6 command(s)
 
 
-Command Processor ID: 1530278438737 metrics:
+Command Processor ID: 1530281492563 metrics:
 total received - 1 data chunk(s), 2 character(s), 1 string(s)
 total processed - 1 string(s), 1 command(s), 1 bulk(s)
 total displayed - 1 bulk(s), 1 command(s)
@@ -33,7 +33,7 @@ total saved by thread #0 - 1 bulk(s), 1 command(s)
 total saved by thread #1 - 0 bulk(s), 0 command(s)
 
 
-Command Processor ID: 1530278438877 metrics:
+Command Processor ID: 1530281492702 metrics:
 total received - 0 data chunk(s), 0 character(s), 0 string(s)
 total processed - 0 string(s), 0 command(s), 0 bulk(s)
 total displayed - 0 bulk(s), 0 command(s)
@@ -41,7 +41,7 @@ total saved by thread #0 - 0 bulk(s), 0 command(s)
 total saved by thread #1 - 0 bulk(s), 0 command(s)
 
 
-Command Processor ID: 1530278438611 metrics:
+Command Processor ID: 1530281492173 metrics:
 total received - 0 data chunk(s), 0 character(s), 0 string(s)
 total processed - 0 string(s), 0 command(s), 0 bulk(s)
 total displayed - 0 bulk(s), 0 command(s)
@@ -49,7 +49,7 @@ total saved by thread #0 - 0 bulk(s), 0 command(s)
 total saved by thread #1 - 0 bulk(s), 0 command(s)
 
 
-Command Processor ID: 1530278438755 metrics:
+Command Processor ID: 1530281492150 metrics:
 total received - 0 data chunk(s), 0 character(s), 0 string(s)
 total processed - 0 string(s), 0 command(s), 0 bulk(s)
 total displayed - 0 bulk(s), 0 command(s)
@@ -57,7 +57,7 @@ total saved by thread #0 - 0 bulk(s), 0 command(s)
 total saved by thread #1 - 0 bulk(s), 0 command(s)
 
 
-Command Processor ID: 1530278438454 metrics:
+Command Processor ID: 1530281492279 metrics:
 total received - 0 data chunk(s), 0 character(s), 0 string(s)
 total processed - 0 string(s), 0 command(s), 0 bulk(s)
 total displayed - 0 bulk(s), 0 command(s)
@@ -65,7 +65,7 @@ total saved by thread #0 - 0 bulk(s), 0 command(s)
 total saved by thread #1 - 0 bulk(s), 0 command(s)
 
 
-Command Processor ID: 1530278437989 metrics:
+Command Processor ID: 1530281492580 metrics:
 total received - 0 data chunk(s), 0 character(s), 0 string(s)
 total processed - 0 string(s), 0 command(s), 0 bulk(s)
 total displayed - 0 bulk(s), 0 command(s)
@@ -73,7 +73,7 @@ total saved by thread #0 - 0 bulk(s), 0 command(s)
 total saved by thread #1 - 0 bulk(s), 0 command(s)
 
 
-Command Processor ID: 1530278438348 metrics:
+Command Processor ID: 1530281492437 metrics:
 total received - 0 data chunk(s), 0 character(s), 0 string(s)
 total processed - 0 string(s), 0 command(s), 0 bulk(s)
 total displayed - 0 bulk(s), 0 command(s)
@@ -81,7 +81,7 @@ total saved by thread #0 - 0 bulk(s), 0 command(s)
 total saved by thread #1 - 0 bulk(s), 0 command(s)
 
 
-Command Processor ID: 1530278438652 metrics:
+Command Processor ID: 1530281491815 metrics:
 total received - 0 data chunk(s), 0 character(s), 0 string(s)
 total processed - 0 string(s), 0 command(s), 0 bulk(s)
 total displayed - 0 bulk(s), 0 command(s)
@@ -89,7 +89,23 @@ total saved by thread #0 - 0 bulk(s), 0 command(s)
 total saved by thread #1 - 0 bulk(s), 0 command(s)
 
 
-Command Processor ID: 1530278438297 metrics:
+Command Processor ID: 1530281492122 metrics:
+total received - 0 data chunk(s), 0 character(s), 0 string(s)
+total processed - 0 string(s), 0 command(s), 0 bulk(s)
+total displayed - 0 bulk(s), 0 command(s)
+
+Command Processor ID: 1530281492209 metrics:
+total saved by thread #0 - 0 bulk(s), 0 command(s)
+total received - total saved by thread #01 data chunk(s),  - 00 bulk(s),  character(s), 0 command(s)0
+
+ string(s)
+total processed - 0 string(s), 0 command(s), 0 bulk(s)
+total displayed - 0 bulk(s), 0 command(s)
+total saved by thread #0 - 0 bulk(s), 0 command(s)
+total saved by thread #1 - 0 bulk(s), 0 command(s)
+
+
+Command Processor ID: 1530281492478 metrics:
 total received - 0 data chunk(s), 0 character(s), 0 string(s)
 total processed - 0 string(s), 0 command(s), 0 bulk(s)
 total displayed - 0 bulk(s), 0 command(s)
@@ -97,23 +113,7 @@ total saved by thread #0 - 0 bulk(s), 0 command(s)
 total saved by thread #1 - 0 bulk(s), 0 command(s)
 
 
-Command Processor ID: 1530278438324 metrics:
-total received - 0 data chunk(s), 0 character(s), 0 string(s)
-total processed - 0 string(s), 0 command(s), 0 bulk(s)
-total displayed - 0 bulk(s), 0 command(s)
-total saved by thread #0 - 0 bulk(s), 0 command(s)
-total saved by thread #1 - 0 bulk(s), 0 command(s)
-
-
-Command Processor ID: 1530278438383 metrics:
-total received - 0 data chunk(s), 0 character(s), 0 string(s)
-total processed - 0 string(s), 0 command(s), 0 bulk(s)
-total displayed - 0 bulk(s), 0 command(s)
-total saved by thread #0 - 0 bulk(s), 0 command(s)
-total saved by thread #1 - 0 bulk(s), 0 command(s)
-
-
-Command Processor ID: 1530278438037 metrics:
+Command Processor ID: 1530281491866 metrics:
 total received - 10 data chunk(s), 40 character(s), 10 string(s)
 total processed - 10 string(s), 10 command(s), 2 bulk(s)
 total displayed - 2 bulk(s), 10 command(s)
@@ -121,7 +121,7 @@ total saved by thread #0 - 1 bulk(s), 5 command(s)
 total saved by thread #1 - 1 bulk(s), 5 command(s)
 
 
-Command Processor ID: 1530278438742 metrics:
+Command Processor ID: 1530281492571 metrics:
 total received - 0 data chunk(s), 0 character(s), 0 string(s)
 total processed - 0 string(s), 0 command(s), 0 bulk(s)
 total displayed - 0 bulk(s), 0 command(s)
@@ -129,7 +129,7 @@ total saved by thread #0 - 0 bulk(s), 0 command(s)
 total saved by thread #1 - 0 bulk(s), 0 command(s)
 
 
-Command Processor ID: 1530278438906 metrics:
+Command Processor ID: 1530281492734 metrics:
 total received - 3 data chunk(s), 31 character(s), 11 string(s)
 total processed - 11 string(s), 6 command(s), 1 bulk(s)
 total displayed - 1 bulk(s), 6 command(s)
@@ -137,7 +137,7 @@ total saved by thread #0 - 1 bulk(s), 6 command(s)
 total saved by thread #1 - 0 bulk(s), 0 command(s)
 
 
-Command Processor ID: 1530278438520 metrics:
+Command Processor ID: 1530281492349 metrics:
 total received - 1 data chunk(s), 101 character(s), 1 string(s)
 total processed - 1 string(s), 1 command(s), 1 bulk(s)
 total displayed - 1 bulk(s), 1 command(s)
@@ -150,8 +150,8 @@ total saved by thread #1 - 1 bulk(s), 1 command(s)
 Test time =   0.03 sec
 ----------------------------------------------------------
 Test Passed.
-"test_hw_11" end time: Jun 29 13:20 UTC
+"test_hw_11" end time: Jun 29 14:11 UTC
 "test_hw_11" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Jun 29 13:20 UTC
+End testing: Jun 29 14:11 UTC

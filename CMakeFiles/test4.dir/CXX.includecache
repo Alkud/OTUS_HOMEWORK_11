@@ -215,4 +215,6 @@ bits/stdc++.h
 -
 ./async_command_processor/async.h
 /home/travis/build/Alkud/OTUS_HOMEWORK_11/./async_command_processor/async.h
+sstream
+-
 
