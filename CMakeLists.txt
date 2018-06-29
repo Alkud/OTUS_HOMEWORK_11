@@ -36,6 +36,8 @@ add_executable(bulkasync bulkasync.cpp ${homework_11})
 #Set test target_link_libraries
 add_executable(otus_hw_11_test otus_hw_11_test.cpp ${homework_11} new_delete.h)
 
+add_executable(test4 test4.cpp)
+
 #Enable tests
 enable_testing()
 add_test(NAME test_hw_11
@@ -56,6 +58,11 @@ set_target_properties(otus_hw_11_test PROPERTIES
 
 set_target_properties(async PROPERTIES VERSION ${PROJECT_VERSION})
 
+set_target_properties(test4
+                      PROPERTIES CXX_STANDARD 14
+                      CXX_STANDARD_REQUIRED ON
+                      COMPILE_OPTIONS -Wpedantic -Wall -Wextra
+)
 
 #Link
 target_link_libraries(bulkasync pthread async)
@@ -64,3 +71,6 @@ target_link_libraries(otus_hw_11_test pthread async)
 
 target_link_libraries(otus_hw_11_test
                       ${Boost_LIBRARIES})
+
+target_link_libraries(test4 pthread async)
+

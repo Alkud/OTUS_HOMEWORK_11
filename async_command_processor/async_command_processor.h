@@ -32,12 +32,13 @@ public:
     metricsStream{newMetricsStream},
     processor{nullptr}, entryPoint{nullptr},
     commandBuffer{nullptr}, bulkBuffer{nullptr},
+    accessLock{}, isDisconnected{false},
     metrics{},
     /* unique processor ID formed by */
     timeStampID{
-      std::chrono::duration_cast<std::chrono::milliseconds>(
+      static_cast<size_t>(std::chrono::duration_cast<std::chrono::milliseconds>(
         std::chrono::system_clock::now().time_since_epoch()
-      ).count() + std::rand() % 1000
+      ).count() + std::rand() % 1000)
     }
   {}
 
@@ -133,14 +134,23 @@ public:
      metricsStream << std::endl;
   }
 
-  void receiveData(const char *data, std::size_t size) const
+  void receiveData(const char *data, std::size_t size)
   {
     if (nullptr == data || size == 0)
     {
       return;
     }
 
-    if (entryPoint != nullptr)
+    {
+      std::lock_guard<std::mutex> lockAccess{accessLock};
+
+      if (isDisconnected)
+      {
+        return;
+      }
+    }
+
+    if (entryPoint != nullptr && entryPoint->getWorkerState() != WorkerState::Finished)
     {
       InputReader::EntryDataType newData{};
       for (size_t idx{0}; idx < size; ++idx)
@@ -158,6 +168,17 @@ public:
 
   void disconnect()
   {
+    {
+      std::lock_guard<std::mutex> lockAccess{accessLock};
+
+      if (isDisconnected)
+      {
+        return;
+      }
+
+      isDisconnected = true;
+    }
+
     sendMessage(Message::NoMoreData);
 
     #ifdef NDEBUG
@@ -194,7 +215,8 @@ private:
   std::shared_ptr<InputProcessor::InputBufferType> commandBuffer;
   std::shared_ptr<InputProcessor::OutputBufferType> bulkBuffer;
 
-  std::mutex dataEntryLock;
+  std::mutex accessLock;
+  bool isDisconnected;
 
   std::thread workingThread;
 
