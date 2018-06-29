@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 #include "./async_command_processor/async.h"
+#include <sstream>
 
 const char *data1="0 0\n\n1 1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n{\n11\n}\n{";
 const char *data2= "\n12\n13\n14\n}\n15\n{\n16\n{\n17\n{\n18\n}\n19\n}\n20\n}\n{\n21\n22\n23\n";
@@ -28,8 +29,16 @@ int main() {
     {
         std::thread reconnecting1(std::bind(connect_disconnect, std::ref(h1)));
         std::thread reconnecting2(std::bind(connect_disconnect, std::ref(h2)));
+
+        std::stringstream userInput;
+
+        for (size_t i{}; i < 50000; ++i)
+        {
+          userInput << i;
+        }
+
         size_t N{1};
-        while(std::cin >> N)
+        while(userInput >> N)
         {
             while(--N)
             {
