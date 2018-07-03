@@ -227,6 +227,10 @@ cstddef
 -
 new
 -
+atomic
+-
+cstdlib
+-
 
 /home/travis/build/Alkud/OTUS_HOMEWORK_11/otus_hw_11_test.cpp
 boost/test/unit_test.hpp

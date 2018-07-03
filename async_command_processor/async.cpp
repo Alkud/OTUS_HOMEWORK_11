@@ -2,6 +2,9 @@
 
 #include "async.h"
 #include <iostream>
+#include <mutex>
+
+std::mutex outputLock{};
 
 async::handle_t async::connect(std::size_t bulk)
 {
@@ -11,7 +14,7 @@ async::handle_t async::connect(std::size_t bulk)
   }
 
   auto newCommandProcessor {new AsyncCommandProcessor<2>(
-      bulk, '{', '}', std::cout, std::cerr, std::cout
+      outputLock, bulk, '{', '}', std::cout, std::cerr, std::cout
     )
   };
 

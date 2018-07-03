@@ -111,8 +111,8 @@ Collaboration diagram for CommandProcessorInstance&lt; loggingThreadCount &gt;:<
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a1d623406c090b838dc821a5367f9b9ce"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_command_processor_instance.html#a1d623406c090b838dc821a5367f9b9ce">CommandProcessorInstance</a> (const size_t <a class="el" href="input__processor_8cpp.html#a642fd46fcccb815659284cd725d4a845">bulkSize</a>=3, const char <a class="el" href="input__processor_8cpp.html#aa6b56f8d7904bd4053b7bf3bf147bc7a">bulkOpenDelimiter</a>= '{', const char <a class="el" href="input__processor_8cpp.html#a6a95dd894d8941411f54627aab6660cd">bulkCloseDelimiter</a>= '}', std::ostream &amp;outputStream=std::cout, std::ostream &amp;errorStream=std::cerr, std::ostream &amp;metricsStream=std::cout)</td></tr>
-<tr class="separator:a1d623406c090b838dc821a5367f9b9ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa89840dd4bfaf0ac220258812396f3b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_command_processor_instance.html#aaa89840dd4bfaf0ac220258812396f3b">CommandProcessorInstance</a> (const size_t <a class="el" href="input__processor_8cpp.html#a642fd46fcccb815659284cd725d4a845">bulkSize</a>, const char <a class="el" href="input__processor_8cpp.html#aa6b56f8d7904bd4053b7bf3bf147bc7a">bulkOpenDelimiter</a>, const char <a class="el" href="input__processor_8cpp.html#a6a95dd894d8941411f54627aab6660cd">bulkCloseDelimiter</a>, std::ostream &amp;outputStream, std::ostream &amp;errorStream, std::ostream &amp;metricsStream, std::mutex &amp;newScreenOutputLock)</td></tr>
+<tr class="separator:aaa89840dd4bfaf0ac220258812396f3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b6c6b43c45d055023de13b5a6812a1d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_command_processor_instance.html#a1b6c6b43c45d055023de13b5a6812a1d">~CommandProcessorInstance</a> ()</td></tr>
 <tr class="separator:a1b6c6b43c45d055023de13b5a6812a1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8e0f336bdf7c76b03b4a360b5c9b7ad6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_command_processor_instance.html#a8e0f336bdf7c76b03b4a360b5c9b7ad6">reactMessage</a> (<a class="el" href="class_message_broadcaster.html">MessageBroadcaster</a> *sender, <a class="el" href="broadcasters_8h.html#aff97733e4706e994965da50c70605422">Message</a> message)</td></tr>
@@ -152,8 +152,8 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a3e638c5d89d890cc42c357917093f448"><td class="memItemLeft" align="right" valign="top">std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_command_processor_instance.html#a3e638c5d89d890cc42c357917093f448">screenOutputLock</a></td></tr>
-<tr class="separator:a3e638c5d89d890cc42c357917093f448"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a823a525f6c3149f0dd089eb35bf4e77b"><td class="memItemLeft" align="right" valign="top">std::mutex &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_command_processor_instance.html#a823a525f6c3149f0dd089eb35bf4e77b">screenOutputLock</a></td></tr>
+<tr class="separator:a823a525f6c3149f0dd089eb35bf4e77b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa712102af841ba242644d547a8f01081"><td class="memItemLeft" align="right" valign="top">std::shared_ptr<br class="typebreak"/>
 &lt; <a class="el" href="class_input_reader.html#a5ca0cd5bcedd1edac47b2df5f07d01d6">InputReader::InputBufferType</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_command_processor_instance.html#aa712102af841ba242644d547a8f01081">externalBuffer</a></td></tr>
 <tr class="separator:aa712102af841ba242644d547a8f01081"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -206,7 +206,7 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:a95a811516fbd1370acf7335b1c663fb8 inherit pro_attribs_class_message_broadcaster"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a1d623406c090b838dc821a5367f9b9ce"></a>
+<a class="anchor" id="aaa89840dd4bfaf0ac220258812396f3b"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -219,37 +219,43 @@ template&lt;size_t loggingThreadCount = 2u&gt; </div>
           <td class="memname"><a class="el" href="class_command_processor_instance.html">CommandProcessorInstance</a>&lt; loggingThreadCount &gt;::<a class="el" href="class_command_processor_instance.html">CommandProcessorInstance</a> </td>
           <td>(</td>
           <td class="paramtype">const size_t&#160;</td>
-          <td class="paramname"><em>bulkSize</em> = <code>3</code>, </td>
+          <td class="paramname"><em>bulkSize</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const char&#160;</td>
-          <td class="paramname"><em>bulkOpenDelimiter</em> = <code>'{'</code>, </td>
+          <td class="paramname"><em>bulkOpenDelimiter</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const char&#160;</td>
-          <td class="paramname"><em>bulkCloseDelimiter</em> = <code>'}'</code>, </td>
+          <td class="paramname"><em>bulkCloseDelimiter</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>outputStream</em> = <code>std::cout</code>, </td>
+          <td class="paramname"><em>outputStream</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>errorStream</em> = <code>std::cerr</code>, </td>
+          <td class="paramname"><em>errorStream</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>metricsStream</em> = <code>std::cout</code>&#160;</td>
+          <td class="paramname"><em>metricsStream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::mutex &amp;&#160;</td>
+          <td class="paramname"><em>newScreenOutputLock</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -832,7 +838,7 @@ template&lt;size_t loggingThreadCount = 2u&gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a3e638c5d89d890cc42c357917093f448"></a>
+<a class="anchor" id="a823a525f6c3149f0dd089eb35bf4e77b"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -842,7 +848,7 @@ template&lt;size_t loggingThreadCount = 2u&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::mutex <a class="el" href="class_command_processor_instance.html">CommandProcessorInstance</a>&lt; loggingThreadCount &gt;::screenOutputLock</td>
+          <td class="memname">std::mutex&amp; <a class="el" href="class_command_processor_instance.html">CommandProcessorInstance</a>&lt; loggingThreadCount &gt;::screenOutputLock</td>
         </tr>
       </table>
   </td>

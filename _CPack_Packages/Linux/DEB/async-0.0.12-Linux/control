@@ -1,9 +1,9 @@
 Package: async
-Version: 0.0.11
+Version: 0.0.12
 Section: devel
 Priority: optional
 Architecture: amd64
-Installed-Size: 2902
+Installed-Size: 2863
 Maintainer: alexandr_kudinov@mail.ru
 Description: async built using CMake
 
