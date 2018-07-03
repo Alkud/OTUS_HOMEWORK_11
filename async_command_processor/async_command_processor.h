@@ -83,7 +83,7 @@ public:
       #endif
 
       workingThread = std::thread{
-          &AsyncCommandProcessor<loggingThreadCount>::run, this, true
+          &AsyncCommandProcessor<loggingThreadCount>::run, this, false
       };
 
       #ifdef NDEBUG

@@ -175,7 +175,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">      #endif</span></div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;      <a class="code" href="class_async_command_processor.html#ab36f5b2fdc41e1e8552889087c755ba9">workingThread</a> = std::thread{</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;          &amp;<a class="code" href="class_async_command_processor.html">AsyncCommandProcessor&lt;loggingThreadCount&gt;::run</a>, <span class="keyword">this</span>, <span class="keyword">true</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;          &amp;<a class="code" href="class_async_command_processor.html">AsyncCommandProcessor&lt;loggingThreadCount&gt;::run</a>, <span class="keyword">this</span>, <span class="keyword">false</span></div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;      };</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">      #ifdef NDEBUG</span></div>

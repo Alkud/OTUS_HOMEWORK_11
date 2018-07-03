@@ -4,7 +4,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/async.dir/input_reader.cpp.o"
   "CMakeFiles/async.dir/publisher_mt.cpp.o"
   "libasync.pdb"
-  "libasync.so.0.0.10"
+  "libasync.so.0.0.11"
   "libasync.so"
 )
 
