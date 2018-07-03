@@ -17,30 +17,42 @@ class AsyncCommandProcessor : public MessageBroadcaster
 public:
 
   AsyncCommandProcessor(
-    const size_t newBulkSize = 3,
-    const char newBulkOpenDelimiter = '{',
-    const char newBulkCloseDelimiter = '}',
-    std::ostream& newOutputStream = std::cout,
-    std::ostream& newErrorStream = std::cerr,
-    std::ostream& newMetricsStream = std::cout
+      std::mutex& newScreenOutputLock,
+      const size_t newBulkSize = 3,
+      const char newBulkOpenDelimiter = '{',
+      const char newBulkCloseDelimiter = '}',
+      std::ostream& newOutputStream = std::cout,
+      std::ostream& newErrorStream = std::cerr,
+      std::ostream& newMetricsStream = std::cout
   ) :
+    screenOutputLock{newScreenOutputLock},
     bulkSize{newBulkSize},
     bulkOpenDelimiter{newBulkOpenDelimiter},
     bulkCloseDelimiter{newBulkCloseDelimiter},
     outputStream{newOutputStream},
     errorStream{newErrorStream},
     metricsStream{newMetricsStream},
-    processor{nullptr}, entryPoint{nullptr},
-    commandBuffer{nullptr}, bulkBuffer{nullptr},
+
+    processor{
+      std::make_shared<CommandProcessorInstance<loggingThreadCount>>(
+        bulkSize,
+        bulkOpenDelimiter,
+        bulkCloseDelimiter,
+        outputStream,
+        errorStream,
+        metricsStream,
+        screenOutputLock
+      )
+    },
+
+    entryPoint{processor->getEntryPoint()},
+    commandBuffer{processor->getInputBuffer()},
+    bulkBuffer{processor->getOutputBuffer()},
     accessLock{}, isDisconnected{false},
-    metrics{},
-    /* unique processor ID formed by */
-    timeStampID{
-      static_cast<size_t>(std::chrono::duration_cast<std::chrono::milliseconds>(
-        std::chrono::system_clock::now().time_since_epoch()
-      ).count() + std::rand() % 1000)
-    }
-  {}
+    metrics{processor->getMetrics()}
+  {
+    this->addMessageListener(entryPoint);
+  }
 
   ~AsyncCommandProcessor()
   {
@@ -50,32 +62,15 @@ public:
     }
   }
 
-  bool connect(const bool outputMetrics = true) noexcept
+  bool connect(const bool outputMetrics = false) noexcept
   {
     try
     {
       /* ignore repetitive connection attempts*/
-      if (processor != nullptr || workingThread.joinable() == true)
+      if (workingThread.joinable() == true)
       {
         return false;
       }
-
-      processor = std::make_shared<CommandProcessorInstance<loggingThreadCount>>(
-        bulkSize,
-        bulkOpenDelimiter,
-        bulkCloseDelimiter,
-        outputStream,
-        errorStream,
-        metricsStream
-      );
-
-      entryPoint = processor->getEntryPoint();
-      commandBuffer = processor->getInputBuffer();
-      bulkBuffer = processor->getOutputBuffer();
-      this->addMessageListener(entryPoint);
-
-      metrics = processor->getMetrics();
-
 
       #ifdef NDEBUG
       #else
@@ -83,7 +78,7 @@ public:
       #endif
 
       workingThread = std::thread{
-          &AsyncCommandProcessor<loggingThreadCount>::run, this, false
+          &AsyncCommandProcessor<loggingThreadCount>::run, this, outputMetrics
       };
 
       #ifdef NDEBUG
@@ -95,14 +90,16 @@ public:
     }
     catch (const std::exception& ex)
     {
-      std::cerr << "Connection failed. Reason: " << ex.what() << std::endl;
+      std::lock_guard<std::mutex> lockOutput{screenOutputLock};
+
+      errorStream << "Connection failed. Reason: " << ex.what() << std::endl;
       return false;
     }
   }
 
   void run(const bool outputMetrics = true)
   {
-     auto globalMetrics {processor->run()};
+     processor->run();
 
      if (outputMetrics != true)
      {
@@ -110,25 +107,26 @@ public:
      }
 
      /* Output metrics */
-     metricsStream << "\nCommand Processor ID: " << timeStampID << " metrics:\n";
+     std::lock_guard<std::mutex> lockOutput{screenOutputLock};
+
      metricsStream << "total received - "
-                   << globalMetrics["input reader"]->totalReceptionCount << " data chunk(s), "
-                   << globalMetrics["input reader"]->totalCharacterCount << " character(s), "
-                   << globalMetrics["input reader"]->totalStringCount << " string(s)" << std::endl
+                   << metrics["input reader"]->totalReceptionCount << " data chunk(s), "
+                   << metrics["input reader"]->totalCharacterCount << " character(s), "
+                   << metrics["input reader"]->totalStringCount << " string(s)" << std::endl
                    << "total processed - "
-                   << globalMetrics["input processor"]->totalStringCount << " string(s), "
-                   << globalMetrics["input processor"]->totalCommandCount << " command(s), "
-                   << globalMetrics["input processor"]->totalBulkCount << " bulk(s)" << std::endl
+                   << metrics["input processor"]->totalStringCount << " string(s), "
+                   << metrics["input processor"]->totalCommandCount << " command(s), "
+                   << metrics["input processor"]->totalBulkCount << " bulk(s)" << std::endl
                    << "total displayed - "
-                   << globalMetrics["publisher"]->totalBulkCount << " bulk(s), "
-                   << globalMetrics["publisher"]->totalCommandCount << " command(s)" << std::endl;
+                   << metrics["publisher"]->totalBulkCount << " bulk(s), "
+                   << metrics["publisher"]->totalCommandCount << " command(s)" << std::endl;
 
      for (size_t threadIndex{}; threadIndex < loggingThreadCount; ++threadIndex)
      {
        auto threadName = std::string{"logger thread#"} + std::to_string(threadIndex);
        metricsStream << "total saved by thread #" << threadIndex << " - "
-                     << globalMetrics[threadName]->totalBulkCount << " bulk(s), "
-                     << globalMetrics[threadName]->totalCommandCount << " command(s)" << std::endl;
+                     << metrics[threadName]->totalBulkCount << " bulk(s), "
+                     << metrics[threadName]->totalCommandCount << " command(s)" << std::endl;
 
      }
      metricsStream << std::endl;
@@ -148,7 +146,7 @@ public:
       return;
     }
 
-    if (entryPoint != nullptr && entryPoint->getWorkerState() != WorkerState::Finished)
+    if (entryPoint != nullptr)
     {
       InputReader::EntryDataType newData{};
       for (size_t idx{0}; idx < size; ++idx)
@@ -197,7 +195,12 @@ public:
     return metrics;
   }
 
+  std::mutex& getScreenOutputLock()
+  { return screenOutputLock;}
+
 private:
+  std::mutex& screenOutputLock;
+
   const size_t bulkSize;
   const char bulkOpenDelimiter;
   const char bulkCloseDelimiter;

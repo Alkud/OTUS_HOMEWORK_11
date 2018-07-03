@@ -3,6 +3,8 @@
 #include <stdint.h>
 #include <cstddef>
 #include <new>
+#include <atomic>
+#include <cstdlib>
 
 namespace my {
 
@@ -68,12 +70,12 @@ void operator delete[](void* p, const std::nothrow_t&) noexcept
     my::free(p);
 }
 
-void operator delete(void* p, long unsigned int)
+void operator delete(void* p, long unsigned int) noexcept
 {
     my::free(p);
 }
 
-void operator delete [](void* p, long unsigned int)
+void operator delete [](void* p, long unsigned int) noexcept
 {
     my::free(p);
 }

@@ -7,7 +7,6 @@
 #include "./async_command_processor/async.h"
 #include "new_delete.h"
 
-
 #include <string>
 #include <iostream>
 #include <iomanip>
@@ -22,6 +21,8 @@ enum class DebugOutput
   debug_on,
   debug_off
 };
+
+std::mutex screenOutputLock{};
 
 /* Helper functions */
 std::array<std::vector<std::string>, 3>
@@ -38,11 +39,11 @@ getProcessorOutput
   std::stringstream inputStream{inputString};  
   std::stringstream outputStream{};
   std::stringstream errorStream{};
-  std::stringstream metricsStream{};
+  std::stringstream metricsStream{};  
 
   {
     AsyncCommandProcessor<2> testProcessor {
-      bulkSize, openDelimiter, closeDelimiter,
+      screenOutputLock, bulkSize, openDelimiter, closeDelimiter,
       outputStream, errorStream, metricsStream
     };
 
@@ -86,7 +87,7 @@ mockConnect(
 )
 {
   auto newCommandProcessor {new AsyncCommandProcessor<2>(
-      bulkSize, '{', '}', outputStream, errorStream
+      screenOutputLock, bulkSize, '{', '}', outputStream, errorStream
     )
   };
 
@@ -413,171 +414,6 @@ BOOST_AUTO_TEST_CASE(max_string_length_test)
     BOOST_FAIL("");
   }
 }
-
-//BOOST_AUTO_TEST_CASE(logging_test)
-//{
-//  try
-//  {
-//    /* wait 2 seconds to get separate log files for this test */
-//    std::this_thread::sleep_for(std::chrono::seconds{2});
-
-//    const std::string testString{
-//      "cmd1\n"
-//      "cmd2\n"
-//      "cmd3\n"
-//      "cmd4\n"
-//    };
-//    auto processorOutput{
-//      getProcessorOutput(testString, '(', ')', 4, DebugOutput::debug_off)
-//    };
-
-//    /* get current time */
-//    std::chrono::time_point<std::chrono::system_clock>
-//    bulkStartTime{std::chrono::system_clock::now()};
-//    /* convert bulk start time to integer ticks count */
-//    auto ticksCount{
-//      std::chrono::duration_cast<std::chrono::seconds>
-//      (
-//        bulkStartTime.time_since_epoch()
-//      ).count()
-//    };
-
-//    /* build log file name */
-//    --ticksCount;
-//    while (!std::ifstream{std::to_string(ticksCount).append("_1.log")})
-//    {
-//      ++ticksCount;
-//    }
-
-//    std::string logFileName{
-//      std::to_string(ticksCount).append("_1.log")
-//    };
-
-//    std::ifstream logFile(logFileName);
-
-//    std::string logString{};
-//    std::getline(logFile, logString);
-
-//    /* main application output */
-//    BOOST_CHECK(processorOutput[0][0] ==
-//                "bulk: cmd1, cmd2, cmd3, cmd4");
-
-//    /* application error output */
-//    BOOST_CHECK(processorOutput[1].size() == 0);
-
-//    /* application metrics output */
-//    BOOST_CHECK(processorOutput[2].size() == 4);
-
-//    std::stringstream metricsStream{};
-//    for (const auto& tmpString : processorOutput[2])
-//    {
-//      metricsStream << tmpString << '\n';
-//    }
-
-//    checkMetrics(metricsStream, 4, 4, 1);
-
-//    /* check log file state */
-//    BOOST_CHECK(logFile);
-
-//    /* check log file content */
-//    BOOST_CHECK(logString ==
-//                "bulk: cmd1, cmd2, cmd3, cmd4");
-//  }
-//  catch (const std::exception& ex)
-//  {
-//    BOOST_FAIL("");
-//    std::cerr << ex.what();
-//  }
-//}
-
-//BOOST_AUTO_TEST_CASE(log_file_name_uniqueness_test)
-//{
-//  try
-//  {
-//    /* wait 2 seconds to get separate log file for this test */
-//    std::this_thread::sleep_for(std::chrono::seconds{2});
-
-//    const std::string testString{
-//      "cmd1\n"
-//      "cmd2\n"
-//      "cmd3\n"
-//      "cmd4\n"
-//    };
-//    auto processorOutput{
-//      getProcessorOutput(testString, '(', ')', 1, DebugOutput::debug_off)
-//    };
-
-//    /* get current time */
-//    std::chrono::time_point<std::chrono::system_clock>
-//    bulkStartTime{std::chrono::system_clock::now()};
-//    /* convert bulk start time to integer ticks count */
-//    auto ticksCount{
-//      std::chrono::duration_cast<std::chrono::seconds>
-//      (
-//        bulkStartTime.time_since_epoch()
-//      ).count()
-//    };
-
-//    /* build log file name */
-//    --ticksCount;
-//    while (!std::ifstream{std::to_string(ticksCount).append("_1.log")})
-//    {
-//      ++ticksCount;
-//    }
-
-//    std::string logFileName{};
-//    std::ifstream logFile{};
-//    std::string logString{};
-
-//    const size_t filesCount{4};
-
-//    for (size_t i{1}; i <= filesCount; ++i)
-//    {
-//      logFileName = std::to_string(ticksCount) +
-//                    + "_" + std::to_string(i) + ".log";
-
-//      logFile.open(logFileName);
-
-//      /* check log file state */
-//      BOOST_CHECK(logFile);
-
-//      std::getline(logFile, logString);
-
-//      /* check log file content */
-//      BOOST_CHECK(logString ==
-//                  "bulk: cmd" + std::to_string(i));
-
-//      logFile.close();
-//    }
-
-//    /* main application output */
-//    BOOST_CHECK(processorOutput[0].size() == 4);
-//    for (size_t i{1}; i <= 4; ++i)
-//    {
-//      BOOST_CHECK(processorOutput[0][i - 1] ==
-//                  "bulk: cmd" + std::to_string(i));
-//    }
-
-//    /* application error output */
-//    BOOST_CHECK(processorOutput[1].size() == 0);
-
-//    /* application metrics output */
-//    BOOST_CHECK(processorOutput[2].size() == 4);
-
-//    std::stringstream metricsStream{};
-//    for (const auto& tmpString : processorOutput[2])
-//    {
-//      metricsStream << tmpString << '\n';
-//    }
-
-//    checkMetrics(metricsStream, 4, 4, 4);
-//  }
-//  catch (const std::exception& ex)
-//  {
-//    BOOST_CHECK(false);
-//    std::cerr << ex.what();
-//  }
-//}
 
 BOOST_AUTO_TEST_SUITE_END()
 
