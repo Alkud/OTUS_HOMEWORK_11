@@ -30,7 +30,7 @@ public:
 
   Logger(const std::string& newWorkerName,
          const SharedSizeStringBuffer& newBuffer,
-         std::ostream& newErrorOut, std::mutex& newErrorOutLock,
+         std::ostream& newErrorOut, std::shared_ptr<std::mutex> newErrorOutLock,
          const std::string& newDestinationDirectory = "") :
     AsyncWorker<threadCount>{newWorkerName},
     buffer{newBuffer}, destinationDirectory{newDestinationDirectory},
@@ -157,7 +157,7 @@ private:
 
     if(!logFile)
     {
-      std::lock_guard<std::mutex> lockErrorOut{errorOutLock};
+      std::lock_guard<std::mutex> lockErrorOut{*errorOutLock};
       errorOut << "Cannot create log file " <<
                   logFileName << " !" << std::endl;
       throw(std::ios_base::failure{"Log file creation error!"});
@@ -180,7 +180,7 @@ private:
   void onThreadException(const std::exception& ex, const size_t threadIndex) override
   {
     {
-      std::lock_guard<std::mutex> lockErrorOut{errorOutLock};
+      std::lock_guard<std::mutex> lockErrorOut{*errorOutLock};
       errorOut << this->workerName << " thread #" << threadIndex << " stopped. Reason: " << ex.what() << std::endl;
     }
 
@@ -225,7 +225,7 @@ private:
   std::vector<std::string> stringThreadID;
 
   std::ostream& errorOut;
-  std::mutex& errorOutLock;
+  std::shared_ptr<std::mutex> errorOutLock;
 
   SharedMultyMetrics threadMetrics;
 

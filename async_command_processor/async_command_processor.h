@@ -17,7 +17,7 @@ class AsyncCommandProcessor : public MessageBroadcaster
 public:
 
   AsyncCommandProcessor(
-      std::mutex& newScreenOutputLock,
+      std::shared_ptr<std::mutex> newScreenOutputLock,
       const size_t newBulkSize = 3,
       const char newBulkOpenDelimiter = '{',
       const char newBulkCloseDelimiter = '}',
@@ -90,7 +90,7 @@ public:
     }
     catch (const std::exception& ex)
     {
-      std::lock_guard<std::mutex> lockOutput{screenOutputLock};
+      std::lock_guard<std::mutex> lockOutput{*screenOutputLock};
 
       errorStream << "Connection failed. Reason: " << ex.what() << std::endl;
       return false;
@@ -107,7 +107,7 @@ public:
      }
 
      /* Output metrics */
-     std::lock_guard<std::mutex> lockOutput{screenOutputLock};
+     std::lock_guard<std::mutex> lockOutput{*screenOutputLock};
 
      metricsStream << "total received - "
                    << metrics["input reader"]->totalReceptionCount << " data chunk(s), "
@@ -199,7 +199,8 @@ public:
   { return screenOutputLock;}
 
 private:
-  std::mutex& screenOutputLock;
+
+  std::shared_ptr<std::mutex> screenOutputLock;
 
   const size_t bulkSize;
   const char bulkOpenDelimiter;
