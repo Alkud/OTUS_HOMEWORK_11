@@ -56,7 +56,7 @@ static std::mutex screenOutputLock;
 
   ~AsyncCommandProcessor()
   {
-    std::lock_guard<std::mutex> lockAccess{accessLock};
+    //std::lock_guard<std::mutex> lockAccess{accessLock};
 
     sendMessage(Message::NoMoreData);
     if (workingThread.joinable() == true)
@@ -137,8 +137,6 @@ static std::mutex screenOutputLock;
 
   void receiveData(const char *data, std::size_t size)
   {
-    std::lock_guard<std::mutex> lockAccess{accessLock};
-
     if (nullptr == data || size == 0)
     {
       return;
@@ -148,6 +146,8 @@ static std::mutex screenOutputLock;
     {
       return;
     }
+
+    std::lock_guard<std::mutex> lockAccess{accessLock};
 
     if (entryPoint != nullptr)
     {
