@@ -90,7 +90,7 @@ bool Publisher::threadProcess(const size_t /*threadIndex*/)
 
   auto nextBulkInfo{bufferReply.second};
 
-  std::lock_guard<std::mutex> lockOutput{*outputLock};
+  //std::lock_guard<std::mutex> lockOutput{*outputLock};
   output << nextBulkInfo.second << '\n';
 
   /* Refresh metrics */
@@ -105,7 +105,7 @@ bool Publisher::threadProcess(const size_t /*threadIndex*/)
 void Publisher::onThreadException(const std::exception& ex, const size_t threadIndex)
 {
   {
-    std::lock_guard<std::mutex> lockErrorOut{*errorOutLock};
+    //std::lock_guard<std::mutex> lockErrorOut{*errorOutLock};
     errorOut << this->workerName << " thread #" << threadIndex << " stopped. Reason: " << ex.what() << std::endl;
   }
 
