@@ -22,7 +22,7 @@ enum class DebugOutput
   debug_off
 };
 
-std::mutex screenOutputLock{};
+std::shared_ptr<std::mutex> screenOutputLock{new std::mutex {}};
 
 /* Helper functions */
 std::array<std::vector<std::string>, 3>

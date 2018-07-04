@@ -3,8 +3,14 @@
 #include "async.h"
 #include <iostream>
 #include <mutex>
+#include <memory>
 
-static std::mutex outputLock{};
+namespace async{
+
+  static std::shared_ptr<std::mutex> outputLock{ new std::mutex{} };
+
+}
+
 
 async::handle_t async::connect(std::size_t bulk)
 {
@@ -14,7 +20,7 @@ async::handle_t async::connect(std::size_t bulk)
   }
 
   auto newCommandProcessor {new AsyncCommandProcessor<2>(
-      outputLock, bulk, '{', '}', std::cout, std::cerr, std::cout
+      async::outputLock, bulk, '{', '}', std::cout, std::cerr, std::cout
     )
   };
 

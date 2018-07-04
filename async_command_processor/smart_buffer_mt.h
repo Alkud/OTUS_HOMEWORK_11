@@ -29,7 +29,10 @@ public:
 
   SmartBuffer() = delete;
 
-  SmartBuffer(const std::string& newWorkerName, std::ostream& newErrorOut, std::mutex& newErrorOutLock) :
+  SmartBuffer(
+    const std::string& newWorkerName, std::ostream& newErrorOut,
+    std::shared_ptr<std::mutex> newErrorOutLock
+  ) :
     AsyncWorker<1>{newWorkerName},
     errorOut{newErrorOut}, errorOutLock{newErrorOutLock},
     dataReceived{true}
@@ -221,7 +224,7 @@ private:
   void onThreadException(const std::exception& ex, const size_t threadIndex) override
   {
     {
-      std::lock_guard<std::mutex> lockErrorOutm{errorOutLock};
+      std::lock_guard<std::mutex> lockErrorOutm{*errorOutLock};
       errorOut << this->workerName << " thread #" << threadIndex << " stopped. Reason: " << ex.what() << std::endl;
     }
 
@@ -268,7 +271,7 @@ private:
 
 
   std::ostream& errorOut;
-  std::mutex& errorOutLock;
+  std::shared_ptr<std::mutex> errorOutLock;
 
   std::deque<Record> data;
 

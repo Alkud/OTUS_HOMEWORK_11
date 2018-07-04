@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['screenoutputlock',['screenOutputLock',['../class_async_command_processor.html#aec7968c6ec90768f4233611e84508c74',1,'AsyncCommandProcessor::screenOutputLock()'],['../class_command_processor_instance.html#a823a525f6c3149f0dd089eb35bf4e77b',1,'CommandProcessorInstance::screenOutputLock()'],['../otus__hw__11__test_8cpp.html#a1722e66635c6d3280c9260bc386d68d2',1,'screenOutputLock():&#160;otus_hw_11_test.cpp']]],
+  ['screenoutputlock',['screenOutputLock',['../class_async_command_processor.html#a8c897327ecfad1caa631951909e76750',1,'AsyncCommandProcessor::screenOutputLock()'],['../class_command_processor_instance.html#a6c5f98d561daa0283c0dda46019b5bd7',1,'CommandProcessorInstance::screenOutputLock()'],['../otus__hw__11__test_8cpp.html#a1d18a96ecd071760446791dce0c49ebc',1,'screenOutputLock():&#160;otus_hw_11_test.cpp']]],
   ['sendcurrentbulk',['sendCurrentBulk',['../class_input_processor.html#ab9a64f2a71dcc0d0706fa287ce24afda',1,'InputProcessor']]],
   ['sendmessage',['sendMessage',['../class_message_broadcaster.html#ae8e7f93dbbcf8cc1c62574ca6b71f2f8',1,'MessageBroadcaster']]],
   ['sharedglobalmetrics',['SharedGlobalMetrics',['../thread__metrics_8h.html#ac1589e063b43543469fafabc05566bcc',1,'thread_metrics.h']]],
@@ -11,7 +11,7 @@ var searchData=
   ['shouldexit',['shouldExit',['../class_async_worker.html#ad9ddf369aab8745b691ba4f24676c88f',1,'AsyncWorker::shouldExit()'],['../class_command_processor_instance.html#ae934fb344a66f329340d431ca66a2b55',1,'CommandProcessorInstance::shouldExit()']]],
   ['sizestringbuffer',['SizeStringBuffer',['../smart__buffer__mt_8h.html#a5361e213eca45e3808a2b9a17da84cf9',1,'smart_buffer_mt.h']]],
   ['smart_5fbuffer_5fmt_2eh',['smart_buffer_mt.h',['../smart__buffer__mt_8h.html',1,'']]],
-  ['smartbuffer',['SmartBuffer',['../class_smart_buffer.html',1,'SmartBuffer&lt; T &gt;'],['../class_smart_buffer.html#aa50c10adc256c135c3d38068be132900',1,'SmartBuffer::SmartBuffer()=delete'],['../class_smart_buffer.html#a65f8e736c96b7f63ec7e75c8809d99cd',1,'SmartBuffer::SmartBuffer(const std::string &amp;newWorkerName, std::ostream &amp;newErrorOut, std::mutex &amp;newErrorOutLock)']]],
+  ['smartbuffer',['SmartBuffer',['../class_smart_buffer.html',1,'SmartBuffer&lt; T &gt;'],['../class_smart_buffer.html#aa50c10adc256c135c3d38068be132900',1,'SmartBuffer::SmartBuffer()=delete'],['../class_smart_buffer.html#ade03c4342714edcdc591700f181ac481',1,'SmartBuffer::SmartBuffer(const std::string &amp;newWorkerName, std::ostream &amp;newErrorOut, std::shared_ptr&lt; std::mutex &gt; newErrorOutLock)']]],
   ['sourcenullptr',['SourceNullptr',['../broadcasters_8h.html#aff97733e4706e994965da50c70605422a122426765eac9bdb79f0a1529e376d2d',1,'broadcasters.h']]],
   ['start',['start',['../class_async_worker.html#af2738e0f1dc1e7a5ede443d23b5c72c9',1,'AsyncWorker']]],
   ['startandwait',['startAndWait',['../class_async_worker.html#aaf5e90ed5b8bd1e466fac083b2f60bf9',1,'AsyncWorker']]],

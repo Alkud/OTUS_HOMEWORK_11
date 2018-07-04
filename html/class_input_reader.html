@@ -122,8 +122,8 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae9af5660c893ffff136abcb0c07b8738"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_input_reader.html#ae9af5660c893ffff136abcb0c07b8738">InputReader</a> (const std::string &amp;newWorkerName, const std::shared_ptr&lt; <a class="el" href="class_input_reader.html#a5ca0cd5bcedd1edac47b2df5f07d01d6">InputBufferType</a> &gt; &amp;newInputBuffer, const <a class="el" href="smart__buffer__mt_8h.html#ac3089a6c099deb305c66a331430bafc6">SharedStringBuffer</a> &amp;newOutputBuffer, std::ostream &amp;newErrorOut, std::mutex &amp;newErrorOutLock)</td></tr>
-<tr class="separator:ae9af5660c893ffff136abcb0c07b8738"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab330bc97b06ef84efbf7f7b9caaf3d81"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_input_reader.html#ab330bc97b06ef84efbf7f7b9caaf3d81">InputReader</a> (const std::string &amp;newWorkerName, const std::shared_ptr&lt; <a class="el" href="class_input_reader.html#a5ca0cd5bcedd1edac47b2df5f07d01d6">InputBufferType</a> &gt; &amp;newInputBuffer, const <a class="el" href="smart__buffer__mt_8h.html#ac3089a6c099deb305c66a331430bafc6">SharedStringBuffer</a> &amp;newOutputBuffer, std::ostream &amp;newErrorOut, std::shared_ptr&lt; std::mutex &gt; newErrorOutLock)</td></tr>
+<tr class="separator:ab330bc97b06ef84efbf7f7b9caaf3d81"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a38875ce3bae818dd0836da36fb7ea891"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_input_reader.html#a38875ce3bae818dd0836da36fb7ea891">~InputReader</a> ()</td></tr>
 <tr class="separator:a38875ce3bae818dd0836da36fb7ea891"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace0f23343c941dd770865d28a016cec3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_input_reader.html#ace0f23343c941dd770865d28a016cec3">reactMessage</a> (<a class="el" href="class_message_broadcaster.html">MessageBroadcaster</a> *sender, <a class="el" href="broadcasters_8h.html#aff97733e4706e994965da50c70605422">Message</a> message) override</td></tr>
@@ -192,8 +192,8 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a1c6b2e61f3eabaa63ef843ba7bb97b98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ab9d8c841a643f6438ea08cf537621b"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_input_reader.html#a0ab9d8c841a643f6438ea08cf537621b">errorOut</a></td></tr>
 <tr class="separator:a0ab9d8c841a643f6438ea08cf537621b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af307c918591eed5db62575b972cf00c7"><td class="memItemLeft" align="right" valign="top">std::mutex &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_input_reader.html#af307c918591eed5db62575b972cf00c7">errorOutLock</a></td></tr>
-<tr class="separator:af307c918591eed5db62575b972cf00c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b2decf66c79e9e35fd7b9491a6ad793"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; std::mutex &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_input_reader.html#a3b2decf66c79e9e35fd7b9491a6ad793">errorOutLock</a></td></tr>
+<tr class="separator:a3b2decf66c79e9e35fd7b9491a6ad793"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc7ade8d8f386722c0a0df1324b61a0b"><td class="memItemLeft" align="right" valign="top">std::stringstream&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_input_reader.html#adc7ade8d8f386722c0a0df1324b61a0b">tempBuffer</a></td></tr>
 <tr class="separator:adc7ade8d8f386722c0a0df1324b61a0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afc2e35a16dac62683cac011ab57c919a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="thread__metrics_8h.html#a7c05dd501440a173e68ec65d91beb76d">SharedMetrics</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_input_reader.html#afc2e35a16dac62683cac011ab57c919a">threadMetrics</a></td></tr>
@@ -282,7 +282,7 @@ workingThreadCount &gt;&#160;</td><td class="memItemRight" valign="bottom"><a cl
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="ae9af5660c893ffff136abcb0c07b8738"></a>
+<a class="anchor" id="ab330bc97b06ef84efbf7f7b9caaf3d81"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -313,7 +313,7 @@ workingThreadCount &gt;&#160;</td><td class="memItemRight" valign="bottom"><a cl
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::mutex &amp;&#160;</td>
+          <td class="paramtype">std::shared_ptr&lt; std::mutex &gt;&#160;</td>
           <td class="paramname"><em>newErrorOutLock</em>&#160;</td>
         </tr>
         <tr>
@@ -590,7 +590,7 @@ workingThreadCount &gt;&#160;</td><td class="memItemRight" valign="bottom"><a cl
 
 </div>
 </div>
-<a class="anchor" id="af307c918591eed5db62575b972cf00c7"></a>
+<a class="anchor" id="a3b2decf66c79e9e35fd7b9491a6ad793"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -598,7 +598,7 @@ workingThreadCount &gt;&#160;</td><td class="memItemRight" valign="bottom"><a cl
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::mutex&amp; InputReader::errorOutLock</td>
+          <td class="memname">std::shared_ptr&lt;std::mutex&gt; InputReader::errorOutLock</td>
         </tr>
       </table>
   </td>

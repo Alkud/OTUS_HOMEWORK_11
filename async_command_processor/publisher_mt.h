@@ -22,8 +22,8 @@ public:
 
   Publisher(const std::string& newWorkerName,
             const SharedSizeStringBuffer& newBuffer,
-            std::ostream& newOutput, std::mutex& newOutpuLock,
-            std::ostream& newErrorOut, std::mutex& newErrorOutLock);
+            std::ostream& newOutput, std::shared_ptr<std::mutex> newOutpuLock,
+            std::ostream& newErrorOut, std::shared_ptr<std::mutex> newErrorOutLock);
 
   ~Publisher();
 
@@ -43,10 +43,10 @@ private:
 
   SharedSizeStringBuffer buffer;
   std::ostream& output;
-  std::mutex& outputLock;
+  std::shared_ptr<std::mutex> outputLock;
 
   std::ostream& errorOut;
-  std::mutex& errorOutLock;
+  std::shared_ptr<std::mutex> errorOutLock;
 
   SharedMetrics threadMetrics;
 
