@@ -26,7 +26,7 @@ public:
                  const char newBulkCloseDelimiter,
                  const SharedStringBuffer& newInputBuffer,
                  const SharedSizeStringBuffer& newOutputBuffer,
-                 std::ostream& newErrorOut, std::shared_ptr<std::mutex> newErrorOutLock);
+                 std::ostream& newErrorOut, std::mutex& newErrorOutLock);
 
   ~InputProcessor();
 
@@ -62,7 +62,7 @@ private:
   std::chrono::time_point<std::chrono::system_clock> bulkStartTime;
 
   std::ostream& errorOut;
-  std::shared_ptr<std::mutex> errorOutLock;
+  std::mutex& errorOutLock;
 
   SharedMetrics threadMetrics;
 

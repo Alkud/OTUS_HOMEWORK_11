@@ -31,7 +31,7 @@ public:
   InputReader(const std::string& newWorkerName,
               const std::shared_ptr<InputBufferType>& newInputBuffer,
               const SharedStringBuffer& newOutputBuffer,
-              std::ostream& newErrorOut, std::shared_ptr<std::mutex> newErrorOutLock);
+              std::ostream& newErrorOut, std::mutex& newErrorOutLock);
 
   ~InputReader();
 
@@ -55,7 +55,7 @@ private:
   std::shared_ptr<OutputBufferType> outputBuffer;
 
   std::ostream& errorOut;
-  std::shared_ptr<std::mutex> errorOutLock;
+  std::mutex& errorOutLock;
 
   std::stringstream tempBuffer;
 

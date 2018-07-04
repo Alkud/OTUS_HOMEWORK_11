@@ -16,7 +16,7 @@ class AsyncCommandProcessor : public MessageBroadcaster
 {
 public:
 
-static std::shared_ptr<std::mutex> screenOutputLock;
+static std::mutex screenOutputLock;
 
   AsyncCommandProcessor(      
       const size_t newBulkSize = 3,
@@ -56,6 +56,7 @@ static std::shared_ptr<std::mutex> screenOutputLock;
 
   ~AsyncCommandProcessor()
   {
+    sendMessage(Message::NoMoreData);
     if (workingThread.joinable() == true)
     {
       workingThread.join();
@@ -90,7 +91,7 @@ static std::shared_ptr<std::mutex> screenOutputLock;
     }
     catch (const std::exception& ex)
     {
-      std::lock_guard<std::mutex> lockOutput{*screenOutputLock};
+      std::lock_guard<std::mutex> lockOutput{screenOutputLock};
 
       errorStream << "Connection failed. Reason: " << ex.what() << std::endl;
       return false;
@@ -107,7 +108,7 @@ static std::shared_ptr<std::mutex> screenOutputLock;
      }
 
      /* Output metrics */
-     std::lock_guard<std::mutex> lockOutput{*screenOutputLock};
+     std::lock_guard<std::mutex> lockOutput{screenOutputLock};
 
      metricsStream << "total received - "
                    << metrics["input reader"]->totalReceptionCount << " data chunk(s), "
@@ -139,11 +140,11 @@ static std::shared_ptr<std::mutex> screenOutputLock;
       return;
     }
 
-    //std::cout << "\nreceive try lock. thread id:" << std::this_thread::get_id() << std::endl;
+//    std::cout << "\nreceive try lock. thread id:" << std::this_thread::get_id() << std::endl;
 
-    //std::lock_guard<std::mutex> lockAccess{accessLock};
+//    std::lock_guard<std::mutex> lockAccess{accessLock};
 
-    //std::cout << "\nreceive locked. thread id:" << std::this_thread::get_id() << std::endl;
+//    std::cout << "\nreceive locked. thread id:" << std::this_thread::get_id() << std::endl;
 
     if (isDisconnected.load() == true)
     {
@@ -207,7 +208,7 @@ static std::shared_ptr<std::mutex> screenOutputLock;
     return metrics;
   }
 
-  std::shared_ptr<std::mutex> getScreenOutputLock()
+  std::mutex& getScreenOutputLock()
   { return screenOutputLock;}
 
 private:
@@ -236,5 +237,4 @@ private:
 };
 
 template <size_t loggingThreadCount>
-std::shared_ptr<std::mutex>
-AsyncCommandProcessor<loggingThreadCount>::screenOutputLock{ new std::mutex() };
+std::mutex AsyncCommandProcessor<loggingThreadCount>::screenOutputLock{};

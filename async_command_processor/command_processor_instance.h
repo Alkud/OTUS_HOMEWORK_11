@@ -29,7 +29,7 @@ public:
     std::ostream& outputStream,
     std::ostream& errorStream,
     std::ostream& metricsStream,
-    std::shared_ptr<std::mutex> newScreenOutputLock
+    std::mutex& newScreenOutputLock
   ) :
     screenOutputLock{newScreenOutputLock},
     /* creating buffers */
@@ -263,7 +263,7 @@ public:
 
 
 private:
-  std::shared_ptr<std::mutex> screenOutputLock;
+  std::mutex& screenOutputLock;
 
   std::shared_ptr<InputReader::InputBufferType> externalBuffer;
   std::shared_ptr<InputProcessor::InputBufferType> inputBuffer;
