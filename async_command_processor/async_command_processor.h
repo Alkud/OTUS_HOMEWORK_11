@@ -158,9 +158,6 @@ static std::mutex screenOutputLock;
       std::cout << "                                receiving started\n";
     }
 
-    lockAccess.unlock();
-
-
     if (entryPoint != nullptr)
     {
       InputReader::EntryDataType newData{};
@@ -170,6 +167,8 @@ static std::mutex screenOutputLock;
       }
       entryPoint->putItem(std::move(newData));
     }
+
+    lockAccess.unlock();
 
     isReceiving.store(false);
     accessNotifier.notify_all();
