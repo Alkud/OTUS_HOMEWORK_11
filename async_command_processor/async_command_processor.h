@@ -234,10 +234,11 @@ static std::mutex screenOutputLock;
     {
       std::unique_lock<std::mutex> lockAccess{accessLock};
 
+      std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
+      std::cout << "                                waiting receiving termination\n";
+
       accessNotifier.wait_for(lockAccess, 100ms, [this]()
       {
-         std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
-         std::cout << "                                waiting receiving termination\n";
          return receiving.load() == false;
        });
     }
