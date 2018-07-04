@@ -86,6 +86,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_async_command_processor-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -111,8 +112,8 @@ Collaboration diagram for AsyncCommandProcessor&lt; loggingThreadCount &gt;:</di
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a7079016604c18a712837d6c3f850c124"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_async_command_processor.html#a7079016604c18a712837d6c3f850c124">AsyncCommandProcessor</a> (std::shared_ptr&lt; std::mutex &gt; newScreenOutputLock, const size_t newBulkSize=3, const char newBulkOpenDelimiter= '{', const char newBulkCloseDelimiter= '}', std::ostream &amp;newOutputStream=std::cout, std::ostream &amp;newErrorStream=std::cerr, std::ostream &amp;newMetricsStream=std::cout)</td></tr>
-<tr class="separator:a7079016604c18a712837d6c3f850c124"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24bdba2255f83c22205f736aaf43e594"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_async_command_processor.html#a24bdba2255f83c22205f736aaf43e594">AsyncCommandProcessor</a> (const size_t newBulkSize=3, const char newBulkOpenDelimiter= '{', const char newBulkCloseDelimiter= '}', std::ostream &amp;newOutputStream=std::cout, std::ostream &amp;newErrorStream=std::cerr, std::ostream &amp;newMetricsStream=std::cout)</td></tr>
+<tr class="separator:a24bdba2255f83c22205f736aaf43e594"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8cf94a4106c01afae0a96ef507da99b1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_async_command_processor.html#a8cf94a4106c01afae0a96ef507da99b1">~AsyncCommandProcessor</a> ()</td></tr>
 <tr class="separator:a8cf94a4106c01afae0a96ef507da99b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a62c70309627d2b3bdb2f202c86bd39b8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_async_command_processor.html#a62c70309627d2b3bdb2f202c86bd39b8">connect</a> (const bool outputMetrics=false) noexcept</td></tr>
@@ -131,8 +132,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:adcd6b6d47f9da5b0e96c6d736d1fe5f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab85bdc657292dbc17e9915408a685c66"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="thread__metrics_8h.html#ac1589e063b43543469fafabc05566bcc">SharedGlobalMetrics</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_async_command_processor.html#ab85bdc657292dbc17e9915408a685c66">getMetrics</a> ()</td></tr>
 <tr class="separator:ab85bdc657292dbc17e9915408a685c66"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3911bd561b08aa8430cd6c6707e6e942"><td class="memItemLeft" align="right" valign="top">std::mutex &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_async_command_processor.html#a3911bd561b08aa8430cd6c6707e6e942">getScreenOutputLock</a> ()</td></tr>
-<tr class="separator:a3911bd561b08aa8430cd6c6707e6e942"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac89bb095fdbfe11dcbe6a34b1d2235cf"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; std::mutex &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_async_command_processor.html#ac89bb095fdbfe11dcbe6a34b1d2235cf">getScreenOutputLock</a> ()</td></tr>
+<tr class="separator:ac89bb095fdbfe11dcbe6a34b1d2235cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_message_broadcaster"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_message_broadcaster')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_message_broadcaster.html">MessageBroadcaster</a></td></tr>
 <tr class="memitem:a233b4bf529f9ba2b4c58a35134b3f64c inherit pub_methods_class_message_broadcaster"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_message_broadcaster.html#a233b4bf529f9ba2b4c58a35134b3f64c">~MessageBroadcaster</a> ()</td></tr>
 <tr class="separator:a233b4bf529f9ba2b4c58a35134b3f64c inherit pub_methods_class_message_broadcaster"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -149,10 +150,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a72bdc718a0558928fcb918399369dd80 inherit pub_methods_class_message_broadcaster"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove all listenenrs from the list.  <a href="#a72bdc718a0558928fcb918399369dd80">More...</a><br/></td></tr>
 <tr class="separator:a72bdc718a0558928fcb918399369dd80 inherit pub_methods_class_message_broadcaster"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:adf75a16fda6ad5ba2b8965628c8694b4"><td class="memItemLeft" align="right" valign="top">static std::shared_ptr<br class="typebreak"/>
+&lt; std::mutex &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_async_command_processor.html#adf75a16fda6ad5ba2b8965628c8694b4">screenOutputLock</a> { new std::mutex{} }</td></tr>
+<tr class="separator:adf75a16fda6ad5ba2b8965628c8694b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a8c897327ecfad1caa631951909e76750"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; std::mutex &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_async_command_processor.html#a8c897327ecfad1caa631951909e76750">screenOutputLock</a></td></tr>
-<tr class="separator:a8c897327ecfad1caa631951909e76750"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a9b09cba6fd49b3d104dbb4dba43184"><td class="memItemLeft" align="right" valign="top">const size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_async_command_processor.html#a2a9b09cba6fd49b3d104dbb4dba43184">bulkSize</a></td></tr>
 <tr class="separator:a2a9b09cba6fd49b3d104dbb4dba43184"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a199d2be134a247e247c1d9c5438aa38c"><td class="memItemLeft" align="right" valign="top">const char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_async_command_processor.html#a199d2be134a247e247c1d9c5438aa38c">bulkOpenDelimiter</a></td></tr>
@@ -198,7 +203,7 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:a95a811516fbd1370acf7335b1c663fb8 inherit pro_attribs_class_message_broadcaster"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a7079016604c18a712837d6c3f850c124"></a>
+<a class="anchor" id="a24bdba2255f83c22205f736aaf43e594"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -210,12 +215,6 @@ template&lt;size_t loggingThreadCount = 2u&gt; </div>
         <tr>
           <td class="memname"><a class="el" href="class_async_command_processor.html">AsyncCommandProcessor</a>&lt; loggingThreadCount &gt;::<a class="el" href="class_async_command_processor.html">AsyncCommandProcessor</a> </td>
           <td>(</td>
-          <td class="paramtype">std::shared_ptr&lt; std::mutex &gt;&#160;</td>
-          <td class="paramname"><em>newScreenOutputLock</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">const size_t&#160;</td>
           <td class="paramname"><em>newBulkSize</em> = <code>3</code>, </td>
         </tr>
@@ -416,7 +415,7 @@ template&lt;size_t loggingThreadCount = 2u&gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a3911bd561b08aa8430cd6c6707e6e942"></a>
+<a class="anchor" id="ac89bb095fdbfe11dcbe6a34b1d2235cf"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -426,7 +425,7 @@ template&lt;size_t loggingThreadCount = 2u&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::mutex&amp; <a class="el" href="class_async_command_processor.html">AsyncCommandProcessor</a>&lt; loggingThreadCount &gt;::getScreenOutputLock </td>
+          <td class="memname">std::shared_ptr&lt;std::mutex&gt; <a class="el" href="class_async_command_processor.html">AsyncCommandProcessor</a>&lt; loggingThreadCount &gt;::getScreenOutputLock </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -790,7 +789,7 @@ template&lt;size_t loggingThreadCount = 2u&gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a8c897327ecfad1caa631951909e76750"></a>
+<a class="anchor" id="adf75a16fda6ad5ba2b8965628c8694b4"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -800,12 +799,12 @@ template&lt;size_t loggingThreadCount = 2u&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::shared_ptr&lt;std::mutex&gt; <a class="el" href="class_async_command_processor.html">AsyncCommandProcessor</a>&lt; loggingThreadCount &gt;::screenOutputLock</td>
+          <td class="memname">std::shared_ptr&lt; std::mutex &gt; <a class="el" href="class_async_command_processor.html">AsyncCommandProcessor</a>&lt; loggingThreadCount &gt;::screenOutputLock { new std::mutex{} }</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

@@ -5,12 +5,6 @@
 #include <mutex>
 #include <memory>
 
-namespace async{
-
-  static std::shared_ptr<std::mutex> outputLock{ new std::mutex{} };
-
-}
-
 
 async::handle_t async::connect(std::size_t bulk)
 {
@@ -20,7 +14,7 @@ async::handle_t async::connect(std::size_t bulk)
   }
 
   auto newCommandProcessor {new AsyncCommandProcessor<2>(
-      async::outputLock, bulk, '{', '}', std::cout, std::cerr, std::cout
+      bulk, '{', '}', std::cout, std::cerr, std::cout
     )
   };
 

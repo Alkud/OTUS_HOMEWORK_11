@@ -22,7 +22,6 @@ enum class DebugOutput
   debug_off
 };
 
-std::shared_ptr<std::mutex> screenOutputLock{new std::mutex {}};
 
 /* Helper functions */
 std::array<std::vector<std::string>, 3>
@@ -43,7 +42,7 @@ getProcessorOutput
 
   {
     AsyncCommandProcessor<2> testProcessor {
-      screenOutputLock, bulkSize, openDelimiter, closeDelimiter,
+      bulkSize, openDelimiter, closeDelimiter,
       outputStream, errorStream, metricsStream
     };
 
@@ -87,7 +86,7 @@ mockConnect(
 )
 {
   auto newCommandProcessor {new AsyncCommandProcessor<2>(
-      screenOutputLock, bulkSize, '{', '}', outputStream, errorStream
+      bulkSize, '{', '}', outputStream, errorStream
     )
   };
 
