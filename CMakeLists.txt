@@ -65,12 +65,12 @@ set_target_properties(test4
 )
 
 #Link
-target_link_libraries(bulkasync pthread async)
+target_link_libraries(bulkasync async)
 
-target_link_libraries(otus_hw_11_test pthread async)
+target_link_libraries(otus_hw_11_test async)
 
 target_link_libraries(otus_hw_11_test
                       ${Boost_LIBRARIES})
 
-target_link_libraries(test4 pthread async)
+target_link_libraries(test4 async)
 
