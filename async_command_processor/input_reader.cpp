@@ -118,7 +118,7 @@ bool InputReader::threadProcess(const size_t)
 void InputReader::onThreadException(const std::exception& ex, const size_t threadIndex)
 {
   {
-    //std::lock_guard<std::mutex> lockErrorOut{*errorOutLock};
+    std::lock_guard<std::mutex> lockErrorOut{*errorOutLock};
     errorOut << this->workerName << " thread #" << threadIndex << " stopped. Reason: " << ex.what() << std::endl;
   }
 
@@ -162,7 +162,7 @@ void InputReader::putNextLine()
 
   if (nextString.size() > (size_t)InputReaderSettings::MaxInputStringSize)
   {
-    //std::lock_guard<std::mutex> lockErrorOut{*errorOutLock};
+    std::lock_guard<std::mutex> lockErrorOut{*errorOutLock};
     errorOut << "Maximum command length exceeded! String truncated";
     nextString = nextString.substr(0, (size_t)InputReaderSettings::MaxInputStringSize);
   }
