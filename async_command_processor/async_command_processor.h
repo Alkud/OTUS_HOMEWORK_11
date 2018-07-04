@@ -139,7 +139,11 @@ static std::shared_ptr<std::mutex> screenOutputLock;
       return;
     }
 
+    std::cout << "\nreceive try lock. thread id:" << std::this_thread::get_id() << std::endl;
+
     std::lock_guard<std::mutex> lockAccess{accessLock};
+
+    std::cout << "\nreceive locked. thread id:" << std::this_thread::get_id() << std::endl;
 
     if (isDisconnected)
     {
@@ -160,11 +164,17 @@ static std::shared_ptr<std::mutex> screenOutputLock;
     #else
       //std::cout << "\n                    AsyncCP received data\n";
     #endif
+
+    std::cout << "\nreceive unlock. thread id:" << std::this_thread::get_id() << std::endl;
   }
 
   void disconnect()
   {
+    std::cout << "\ndisconnect try lock. thread id:" << std::this_thread::get_id() << std::endl;
+
     std::lock_guard<std::mutex> lockAccess{accessLock};
+
+    std::cout << "\ndisconnect locked. thread id:" << std::this_thread::get_id() << std::endl;
 
     if (isDisconnected)
     {
@@ -179,6 +189,8 @@ static std::shared_ptr<std::mutex> screenOutputLock;
     #else
       //std::cout << "\n                    AsyncCP disconnect\n";
     #endif
+
+    std::cout << "\ndisconnect unlock. thread id:" << std::this_thread::get_id() << std::endl;
   }
 
   const std::shared_ptr<InputProcessor::InputBufferType>&
