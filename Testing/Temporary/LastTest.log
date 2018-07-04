@@ -1,21 +1,231 @@
-Start testing: Jul 04 10:20 UTC
+Start testing: Jul 04 10:46 UTC
 ----------------------------------------------------------
 1/1 Testing: test_hw_11
 1/1 Test: test_hw_11
 Command: "/home/travis/build/Alkud/OTUS_HOMEWORK_11/otus_hw_11_test"
 Directory: /home/travis/build/Alkud/OTUS_HOMEWORK_11
-"test_hw_11" start time: Jul 04 10:20 UTC
+"test_hw_11" start time: Jul 04 10:46 UTC
 Output:
 ----------------------------------------------------------
 Running 7 test cases...
 
+disconnect try lock. thread id:47326551018944
+
+disconnect locked. thread id:47326551018944
+
+disconnect unlock. thread id:47326551018944
+
+receive try lock. thread id:47326551018944
+
+receive locked. thread id:47326551018944
+
+receive unlock. thread id:47326551018944
+
+receive try lock. thread id:47326551018944
+
+receive locked. thread id:47326551018944
+
+receive unlock. thread id:47326551018944
+
+receive try lock. thread id:47326551018944
+
+receive locked. thread id:47326551018944
+
+receive unlock. thread id:47326551018944
+
+receive try lock. thread id:47326551018944
+
+receive locked. thread id:47326551018944
+
+receive unlock. thread id:47326551018944
+
+disconnect try lock. thread id:47326551018944
+
+disconnect locked. thread id:47326551018944
+
+disconnect unlock. thread id:47326551018944
+
+disconnect try lock. thread id:47326551018944
+
+disconnect locked. thread id:47326551018944
+
+disconnect unlock. thread id:47326551018944
+
+disconnect try lock. thread id:47326664095488
+
+disconnect locked. thread id:47326664095488
+
+disconnect unlock. thread id:47326664095488
+
+disconnect try lock. thread id:47326653589248
+
+disconnect locked. thread id:47326653589248
+
+disconnect unlock. thread id:47326653589248
+
+disconnect try lock. thread id:47326678804224
+
+disconnect locked. thread id:47326678804224
+
+disconnect unlock. thread id:47326678804224
+
+disconnect try lock. thread id:47326579996416
+
+disconnect locked. thread id:47326579996416
+
+disconnect unlock. thread id:47326579996416
+
+disconnect try lock. thread id:47326676702976
+
+disconnect locked. thread id:47326676702976
+
+disconnect unlock. thread id:47326676702976
+
+disconnect try lock. thread id:47326670399232
+
+disconnect locked. thread id:47326670399232
+
+disconnect unlock. thread id:47326670399232
+
+disconnect try lock. thread id:47326672500480
+
+disconnect locked. thread id:47326672500480
+
+disconnect unlock. thread id:47326672500480
+
+disconnect try lock. thread id:47326674601728
+
+disconnect locked. thread id:47326674601728
+
+disconnect unlock. thread id:47326674601728
+
+disconnect try lock. thread id:47326668297984
+
+disconnect locked. thread id:47326668297984
+
+disconnect unlock. thread id:47326668297984
+
+disconnect try lock. thread id:47326666196736
+
+disconnect locked. thread id:47326666196736
+
+disconnect unlock. thread id:47326666196736
+
+receive try lock. thread id:47327742170880
+
+receive locked. thread id:47327742170880
+
+receive unlock. thread id:47327742170880
+
+receive try lock. thread id:47327704348416
+
+receive locked. thread id:47327704348416
+
+receive unlock. thread id:47327704348416
+
+receive try lock. thread id:47326666196736
+
+receive locked. thread id:47326666196736
+
+receive unlock. thread id:47326666196736
+
+receive try lock. thread id:47327737968384
+
+receive locked. thread id:47327737968384
+
+receive unlock. thread id:47327737968384
+
+receive try lock. thread id:47326575793920
+
+receive locked. thread id:47326575793920
+
+receive unlock. thread id:47326575793920
+
+receive try lock. thread id:47326674601728
+
+receive locked. thread id:47326674601728
+
+receive unlock. thread id:47326674601728
+
+receive try lock. thread id:47326672500480
+
+receive locked. thread id:47326672500480
+
+receive unlock. thread id:47326672500480
+
+receive try lock. thread id:47326676702976
+
+receive locked. thread id:47326676702976
+
+receive unlock. thread id:47326676702976
+
+receive try lock. thread id:47326653589248
+
+receive locked. thread id:47326653589248
+
+receive unlock. thread id:47326653589248
+
+receive try lock. thread id:47326678804224
+
+receive locked. thread id:47326678804224
+
+receive unlock. thread id:47326678804224
+
+disconnect try lock. thread id:47326551018944
+
+disconnect locked. thread id:47326551018944
+
+disconnect unlock. thread id:47326551018944
+
+disconnect try lock. thread id:47326551018944
+
+disconnect locked. thread id:47326551018944
+
+disconnect unlock. thread id:47326551018944
+
+receive try lock. thread id:47326551018944
+
+receive locked. thread id:47326551018944
+
+receive unlock. thread id:47326551018944
+
+receive try lock. thread id:47326551018944
+
+receive locked. thread id:47326551018944
+
+receive unlock. thread id:47326551018944
+
+receive try lock. thread id:47326551018944
+
+receive locked. thread id:47326551018944
+
+receive unlock. thread id:47326551018944
+
+disconnect try lock. thread id:47326551018944
+
+disconnect locked. thread id:47326551018944
+
+disconnect unlock. thread id:47326551018944
+
+receive try lock. thread id:47326551018944
+
+receive locked. thread id:47326551018944
+
+receive unlock. thread id:47326551018944
+
+disconnect try lock. thread id:47326551018944
+
+disconnect locked. thread id:47326551018944
+
+disconnect unlock. thread id:47326551018944
+
 *** No errors detected
 <end of output>
-Test time =   1.03 sec
+Test time =   0.04 sec
 ----------------------------------------------------------
 Test Passed.
-"test_hw_11" end time: Jul 04 10:20 UTC
-"test_hw_11" time elapsed: 00:00:01
+"test_hw_11" end time: Jul 04 10:46 UTC
+"test_hw_11" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Jul 04 10:20 UTC
+End testing: Jul 04 10:46 UTC
