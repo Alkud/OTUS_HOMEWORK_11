@@ -100,9 +100,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
 <div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="namespacemy.html#af5637bab6f9559a1fc5602a628854d3d">   13</a></span>&#160;  std::atomic&lt;std::size_t&gt; <a class="code" href="namespacemy.html#af5637bab6f9559a1fc5602a628854d3d">malloc_counter</a>{0};</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="namespacemy.html#a5f6ee87e9b7809928b6d5090c87eaac2">   15</a></span>&#160;  <span class="keywordtype">void</span>* <a class="code" href="namespacemy.html#a5f6ee87e9b7809928b6d5090c87eaac2">malloc</a>(std::size_t size)  <span class="keywordflow">throw</span> (std::bad_alloc)</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="namespacemy.html#aeb38c0fd6cec5633174eef5ad233b825">   15</a></span>&#160;  <span class="keywordtype">void</span>* <a class="code" href="namespacemy.html#aeb38c0fd6cec5633174eef5ad233b825">malloc</a>(std::size_t size)  noexcept (<span class="keyword">false</span>)</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordtype">void</span>* p = <a class="code" href="namespacemy.html#a5f6ee87e9b7809928b6d5090c87eaac2">std::malloc</a>(size);</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordtype">void</span>* p = <a class="code" href="namespacemy.html#aeb38c0fd6cec5633174eef5ad233b825">std::malloc</a>(size);</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;     ++<a class="code" href="namespacemy.html#af5637bab6f9559a1fc5602a628854d3d">malloc_counter</a>;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordflow">return</span> p;</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  }</div>
@@ -118,9 +118,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">extern</span> <span class="stringliteral">&quot;C++&quot;</span> {</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="new__delete_8h.html#a97108c6955492cb802db05624a375c6e">   33</a></span>&#160;<span class="keywordtype">void</span>* <span class="keyword">operator</span> <span class="keyword">new</span>(std::size_t size) <span class="keywordflow">throw</span> (std::bad_alloc)</div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="new__delete_8h.html#af5b857eccc1f5516255e4fbb2b93ec48">   33</a></span>&#160;<span class="keywordtype">void</span>* <span class="keyword">operator</span> <span class="keyword">new</span>(std::size_t size) noexcept (<span class="keyword">false</span>)</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;{</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespacemy.html#a5f6ee87e9b7809928b6d5090c87eaac2">my::malloc</a>(size);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespacemy.html#aeb38c0fd6cec5633174eef5ad233b825">my::malloc</a>(size);</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
 <div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="new__delete_8h.html#a7988d271b794871cc241b736a115251a">   38</a></span>&#160;<span class="keywordtype">void</span> <span class="keyword">operator</span> <span class="keyword">delete</span>(<span class="keywordtype">void</span>* p) noexcept</div>
@@ -128,9 +128,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="namespacemy.html#a79d39da1eee15da92f20d4dcf6f8f873">my::free</a>(p);</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="new__delete_8h.html#ac509a5a54795a6bfc8625b2263c6e673">   43</a></span>&#160;<span class="keywordtype">void</span>* <span class="keyword">operator</span> <span class="keyword">new</span>[](std::size_t size) <span class="keywordflow">throw</span> (std::bad_alloc)</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="new__delete_8h.html#a8da7ccde55fa8d09744b11307d18df62">   43</a></span>&#160;<span class="keywordtype">void</span>* <span class="keyword">operator</span> <span class="keyword">new</span>[](std::size_t size) noexcept (<span class="keyword">false</span>)</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;{</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespacemy.html#a5f6ee87e9b7809928b6d5090c87eaac2">my::malloc</a>(size);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespacemy.html#aeb38c0fd6cec5633174eef5ad233b825">my::malloc</a>(size);</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
 <div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="new__delete_8h.html#aaa8d8403dca7d813a59dd1f07728349d">   48</a></span>&#160;<span class="keywordtype">void</span> <span class="keyword">operator</span> <span class="keyword">delete</span>[](<span class="keywordtype">void</span>* p) <span class="keywordflow">throw</span>()</div>
@@ -140,7 +140,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
 <div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="new__delete_8h.html#ad36796d7a5704dbb614a1eb59bf534ec">   53</a></span>&#160;<span class="keywordtype">void</span>* <span class="keyword">operator</span> <span class="keyword">new</span>(std::size_t size, <span class="keyword">const</span> std::nothrow_t&amp;) noexcept</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;{</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespacemy.html#a5f6ee87e9b7809928b6d5090c87eaac2">my::malloc</a>(size);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespacemy.html#aeb38c0fd6cec5633174eef5ad233b825">my::malloc</a>(size);</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
 <div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="new__delete_8h.html#a473db4d90615727c6651d3b010649da4">   58</a></span>&#160;<span class="keywordtype">void</span> <span class="keyword">operator</span> <span class="keyword">delete</span>(<span class="keywordtype">void</span>* p, <span class="keyword">const</span> std::nothrow_t&amp;) noexcept</div>
@@ -150,7 +150,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
 <div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="new__delete_8h.html#abf381244b4f42034fe8276d7286e4c5c">   63</a></span>&#160;<span class="keywordtype">void</span>* <span class="keyword">operator</span> <span class="keyword">new</span>[](std::size_t size, <span class="keyword">const</span> std::nothrow_t&amp;) noexcept</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;{</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespacemy.html#a5f6ee87e9b7809928b6d5090c87eaac2">my::malloc</a>(size);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="namespacemy.html#aeb38c0fd6cec5633174eef5ad233b825">my::malloc</a>(size);</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
 <div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="new__delete_8h.html#a683e9588d202e2b392682bd06edc7d65">   68</a></span>&#160;<span class="keywordtype">void</span> <span class="keyword">operator</span> <span class="keyword">delete</span>[](<span class="keywordtype">void</span>* p, <span class="keyword">const</span> std::nothrow_t&amp;) noexcept</div>
@@ -172,7 +172,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="ttc" id="namespacemy_html_adae23672df76cb44e4f8116d6a8a8af3"><div class="ttname"><a href="namespacemy.html#adae23672df76cb44e4f8116d6a8a8af3">my::free_counter</a></div><div class="ttdeci">std::atomic&lt; std::size_t &gt; free_counter</div><div class="ttdef"><b>Definition:</b> new_delete.h:11</div></div>
 <div class="ttc" id="namespacemy_html_a79d39da1eee15da92f20d4dcf6f8f873"><div class="ttname"><a href="namespacemy.html#a79d39da1eee15da92f20d4dcf6f8f873">my::free</a></div><div class="ttdeci">void free(void *p) noexcept</div><div class="ttdef"><b>Definition:</b> new_delete.h:22</div></div>
 <div class="ttc" id="namespacemy_html_af5637bab6f9559a1fc5602a628854d3d"><div class="ttname"><a href="namespacemy.html#af5637bab6f9559a1fc5602a628854d3d">my::malloc_counter</a></div><div class="ttdeci">std::atomic&lt; std::size_t &gt; malloc_counter</div><div class="ttdef"><b>Definition:</b> new_delete.h:13</div></div>
-<div class="ttc" id="namespacemy_html_a5f6ee87e9b7809928b6d5090c87eaac2"><div class="ttname"><a href="namespacemy.html#a5f6ee87e9b7809928b6d5090c87eaac2">my::malloc</a></div><div class="ttdeci">void * malloc(std::size_t size)</div><div class="ttdef"><b>Definition:</b> new_delete.h:15</div></div>
+<div class="ttc" id="namespacemy_html_aeb38c0fd6cec5633174eef5ad233b825"><div class="ttname"><a href="namespacemy.html#aeb38c0fd6cec5633174eef5ad233b825">my::malloc</a></div><div class="ttdeci">void * malloc(std::size_t size) noexcept(false)</div><div class="ttdef"><b>Definition:</b> new_delete.h:15</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

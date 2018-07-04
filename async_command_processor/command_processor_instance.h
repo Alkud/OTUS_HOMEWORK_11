@@ -67,8 +67,13 @@ public:
       errorStream, screenOutputLock
     )},
 
+    inputStreamLock{}, outputStreamLock{},
+
     dataReceived{false}, dataPublished{false},
     dataLogged{false}, shouldExit{false},
+
+    terminationNotifier{}, notifierLock{},
+
     errorOut{errorStream}, metricsOut{metricsStream}, globalMetrics{}
   {
     /* connect broadcasters and listeners */
@@ -262,21 +267,21 @@ private:
 
   std::shared_ptr<InputReader::InputBufferType> externalBuffer;
   std::shared_ptr<InputProcessor::InputBufferType> inputBuffer;
-  std::shared_ptr<InputProcessor::OutputBufferType> outputBuffer;
-  std::shared_ptr<InputReader> inputReader;
+  std::shared_ptr<InputProcessor::OutputBufferType> outputBuffer;  
   std::shared_ptr<Logger<loggingThreadCount>> logger;
   std::shared_ptr<Publisher> publisher;
   std::shared_ptr<InputProcessor> inputProcessor;
+  std::shared_ptr<InputReader> inputReader;
 
-  std::mutex inputStreamLock{};
-  std::mutex outputStreamLock{};
+  std::mutex inputStreamLock;
+  std::mutex outputStreamLock;
 
   std::atomic_bool dataReceived;
   std::atomic_bool dataPublished;
   std::atomic_bool dataLogged;
   std::atomic_bool shouldExit;
 
-  std::condition_variable terminationNotifier{};
+  std::condition_variable terminationNotifier;
   std::mutex notifierLock;
 
   std::ostream& errorOut;

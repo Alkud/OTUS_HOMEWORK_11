@@ -51,7 +51,7 @@ void InputProcessor::reactNotification(NotificationBroadcaster* sender)
   }
 }
 
-void InputProcessor::reactMessage(MessageBroadcaster* sender, Message message)
+void InputProcessor::reactMessage(MessageBroadcaster*, Message message)
 {
   if (messageCode(message) < 1000) // non error message
   {
@@ -91,7 +91,7 @@ WorkerState InputProcessor::getWorkerState()
   return state;
 }
 
-bool InputProcessor::threadProcess(const size_t threadIndex)
+bool InputProcessor::threadProcess(const size_t)
 {
   if (nullptr == inputBuffer)
   {
@@ -159,6 +159,8 @@ bool InputProcessor::threadProcess(const size_t threadIndex)
      sendCurrentBulk();
    }
   }
+
+  return true;
 }
 
 void InputProcessor::onThreadException(const std::exception& ex, const size_t threadIndex)
@@ -168,7 +170,7 @@ void InputProcessor::onThreadException(const std::exception& ex, const size_t th
     errorOut << this->workerName << " thread #" << threadIndex << " stopped. Reason: " << ex.what() << std::endl;
   }
 
-  if (ex.what() == "Buffer is empty!")
+  if (ex.what() == std::string{"Buffer is empty!"})
   {
     errorMessage = Message::BufferEmpty;
   }
@@ -180,7 +182,7 @@ void InputProcessor::onThreadException(const std::exception& ex, const size_t th
   sendMessage(errorMessage);
 }
 
-void InputProcessor::onTermination(const size_t threadIndex)
+void InputProcessor::onTermination(const size_t)
 {
   if (customBulkStarted != true)
   {

@@ -119,16 +119,16 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a5f6ee87e9b7809928b6d5090c87eaac2"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemy.html#a5f6ee87e9b7809928b6d5090c87eaac2">my::malloc</a> (std::size_t size)  throw (std::bad_alloc)</td></tr>
-<tr class="separator:a5f6ee87e9b7809928b6d5090c87eaac2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb38c0fd6cec5633174eef5ad233b825"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemy.html#aeb38c0fd6cec5633174eef5ad233b825">my::malloc</a> (std::size_t size) noexcept(false)</td></tr>
+<tr class="separator:aeb38c0fd6cec5633174eef5ad233b825"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79d39da1eee15da92f20d4dcf6f8f873"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemy.html#a79d39da1eee15da92f20d4dcf6f8f873">my::free</a> (void *p) noexcept</td></tr>
 <tr class="separator:a79d39da1eee15da92f20d4dcf6f8f873"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97108c6955492cb802db05624a375c6e"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="new__delete_8h.html#a97108c6955492cb802db05624a375c6e">operator new</a> (std::size_t size)  throw (std::bad_alloc)</td></tr>
-<tr class="separator:a97108c6955492cb802db05624a375c6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5b857eccc1f5516255e4fbb2b93ec48"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="new__delete_8h.html#af5b857eccc1f5516255e4fbb2b93ec48">operator new</a> (std::size_t size) noexcept(false)</td></tr>
+<tr class="separator:af5b857eccc1f5516255e4fbb2b93ec48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7988d271b794871cc241b736a115251a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="new__delete_8h.html#a7988d271b794871cc241b736a115251a">operator delete</a> (void *p) noexcept</td></tr>
 <tr class="separator:a7988d271b794871cc241b736a115251a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac509a5a54795a6bfc8625b2263c6e673"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="new__delete_8h.html#ac509a5a54795a6bfc8625b2263c6e673">operator new[]</a> (std::size_t size)  throw (std::bad_alloc)</td></tr>
-<tr class="separator:ac509a5a54795a6bfc8625b2263c6e673"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8da7ccde55fa8d09744b11307d18df62"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="new__delete_8h.html#a8da7ccde55fa8d09744b11307d18df62">operator new[]</a> (std::size_t size) noexcept(false)</td></tr>
+<tr class="separator:a8da7ccde55fa8d09744b11307d18df62"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaa8d8403dca7d813a59dd1f07728349d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="new__delete_8h.html#aaa8d8403dca7d813a59dd1f07728349d">operator delete[]</a> (void *p)  throw ()</td></tr>
 <tr class="separator:aaa8d8403dca7d813a59dd1f07728349d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad36796d7a5704dbb614a1eb59bf534ec"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="new__delete_8h.html#ad36796d7a5704dbb614a1eb59bf534ec">operator new</a> (std::size_t size, const std::nothrow_t &amp;) noexcept</td></tr>
@@ -334,9 +334,12 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a97108c6955492cb802db05624a375c6e"></a>
+<a class="anchor" id="af5b857eccc1f5516255e4fbb2b93ec48"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void* operator new </td>
@@ -345,13 +348,12 @@ Variables</h2></td></tr>
           <td class="paramname"><em>size</em></td><td>)</td>
           <td></td>
         </tr>
-        <tr>
-          <td align="right">throw </td><td>(</td><td colspan="2">std::bad_alloc</td>
-        </tr>
-        <tr>
-          <td align="right"></td><td>)</td><td></td><td></td>
-        </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -390,9 +392,12 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ac509a5a54795a6bfc8625b2263c6e673"></a>
+<a class="anchor" id="a8da7ccde55fa8d09744b11307d18df62"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void* operator new[] </td>
@@ -401,13 +406,12 @@ Variables</h2></td></tr>
           <td class="paramname"><em>size</em></td><td>)</td>
           <td></td>
         </tr>
-        <tr>
-          <td align="right">throw </td><td>(</td><td colspan="2">std::bad_alloc</td>
-        </tr>
-        <tr>
-          <td align="right"></td><td>)</td><td></td><td></td>
-        </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
