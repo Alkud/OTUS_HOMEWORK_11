@@ -113,7 +113,7 @@ public:
     terminationNotifier.notify_all();
   }
 
-  void reactMessage(MessageBroadcaster* sender, Message message)
+  void reactMessage(MessageBroadcaster* /*sender*/, Message message)
   {
     if (messageCode(message) < 1000) // non error message
     {
