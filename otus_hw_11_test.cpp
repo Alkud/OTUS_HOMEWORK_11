@@ -5,6 +5,7 @@
 #include <boost/test/unit_test.hpp>
 #include "homework_11.h"
 #include "./async_command_processor/async.h"
+#include "./async_command_processor/async_command_processor.h"
 #include "new_delete.h"
 
 #include <string>

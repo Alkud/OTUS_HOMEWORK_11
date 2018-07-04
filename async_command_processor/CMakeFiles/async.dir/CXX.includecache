@@ -15,12 +15,12 @@ mutex
 -
 memory
 -
+async_command_processor.h
+/home/travis/build/Alkud/OTUS_HOMEWORK_11/async_command_processor/async_command_processor.h
 
 /home/travis/build/Alkud/OTUS_HOMEWORK_11/async_command_processor/async.h
 cstddef
 -
-async_command_processor.h
-/home/travis/build/Alkud/OTUS_HOMEWORK_11/async_command_processor/async_command_processor.h
 
 /home/travis/build/Alkud/OTUS_HOMEWORK_11/async_command_processor/async_command_processor.h
 memory

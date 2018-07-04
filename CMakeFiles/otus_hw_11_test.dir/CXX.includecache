@@ -9,8 +9,6 @@
 /home/travis/build/Alkud/OTUS_HOMEWORK_11/./async_command_processor/async.h
 cstddef
 -
-async_command_processor.h
-/home/travis/build/Alkud/OTUS_HOMEWORK_11/./async_command_processor/async_command_processor.h
 
 /home/travis/build/Alkud/OTUS_HOMEWORK_11/./async_command_processor/async_command_processor.h
 memory
@@ -241,6 +239,8 @@ homework_11.h
 /home/travis/build/Alkud/OTUS_HOMEWORK_11/homework_11.h
 ./async_command_processor/async.h
 /home/travis/build/Alkud/OTUS_HOMEWORK_11/./async_command_processor/async.h
+./async_command_processor/async_command_processor.h
+/home/travis/build/Alkud/OTUS_HOMEWORK_11/./async_command_processor/async_command_processor.h
 new_delete.h
 /home/travis/build/Alkud/OTUS_HOMEWORK_11/new_delete.h
 string

@@ -150,19 +150,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
 <div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="class_async_command_processor.html#a8cf94a4106c01afae0a96ef507da99b1">   59</a></span>&#160;  <a class="code" href="class_async_command_processor.html#a8cf94a4106c01afae0a96ef507da99b1">~AsyncCommandProcessor</a>()</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  {</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    std::unique_lock&lt;std::mutex&gt; lockAccess{<a class="code" href="class_async_command_processor.html#ab0eac12c1e7d154e94a958c5a231fcc5">accessLock</a>};</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">//    std::unique_lock&lt;std::mutex&gt; lockAccess{accessLock};</span></div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="class_async_command_processor.html#a021f45a231a4c668ac0e36fa68c01e12">isReceiving</a>.load() == <span class="keyword">true</span>)</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    {</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      <a class="code" href="class_async_command_processor.html#a5f6d7516c5072064b5a5a639a73f7dfb">accessNotifier</a>.wait(lockAccess, [<span class="keyword">this</span>]()</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      {</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        {</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;          std::lock_guard&lt;std::mutex&gt; lockScreenOutput{<a class="code" href="class_async_command_processor.html#ae72345064cd0935d70ed97c66200c9ba">screenOutputLock</a>};</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;          std::cout &lt;&lt; <span class="stringliteral">&quot;                                waiting receiving termination\n&quot;</span>;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        }</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="class_async_command_processor.html#a021f45a231a4c668ac0e36fa68c01e12">isReceiving</a>.load() == <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;      });</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    }</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">//    if (isReceiving.load() == true)</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">//    {</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">//      accessNotifier.wait(lockAccess, [this]()</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">//      {</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">//        {</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">//          //std::lock_guard&lt;std::mutex&gt; lockScreenOutput{screenOutputLock};</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">//          std::cout &lt;&lt; &quot;                                waiting receiving termination\n&quot;;</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">//        }</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">//        return isReceiving.load() == false;</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">//      });</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">//    }</span></div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="class_async_command_processor.html#ab36f5b2fdc41e1e8552889087c755ba9">workingThread</a>.joinable() == <span class="keyword">true</span>)</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    {</div>
@@ -247,15 +247,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;      <span class="keywordflow">return</span>;</div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    }</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    std::unique_lock&lt;std::mutex&gt; lockAccess{<a class="code" href="class_async_command_processor.html#ab0eac12c1e7d154e94a958c5a231fcc5">accessLock</a>};</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="comment">//    std::unique_lock&lt;std::mutex&gt; lockAccess{accessLock};</span></div>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="class_async_command_processor.html#ae82db75be40a52d0b754ff29df767af1">isDisconnected</a>.load() == <span class="keyword">true</span>)</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    {</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;      lockAccess.unlock();</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;      <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    }</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="comment">//    if (isDisconnected.load() == true)</span></div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="comment">//    {</span></div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<span class="comment">//      lockAccess.unlock();</span></div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="comment">//      return;</span></div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="comment">//    }</span></div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <a class="code" href="class_async_command_processor.html#a021f45a231a4c668ac0e36fa68c01e12">isReceiving</a>.store(<span class="keyword">true</span>);</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="comment">//    isReceiving.store(true);</span></div>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;</div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="comment">//    lockAccess.unlock();</span></div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;</div>
@@ -278,10 +278,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;</div>
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    }</div>
 <div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    lockAccess.unlock();</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="comment">//    lockAccess.unlock();</span></div>
 <div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <a class="code" href="class_async_command_processor.html#a021f45a231a4c668ac0e36fa68c01e12">isReceiving</a>.store(<span class="keyword">false</span>);</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    <a class="code" href="class_async_command_processor.html#a5f6d7516c5072064b5a5a639a73f7dfb">accessNotifier</a>.notify_all();</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;<span class="comment">//    isReceiving.store(false);</span></div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;<span class="comment">//    accessNotifier.notify_all();</span></div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;</div>
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    {</div>
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;      std::lock_guard&lt;std::mutex&gt; lockScreenOutput{<a class="code" href="class_async_command_processor.html#ae72345064cd0935d70ed97c66200c9ba">screenOutputLock</a>};</div>
@@ -304,15 +304,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    }</div>
 <div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;</div>
 <div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    std::unique_lock&lt;std::mutex&gt; lockAccess{<a class="code" href="class_async_command_processor.html#ab0eac12c1e7d154e94a958c5a231fcc5">accessLock</a>};</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;<span class="comment">//    std::unique_lock&lt;std::mutex&gt; lockAccess{accessLock};</span></div>
 <div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    <a class="code" href="class_async_command_processor.html#ae82db75be40a52d0b754ff29df767af1">isDisconnected</a>.store(<span class="keyword">true</span>);</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;<span class="comment">//    isDisconnected.store(true);</span></div>
 <div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    <a class="code" href="class_async_command_processor.html#a444eb1d16edc769e737ece323aec7bc6">entryPoint</a>.reset();</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;<span class="comment">//    entryPoint.reset();</span></div>
 <div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;</div>
 <div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    <a class="code" href="class_message_broadcaster.html#ae8e7f93dbbcf8cc1c62574ca6b71f2f8">sendMessage</a>(<a class="code" href="broadcasters_8h.html#aff97733e4706e994965da50c70605422a72c846e189c7a9cb5ecedde873e4e203">Message::NoMoreData</a>);</div>
 <div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    lockAccess.unlock();</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;<span class="comment">//    lockAccess.unlock();</span></div>
 <div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;</div>
 <div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;</div>
 <div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;</div>

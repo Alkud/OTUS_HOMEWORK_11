@@ -4,6 +4,9 @@
 #include <iostream>
 #include <mutex>
 #include <memory>
+#include "async_command_processor.h"
+
+static std::mutex contextLock{};
 
 
 async::handle_t async::connect(std::size_t bulk)
@@ -30,9 +33,13 @@ async::handle_t async::connect(std::size_t bulk)
 
 void async::receive(async::handle_t handle, const char* data, std::size_t size)
 {
-  if (nullptr == handle)
   {
-    return;
+    std::lock_guard<std::mutex> lockContext{contextLock};
+
+    if (nullptr == handle)
+    {
+      return;
+    }
   }
 
   auto commandProcessor {reinterpret_cast<AsyncCommandProcessor<2>*>(handle)};
@@ -54,5 +61,8 @@ void async::disconnect(async::handle_t handle)
   auto commandProcessor {reinterpret_cast<AsyncCommandProcessor<2>*>(handle)};
   commandProcessor->disconnect();
 
-  delete commandProcessor;
+  {
+    std::lock_guard<std::mutex> lockContext{contextLock};
+    delete commandProcessor;
+  }
 }
