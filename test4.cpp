@@ -38,7 +38,7 @@ int main() {
         }
 
         size_t N{1};
-        while(userInput >> N)
+        while(/*userInput*/std::cin >> N)
         {
             while(--N)
             {
