@@ -142,12 +142,14 @@ static std::mutex screenOutputLock;
       return;
     }
 
-    if (isDisconnected.load() == true)
     {
-      return;
-    }
+      std::lock_guard<std::mutex> lockAccess{accessLock};
 
-    std::lock_guard<std::mutex> lockAccess{accessLock};
+      if (isDisconnected.load() == true)
+      {
+        return;
+      }
+    }
 
     if (entryPoint != nullptr)
     {
