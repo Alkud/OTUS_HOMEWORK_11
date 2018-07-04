@@ -111,8 +111,8 @@ Collaboration diagram for Logger&lt; threadCount &gt;:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aa8adc47e97e5c347fef18d430218ac4e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_logger.html#aa8adc47e97e5c347fef18d430218ac4e">Logger</a> (const std::string &amp;newWorkerName, const <a class="el" href="smart__buffer__mt_8h.html#a74179bee4f33e3fb26e7adbcfa2e17d4">SharedSizeStringBuffer</a> &amp;newBuffer, std::ostream &amp;newErrorOut, std::shared_ptr&lt; std::mutex &gt; newErrorOutLock, const std::string &amp;newDestinationDirectory=&quot;&quot;)</td></tr>
-<tr class="separator:aa8adc47e97e5c347fef18d430218ac4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c33f8aeaed963419f7a3ea2757d3462"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_logger.html#a2c33f8aeaed963419f7a3ea2757d3462">Logger</a> (const std::string &amp;newWorkerName, const <a class="el" href="smart__buffer__mt_8h.html#a74179bee4f33e3fb26e7adbcfa2e17d4">SharedSizeStringBuffer</a> &amp;newBuffer, std::ostream &amp;newErrorOut, std::mutex &amp;newErrorOutLock, const std::string &amp;newDestinationDirectory=&quot;&quot;)</td></tr>
+<tr class="separator:a2c33f8aeaed963419f7a3ea2757d3462"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_notification_listener"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_notification_listener')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_notification_listener.html">NotificationListener</a></td></tr>
 <tr class="memitem:add75d91127cddb0b91b63042b204bda0 inherit pub_methods_class_notification_listener"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_notification_listener.html#add75d91127cddb0b91b63042b204bda0">~NotificationListener</a> ()</td></tr>
 <tr class="separator:add75d91127cddb0b91b63042b204bda0 inherit pub_methods_class_notification_listener"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -184,8 +184,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a7bc5cb459c66858b7450d19e9ce8b001"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca4f9328402dec97b5991f8f8d008e3a"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_logger.html#aca4f9328402dec97b5991f8f8d008e3a">errorOut</a></td></tr>
 <tr class="separator:aca4f9328402dec97b5991f8f8d008e3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6133cc18f0b3372a9e40d41abaf50e0f"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; std::mutex &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_logger.html#a6133cc18f0b3372a9e40d41abaf50e0f">errorOutLock</a></td></tr>
-<tr class="separator:a6133cc18f0b3372a9e40d41abaf50e0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adda9f925c46ae52a2ea7247107766923"><td class="memItemLeft" align="right" valign="top">std::mutex &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_logger.html#adda9f925c46ae52a2ea7247107766923">errorOutLock</a></td></tr>
+<tr class="separator:adda9f925c46ae52a2ea7247107766923"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ffe281c47ffcecfaf9daabfbb1c0a02"><td class="memItemLeft" align="right" valign="top"><a class="el" href="thread__metrics_8h.html#ae5877028144abdb2fd0d601eae9bcf2e">SharedMultyMetrics</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_logger.html#a3ffe281c47ffcecfaf9daabfbb1c0a02">threadMetrics</a></td></tr>
 <tr class="separator:a3ffe281c47ffcecfaf9daabfbb1c0a02"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a832c519b286ae12bd2dd1a0457d42eeb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="broadcasters_8h.html#aff97733e4706e994965da50c70605422">Message</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_logger.html#a832c519b286ae12bd2dd1a0457d42eeb">errorMessage</a> {<a class="el" href="broadcasters_8h.html#aff97733e4706e994965da50c70605422ab932b91f686c2aa588adfd9a407155ca">Message::SystemError</a>}</td></tr>
@@ -241,7 +241,7 @@ workingThreadCount &gt;&#160;</td><td class="memItemRight" valign="bottom"><a cl
 <tr class="separator:a586cf4490e20774a5f740b7fc5045cf1 inherit pro_attribs_class_async_worker"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="aa8adc47e97e5c347fef18d430218ac4e"></a>
+<a class="anchor" id="a2c33f8aeaed963419f7a3ea2757d3462"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -271,7 +271,7 @@ template&lt;size_t threadCount = 2u&gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::shared_ptr&lt; std::mutex &gt;&#160;</td>
+          <td class="paramtype">std::mutex &amp;&#160;</td>
           <td class="paramname"><em>newErrorOutLock</em>, </td>
         </tr>
         <tr>
@@ -422,14 +422,14 @@ template&lt;size_t threadCount = 2u&gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a6133cc18f0b3372a9e40d41abaf50e0f"></a>
+<a class="anchor" id="adda9f925c46ae52a2ea7247107766923"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;size_t threadCount = 2u&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">std::shared_ptr&lt;std::mutex&gt; <a class="el" href="class_logger.html">Logger</a>&lt; threadCount &gt;::errorOutLock</td>
+          <td class="memname">std::mutex&amp; <a class="el" href="class_logger.html">Logger</a>&lt; threadCount &gt;::errorOutLock</td>
         </tr>
       </table>
 </div><div class="memdoc">

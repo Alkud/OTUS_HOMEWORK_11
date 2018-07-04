@@ -209,6 +209,8 @@ memory
 -
 
 /home/travis/build/Alkud/OTUS_HOMEWORK_11/./async_command_processor/weak_ptr_less.h
+memory
+-
 
 /home/travis/build/Alkud/OTUS_HOMEWORK_11/test4.cpp
 bits/stdc++.h

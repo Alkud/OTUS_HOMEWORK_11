@@ -112,8 +112,8 @@ Collaboration diagram for Publisher:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae8b102331cda9d7e7b55f35bf8158d75"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_publisher.html#ae8b102331cda9d7e7b55f35bf8158d75">Publisher</a> (const std::string &amp;newWorkerName, const <a class="el" href="smart__buffer__mt_8h.html#a74179bee4f33e3fb26e7adbcfa2e17d4">SharedSizeStringBuffer</a> &amp;newBuffer, std::ostream &amp;newOutput, std::shared_ptr&lt; std::mutex &gt; newOutpuLock, std::ostream &amp;newErrorOut, std::shared_ptr&lt; std::mutex &gt; newErrorOutLock)</td></tr>
-<tr class="separator:ae8b102331cda9d7e7b55f35bf8158d75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e79843a351620b0d3bbefb25505fbec"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_publisher.html#a6e79843a351620b0d3bbefb25505fbec">Publisher</a> (const std::string &amp;newWorkerName, const <a class="el" href="smart__buffer__mt_8h.html#a74179bee4f33e3fb26e7adbcfa2e17d4">SharedSizeStringBuffer</a> &amp;newBuffer, std::ostream &amp;newOutput, std::mutex &amp;newOutpuLock, std::ostream &amp;newErrorOut, std::mutex &amp;newErrorOutLock)</td></tr>
+<tr class="separator:a6e79843a351620b0d3bbefb25505fbec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac69af7131a48792510b533573c2373f7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_publisher.html#ac69af7131a48792510b533573c2373f7">~Publisher</a> ()</td></tr>
 <tr class="separator:ac69af7131a48792510b533573c2373f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98d782b1eab065a5f93e494d41c77f0f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_publisher.html#a98d782b1eab065a5f93e494d41c77f0f">reactNotification</a> (<a class="el" href="class_notification_broadcaster.html">NotificationBroadcaster</a> *sender) override</td></tr>
@@ -176,12 +176,12 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a2b6a7b215d6e6e7ad0c9f4548df380d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a664423dfcdbac9d00c846727a9733144"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_publisher.html#a664423dfcdbac9d00c846727a9733144">output</a></td></tr>
 <tr class="separator:a664423dfcdbac9d00c846727a9733144"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0be5555bea47098f90eccc1624274ba3"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; std::mutex &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_publisher.html#a0be5555bea47098f90eccc1624274ba3">outputLock</a></td></tr>
-<tr class="separator:a0be5555bea47098f90eccc1624274ba3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4511f71c52eba95acaae0e51a6f030f9"><td class="memItemLeft" align="right" valign="top">std::mutex &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_publisher.html#a4511f71c52eba95acaae0e51a6f030f9">outputLock</a></td></tr>
+<tr class="separator:a4511f71c52eba95acaae0e51a6f030f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a78d06a735557ad4a2dcf4be8ef60a818"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_publisher.html#a78d06a735557ad4a2dcf4be8ef60a818">errorOut</a></td></tr>
 <tr class="separator:a78d06a735557ad4a2dcf4be8ef60a818"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e1b9c351a284dec925ab0595d3132ca"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; std::mutex &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_publisher.html#a2e1b9c351a284dec925ab0595d3132ca">errorOutLock</a></td></tr>
-<tr class="separator:a2e1b9c351a284dec925ab0595d3132ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90e0e3598dc6dc0514ac0793c074f818"><td class="memItemLeft" align="right" valign="top">std::mutex &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_publisher.html#a90e0e3598dc6dc0514ac0793c074f818">errorOutLock</a></td></tr>
+<tr class="separator:a90e0e3598dc6dc0514ac0793c074f818"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac939707f0077aa0b7e4b09b91e309ac8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="thread__metrics_8h.html#a7c05dd501440a173e68ec65d91beb76d">SharedMetrics</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_publisher.html#ac939707f0077aa0b7e4b09b91e309ac8">threadMetrics</a></td></tr>
 <tr class="separator:ac939707f0077aa0b7e4b09b91e309ac8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a6e9b0e235f18590605227f915acb76"><td class="memItemLeft" align="right" valign="top"><a class="el" href="broadcasters_8h.html#aff97733e4706e994965da50c70605422">Message</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_publisher.html#a6a6e9b0e235f18590605227f915acb76">errorMessage</a> {<a class="el" href="broadcasters_8h.html#aff97733e4706e994965da50c70605422ab932b91f686c2aa588adfd9a407155ca">Message::SystemError</a>}</td></tr>
@@ -231,7 +231,7 @@ workingThreadCount &gt;&#160;</td><td class="memItemRight" valign="bottom"><a cl
 <tr class="separator:a586cf4490e20774a5f740b7fc5045cf1 inherit pro_attribs_class_async_worker"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="ae8b102331cda9d7e7b55f35bf8158d75"></a>
+<a class="anchor" id="a6e79843a351620b0d3bbefb25505fbec"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -256,7 +256,7 @@ workingThreadCount &gt;&#160;</td><td class="memItemRight" valign="bottom"><a cl
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::shared_ptr&lt; std::mutex &gt;&#160;</td>
+          <td class="paramtype">std::mutex &amp;&#160;</td>
           <td class="paramname"><em>newOutpuLock</em>, </td>
         </tr>
         <tr>
@@ -268,7 +268,7 @@ workingThreadCount &gt;&#160;</td><td class="memItemRight" valign="bottom"><a cl
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::shared_ptr&lt; std::mutex &gt;&#160;</td>
+          <td class="paramtype">std::mutex &amp;&#160;</td>
           <td class="paramname"><em>newErrorOutLock</em>&#160;</td>
         </tr>
         <tr>
@@ -527,7 +527,7 @@ workingThreadCount &gt;&#160;</td><td class="memItemRight" valign="bottom"><a cl
 
 </div>
 </div>
-<a class="anchor" id="a2e1b9c351a284dec925ab0595d3132ca"></a>
+<a class="anchor" id="a90e0e3598dc6dc0514ac0793c074f818"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -535,7 +535,7 @@ workingThreadCount &gt;&#160;</td><td class="memItemRight" valign="bottom"><a cl
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::shared_ptr&lt;std::mutex&gt; Publisher::errorOutLock</td>
+          <td class="memname">std::mutex&amp; Publisher::errorOutLock</td>
         </tr>
       </table>
   </td>
@@ -567,7 +567,7 @@ workingThreadCount &gt;&#160;</td><td class="memItemRight" valign="bottom"><a cl
 
 </div>
 </div>
-<a class="anchor" id="a0be5555bea47098f90eccc1624274ba3"></a>
+<a class="anchor" id="a4511f71c52eba95acaae0e51a6f030f9"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -575,7 +575,7 @@ workingThreadCount &gt;&#160;</td><td class="memItemRight" valign="bottom"><a cl
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::shared_ptr&lt;std::mutex&gt; Publisher::outputLock</td>
+          <td class="memname">std::mutex&amp; Publisher::outputLock</td>
         </tr>
       </table>
   </td>

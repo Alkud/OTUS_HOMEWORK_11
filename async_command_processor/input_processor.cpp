@@ -2,13 +2,12 @@
 
 #include "input_processor.h"
 
-InputProcessor::InputProcessor(
-    const std::string& newWorkerName, const size_t newBulkSize,
+InputProcessor::InputProcessor(const std::string& newWorkerName, const size_t newBulkSize,
     const char newBulkOpenDelimiter, const char newBulkCloseDelimiter,
     const SharedStringBuffer& newInputBuffer,
     const SharedSizeStringBuffer& newOutputBuffer,
     std::ostream& newErrorOut,
-    std::shared_ptr<std::mutex> newErrorOutLock
+    std::mutex& newErrorOutLock
   ) :
   AsyncWorker<1>{newWorkerName},
   bulkSize{newBulkSize},
@@ -166,7 +165,7 @@ bool InputProcessor::threadProcess(const size_t)
 void InputProcessor::onThreadException(const std::exception& ex, const size_t threadIndex)
 {
   {
-    std::lock_guard<std::mutex> lockErrorOut{*errorOutLock};
+    std::lock_guard<std::mutex> lockErrorOut{errorOutLock};
     errorOut << this->workerName << " thread #" << threadIndex << " stopped. Reason: " << ex.what() << std::endl;
   }
 

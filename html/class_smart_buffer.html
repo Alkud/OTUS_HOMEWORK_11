@@ -121,8 +121,8 @@ Public Types</h2></td></tr>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aa50c10adc256c135c3d38068be132900"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_smart_buffer.html#aa50c10adc256c135c3d38068be132900">SmartBuffer</a> ()=delete</td></tr>
 <tr class="separator:aa50c10adc256c135c3d38068be132900"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade03c4342714edcdc591700f181ac481"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_smart_buffer.html#ade03c4342714edcdc591700f181ac481">SmartBuffer</a> (const std::string &amp;newWorkerName, std::ostream &amp;newErrorOut, std::shared_ptr&lt; std::mutex &gt; newErrorOutLock)</td></tr>
-<tr class="separator:ade03c4342714edcdc591700f181ac481"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65f8e736c96b7f63ec7e75c8809d99cd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_smart_buffer.html#a65f8e736c96b7f63ec7e75c8809d99cd">SmartBuffer</a> (const std::string &amp;newWorkerName, std::ostream &amp;newErrorOut, std::mutex &amp;newErrorOutLock)</td></tr>
+<tr class="separator:a65f8e736c96b7f63ec7e75c8809d99cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a709bf5649fa2645d9eb5490539857d79"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_smart_buffer.html#a709bf5649fa2645d9eb5490539857d79">putItem</a> (const T &amp;newItem)</td></tr>
 <tr class="memdesc:a709bf5649fa2645d9eb5490539857d79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy new element to the buffer.  <a href="#a709bf5649fa2645d9eb5490539857d79">More...</a><br/></td></tr>
 <tr class="separator:a709bf5649fa2645d9eb5490539857d79"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -213,8 +213,8 @@ Private Member Functions</h2></td></tr>
 Private Attributes</h2></td></tr>
 <tr class="memitem:ac60d5afa73e285a0a21d8ec141a2d67f"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_smart_buffer.html#ac60d5afa73e285a0a21d8ec141a2d67f">errorOut</a></td></tr>
 <tr class="separator:ac60d5afa73e285a0a21d8ec141a2d67f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acccb4db42a32bfcc5cdf101604a0325a"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; std::mutex &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_smart_buffer.html#acccb4db42a32bfcc5cdf101604a0325a">errorOutLock</a></td></tr>
-<tr class="separator:acccb4db42a32bfcc5cdf101604a0325a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e278fc874070b5fe6feaadc2de696d4"><td class="memItemLeft" align="right" valign="top">std::mutex &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_smart_buffer.html#a7e278fc874070b5fe6feaadc2de696d4">errorOutLock</a></td></tr>
+<tr class="separator:a7e278fc874070b5fe6feaadc2de696d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab8421f064b3e75d2ab00eebca5b6a74d"><td class="memItemLeft" align="right" valign="top">std::deque&lt; Record &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_smart_buffer.html#ab8421f064b3e75d2ab00eebca5b6a74d">data</a></td></tr>
 <tr class="separator:ab8421f064b3e75d2ab00eebca5b6a74d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9cda89a26d95ed74f8722d40c403a75b"><td class="memItemLeft" align="right" valign="top">std::atomic_bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_smart_buffer.html#a9cda89a26d95ed74f8722d40c403a75b">dataReceived</a></td></tr>
@@ -312,7 +312,7 @@ template&lt;class T &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="ade03c4342714edcdc591700f181ac481"></a>
+<a class="anchor" id="a65f8e736c96b7f63ec7e75c8809d99cd"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -336,7 +336,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::shared_ptr&lt; std::mutex &gt;&#160;</td>
+          <td class="paramtype">std::mutex &amp;&#160;</td>
           <td class="paramname"><em>newErrorOutLock</em>&#160;</td>
         </tr>
         <tr>
@@ -793,7 +793,7 @@ template&lt;class T &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="acccb4db42a32bfcc5cdf101604a0325a"></a>
+<a class="anchor" id="a7e278fc874070b5fe6feaadc2de696d4"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -803,7 +803,7 @@ template&lt;class T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::shared_ptr&lt;std::mutex&gt; <a class="el" href="class_smart_buffer.html">SmartBuffer</a>&lt; T &gt;::errorOutLock</td>
+          <td class="memname">std::mutex&amp; <a class="el" href="class_smart_buffer.html">SmartBuffer</a>&lt; T &gt;::errorOutLock</td>
         </tr>
       </table>
   </td>
