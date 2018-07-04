@@ -16,16 +16,16 @@ class AsyncCommandProcessor : public MessageBroadcaster
 {
 public:
 
-  AsyncCommandProcessor(
-      std::shared_ptr<std::mutex> newScreenOutputLock,
+static std::shared_ptr<std::mutex> screenOutputLock;
+
+  AsyncCommandProcessor(      
       const size_t newBulkSize = 3,
       const char newBulkOpenDelimiter = '{',
       const char newBulkCloseDelimiter = '}',
       std::ostream& newOutputStream = std::cout,
       std::ostream& newErrorStream = std::cerr,
       std::ostream& newMetricsStream = std::cout
-  ) :
-    screenOutputLock{newScreenOutputLock},
+  ) :    
     bulkSize{newBulkSize},
     bulkOpenDelimiter{newBulkOpenDelimiter},
     bulkCloseDelimiter{newBulkCloseDelimiter},
@@ -195,12 +195,10 @@ public:
     return metrics;
   }
 
-  std::mutex& getScreenOutputLock()
+  std::shared_ptr<std::mutex> getScreenOutputLock()
   { return screenOutputLock;}
 
 private:
-
-  std::shared_ptr<std::mutex> screenOutputLock;
 
   const size_t bulkSize;
   const char bulkOpenDelimiter;
@@ -224,3 +222,7 @@ private:
 
   std::size_t timeStampID;
 };
+
+template <size_t loggingThreadCount>
+std::shared_ptr<std::mutex>
+AsyncCommandProcessor<loggingThreadCount>::screenOutputLock{ new std::mutex{} };
