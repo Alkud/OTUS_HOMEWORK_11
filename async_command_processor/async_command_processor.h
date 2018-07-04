@@ -27,7 +27,7 @@ static std::mutex screenOutputLock;
       std::ostream& newMetricsStream = std::cout
   ) :    
     accessLock{}, accessNotifier{},
-    isDisconnected{false}, isReceiving{false},
+    disconnected{false}, receiving{false},
 
     bulkSize{newBulkSize},
     bulkOpenDelimiter{newBulkOpenDelimiter},
@@ -218,6 +218,8 @@ static std::mutex screenOutputLock;
 
 //    entryPoint.reset();
 
+    disconnected.store(true);
+
     sendMessage(Message::NoMoreData);
 
 //    lockAccess.unlock();
@@ -233,6 +235,11 @@ static std::mutex screenOutputLock;
     #else
       //std::cout << "\n                    AsyncCP disconnect\n";
     #endif
+  }
+
+  bool isDisconnected()
+  {
+    return disconnected.load();
   }
 
   const std::shared_ptr<InputProcessor::InputBufferType>&
@@ -256,8 +263,8 @@ private:
 
   std::mutex accessLock;
   std::condition_variable accessNotifier;
-  std::atomic<bool> isDisconnected;
-  std::atomic<bool> isReceiving;
+  std::atomic<bool> disconnected;
+  std::atomic<bool> receiving;
 
 
   const size_t bulkSize;
