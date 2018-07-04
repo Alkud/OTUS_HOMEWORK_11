@@ -72,10 +72,10 @@ static std::mutex screenOutputLock;
 //      });
 //    }
 
-    if (workingThread.joinable() == true)
-    {
-      workingThread.join();
-    }
+//    if (workingThread.joinable() == true)
+//    {
+//      workingThread.join();
+//    }
   }
 
   bool connect(const bool outputMetrics = false) noexcept
@@ -155,13 +155,13 @@ static std::mutex screenOutputLock;
       return;
     }
 
-//    std::unique_lock<std::mutex> lockAccess{accessLock};
+    std::unique_lock<std::mutex> lockAccess{accessLock};
 
-//    if (isDisconnected.load() == true)
-//    {
-//      lockAccess.unlock();
-//      return;
-//    }
+    if (disconnected.load() == true)
+    {
+      lockAccess.unlock();
+      return;
+    }
 
 //    isReceiving.store(true);
 
@@ -183,10 +183,9 @@ static std::mutex screenOutputLock;
       }
 
       entryPoint->putItem(std::move(newData));
-
     }
 
-//    lockAccess.unlock();
+    lockAccess.unlock();
 
 //    isReceiving.store(false);
 //    accessNotifier.notify_all();
@@ -212,19 +211,22 @@ static std::mutex screenOutputLock;
     }
 
 
-//    std::unique_lock<std::mutex> lockAccess{accessLock};
+    std::unique_lock<std::mutex> lockAccess{accessLock};
 
-//    isDisconnected.store(true);
+    disconnected.store(true);
 
-//    entryPoint.reset();
+    entryPoint.reset();
 
     disconnected.store(true);
 
     sendMessage(Message::NoMoreData);
 
-//    lockAccess.unlock();
+    lockAccess.unlock();
 
-
+    if (workingThread.joinable() == true)
+    {
+      workingThread.join();
+    }
 
     {
       std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
