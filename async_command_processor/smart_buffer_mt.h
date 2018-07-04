@@ -25,7 +25,7 @@ public:
 
   using ListenerSet = std::set<std::weak_ptr<NotificationListener>, WeakPtrLess<NotificationListener>>;
 
-  std::mutex dataLock;
+  std::mutex dataLock{};
 
   SmartBuffer() = delete;
 
@@ -183,7 +183,7 @@ public:
     notificationCount.store(0);
   }
 
-  void reactMessage(MessageBroadcaster* sender, Message message) override
+  void reactMessage(MessageBroadcaster* /*sender*/, Message message) override
   {
     if (messageCode(message) < 1000) // non error message
     {
@@ -216,7 +216,7 @@ public:
 
 private:
 
-  bool threadProcess(const size_t threadIndex) override
+  bool threadProcess(const size_t /*threadIndex*/) override
   {
     notify();
   }
@@ -224,11 +224,11 @@ private:
   void onThreadException(const std::exception& ex, const size_t threadIndex) override
   {
     {
-      std::lock_guard<std::mutex> lockErrorOutm{*errorOutLock};
+      std::lock_guard<std::mutex> lockErrorOut{*errorOutLock};
       errorOut << this->workerName << " thread #" << threadIndex << " stopped. Reason: " << ex.what() << std::endl;
     }
 
-    if (ex.what() == "Buffer is empty!")
+    if (ex.what() == std::string{"Buffer is empty!"})
     {
       errorMessage = Message::BufferEmpty;
     }
@@ -240,7 +240,7 @@ private:
     sendMessage(errorMessage);
   }
 
-  void onTermination(const size_t threadIndex) override
+  void onTermination(const size_t /*threadIndex*/) override
   {
     if (noMoreData.load() == true
         && dataSize() == 0)

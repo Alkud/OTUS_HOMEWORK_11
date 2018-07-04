@@ -12,7 +12,7 @@ namespace my {
 
   std::atomic<std::size_t> malloc_counter{0};
 
-  void* malloc(std::size_t size)  throw (std::bad_alloc)
+  void* malloc(std::size_t size)  noexcept (false)
   {
     void* p = std::malloc(size);
      ++malloc_counter;
@@ -30,7 +30,7 @@ namespace my {
 
 extern "C++" {
 
-void* operator new(std::size_t size) throw (std::bad_alloc)
+void* operator new(std::size_t size) noexcept (false)
 {
     return my::malloc(size);
 }
@@ -40,7 +40,7 @@ void operator delete(void* p) noexcept
     my::free(p);
 }
 
-void* operator new[](std::size_t size) throw (std::bad_alloc)
+void* operator new[](std::size_t size) noexcept (false)
 {
     return my::malloc(size);
 }

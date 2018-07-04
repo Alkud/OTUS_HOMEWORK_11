@@ -38,7 +38,7 @@ void Publisher::reactNotification(NotificationBroadcaster* sender)
   }
 }
 
-void Publisher::reactMessage(MessageBroadcaster* sender, Message message)
+void Publisher::reactMessage(MessageBroadcaster*, Message message)
 {
   if (messageCode(message) < 1000) // non error message
   {
@@ -74,7 +74,7 @@ const SharedMetrics Publisher::getMetrics()
   return threadMetrics;
 }
 
-bool Publisher::threadProcess(const size_t threadIndex)
+bool Publisher::threadProcess(const size_t /*threadIndex*/)
 {
   if (nullptr == buffer)
   {
@@ -113,7 +113,7 @@ void Publisher::onThreadException(const std::exception& ex, const size_t threadI
   shouldExit.store(true);
   threadNotifier.notify_all();
 
-  if (ex.what() == "Buffer is empty!")
+  if (ex.what() == std::string{"Buffer is empty!"})
   {
     errorMessage = Message::BufferEmpty;
   }
@@ -121,7 +121,7 @@ void Publisher::onThreadException(const std::exception& ex, const size_t threadI
   sendMessage(errorMessage);
 }
 
-void Publisher::onTermination(const size_t threadIndex)
+void Publisher::onTermination(const size_t /*threadIndex*/)
 {
   #ifdef NDEBUG
   #else
