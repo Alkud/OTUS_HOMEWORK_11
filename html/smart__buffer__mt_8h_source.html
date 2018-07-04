@@ -271,7 +271,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;      {</div>
 <div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;      <span class="keywordflow">case</span> <a class="code" href="broadcasters_8h.html#aff97733e4706e994965da50c70605422a72c846e189c7a9cb5ecedde873e4e203">Message::NoMoreData</a> :</div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;      {</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        <span class="comment">//std::lock_guard&lt;std::mutex&gt; lockData{dataLock};</span></div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        std::lock_guard&lt;std::mutex&gt; lockData{<a class="code" href="class_smart_buffer.html#adc13a7725b1f892d641289edece2161e">dataLock</a>};</div>
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        <a class="code" href="class_async_worker.html#aada84414491e4b995f2d95c0136ca265">noMoreData</a>.store(<span class="keyword">true</span>);</div>
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;</div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;<span class="preprocessor">        #ifdef NDEBUG</span></div>
