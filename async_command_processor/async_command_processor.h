@@ -172,7 +172,7 @@ static std::mutex screenOutputLock;
 //    lockAccess.unlock();
 
     {
-      std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
+      //std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
       std::cout << "                                receiving started\n";
     }
 
@@ -195,7 +195,7 @@ static std::mutex screenOutputLock;
     accessNotifier.notify_all();
 
     {
-      std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
+      //std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
       std::cout << "                                receiving finished\n";
     }
 
@@ -211,7 +211,7 @@ static std::mutex screenOutputLock;
     std::unique_lock<std::mutex> lockAccess{accessLock};
 
     {
-      std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
+      //std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
       std::cout << "                                disconnect started\n";
     }
 
@@ -234,7 +234,7 @@ static std::mutex screenOutputLock;
     {
       std::unique_lock<std::mutex> lockAccess{accessLock};
 
-      std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
+      //std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
       std::cout << "                                waiting receiving termination\n";
 
       accessNotifier.wait_for(lockAccess, 100ms, [this]()
@@ -244,7 +244,7 @@ static std::mutex screenOutputLock;
     }
 
     {
-      std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
+      //std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
       std::cout << "                                disconnect finished\n";
     }
 
