@@ -48,7 +48,7 @@ static std::mutex screenOutputLock;
     entryPoint{processor->getEntryPoint()},
     commandBuffer{processor->getInputBuffer()},
     bulkBuffer{processor->getOutputBuffer()},
-    accessLock{}, isDisconnected{false},
+      accessLock{}, isDisconnected{false}, isReceiving{false},
     metrics{processor->getMetrics()}
   {
     this->addMessageListener(entryPoint);
@@ -149,6 +149,8 @@ static std::mutex screenOutputLock;
       {
         return;
       }
+
+      isReceiving.store(true);
     }
 
     if (entryPoint != nullptr)
@@ -161,6 +163,8 @@ static std::mutex screenOutputLock;
       entryPoint->putItem(std::move(newData));
     }
 
+    isReceiving.store(false);
+
     #ifdef NDEBUG
     #else
       //std::cout << "\n                    AsyncCP received data\n";
@@ -170,6 +174,9 @@ static std::mutex screenOutputLock;
   void disconnect()
   {
     std::lock_guard<std::mutex> lockAccess{accessLock};
+
+    while(isReceiving.load() == true)
+    {}
 
     if (isDisconnected.load() == true)
     {
@@ -220,6 +227,7 @@ private:
 
   std::mutex accessLock;
   std::atomic<bool> isDisconnected;
+  std::atomic<bool> isReceiving;
 
   std::thread workingThread;
 
