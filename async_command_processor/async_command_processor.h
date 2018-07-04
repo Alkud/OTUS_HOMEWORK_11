@@ -58,19 +58,19 @@ static std::mutex screenOutputLock;
 
   ~AsyncCommandProcessor()
   {
-    std::unique_lock<std::mutex> lockAccess{accessLock};
+//    std::unique_lock<std::mutex> lockAccess{accessLock};
 
-    if (isReceiving.load() == true)
-    {
-      accessNotifier.wait(lockAccess, [this]()
-      {
-        {
-          std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
-          std::cout << "                                waiting receiving termination\n";
-        }
-        return isReceiving.load() == false;
-      });
-    }
+//    if (isReceiving.load() == true)
+//    {
+//      accessNotifier.wait(lockAccess, [this]()
+//      {
+//        {
+//          //std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
+//          std::cout << "                                waiting receiving termination\n";
+//        }
+//        return isReceiving.load() == false;
+//      });
+//    }
 
     if (workingThread.joinable() == true)
     {
@@ -155,15 +155,15 @@ static std::mutex screenOutputLock;
       return;
     }
 
-    std::unique_lock<std::mutex> lockAccess{accessLock};
+//    std::unique_lock<std::mutex> lockAccess{accessLock};
 
-    if (isDisconnected.load() == true)
-    {
-      lockAccess.unlock();
-      return;
-    }
+//    if (isDisconnected.load() == true)
+//    {
+//      lockAccess.unlock();
+//      return;
+//    }
 
-    isReceiving.store(true);
+//    isReceiving.store(true);
 
 //    lockAccess.unlock();
 
@@ -186,10 +186,10 @@ static std::mutex screenOutputLock;
 
     }
 
-    lockAccess.unlock();
+//    lockAccess.unlock();
 
-    isReceiving.store(false);
-    accessNotifier.notify_all();
+//    isReceiving.store(false);
+//    accessNotifier.notify_all();
 
     {
       std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
@@ -212,15 +212,15 @@ static std::mutex screenOutputLock;
     }
 
 
-    std::unique_lock<std::mutex> lockAccess{accessLock};
+//    std::unique_lock<std::mutex> lockAccess{accessLock};
 
-    isDisconnected.store(true);
+//    isDisconnected.store(true);
 
-    entryPoint.reset();
+//    entryPoint.reset();
 
     sendMessage(Message::NoMoreData);
 
-    lockAccess.unlock();
+//    lockAccess.unlock();
 
 
 
