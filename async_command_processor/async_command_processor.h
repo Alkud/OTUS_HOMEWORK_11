@@ -58,9 +58,20 @@ static std::mutex screenOutputLock;
 
   ~AsyncCommandProcessor()
   {
-    //std::lock_guard<std::mutex> lockAccess{accessLock};
+    std::unique_lock<std::mutex> lockAccess{accessLock};
 
-    sendMessage(Message::NoMoreData);
+    if (isReceiving.load() == true)
+    {
+      accessNotifier.wait(lockAccess, [this]()
+      {
+        {
+          std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
+          std::cout << "                                waiting receiving termination\n";
+        }
+        return isReceiving.load() == false;
+      });
+    }
+
     if (workingThread.joinable() == true)
     {
       workingThread.join();
@@ -152,7 +163,7 @@ static std::mutex screenOutputLock;
       return;
     }
 
-//    isReceiving.store(true);
+    isReceiving.store(true);
 
 //    lockAccess.unlock();
 
@@ -177,8 +188,8 @@ static std::mutex screenOutputLock;
 
     lockAccess.unlock();
 
-//    isReceiving.store(false);
-//    accessNotifier.notify_all();
+    isReceiving.store(false);
+    accessNotifier.notify_all();
 
     {
       std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
@@ -201,27 +212,17 @@ static std::mutex screenOutputLock;
     }
 
 
-//    if (isReceiving.load() == true)
-//    {
-//      accessNotifier.wait(lockAccess, [this]()
-//      {
-//        {
-//          std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
-//          std::cout << "                                waiting receiving termination\n";
-//        }
-//        return isReceiving.load() == false;
-//      });
-//    }
-
     std::unique_lock<std::mutex> lockAccess{accessLock};
 
     isDisconnected.store(true);
 
     entryPoint.reset();
 
+    sendMessage(Message::NoMoreData);
+
     lockAccess.unlock();
 
-    sendMessage(Message::NoMoreData);
+
 
     {
       std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
