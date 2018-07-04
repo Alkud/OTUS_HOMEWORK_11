@@ -48,7 +48,8 @@ static std::mutex screenOutputLock;
     entryPoint{processor->getEntryPoint()},
     commandBuffer{processor->getInputBuffer()},
     bulkBuffer{processor->getOutputBuffer()},
-      accessLock{}, isDisconnected{false}, isReceiving{false},
+    accessLock{}, accessNotifier{},
+    isDisconnected{false}, isReceiving{false},
     metrics{processor->getMetrics()}
   {
     this->addMessageListener(entryPoint);
@@ -142,16 +143,18 @@ static std::mutex screenOutputLock;
       return;
     }
 
+    std::unique_lock<std::mutex> lockAccess{accessLock};
+
+    if (isDisconnected.load() == true)
     {
-      std::lock_guard<std::mutex> lockAccess{accessLock};
-
-      if (isDisconnected.load() == true)
-      {
-        return;
-      }
-
-      isReceiving.store(true);
+      lockAccess.unlock();
+      return;
     }
+
+    isReceiving.store(true);
+
+    lockAccess.unlock();
+
 
     if (entryPoint != nullptr)
     {
@@ -164,6 +167,7 @@ static std::mutex screenOutputLock;
     }
 
     isReceiving.store(false);
+    accessNotifier.notify_all();
 
     #ifdef NDEBUG
     #else
@@ -173,19 +177,21 @@ static std::mutex screenOutputLock;
 
   void disconnect()
   {
-    std::lock_guard<std::mutex> lockAccess{accessLock};
+    std::unique_lock<std::mutex> lockAccess{accessLock};
 
-    while(isReceiving.load() == true)
-    {}
-
-    if (isDisconnected.load() == true)
+    if (isReceiving.load() == true)
     {
-      return;
+      accessNotifier.wait(lockAccess, [this]()
+      {
+        return isReceiving.load() == false;
+      });
     }
 
     isDisconnected.store(true);
 
     sendMessage(Message::NoMoreData);
+
+    lockAccess.unlock();
 
     #ifdef NDEBUG
     #else
@@ -226,6 +232,7 @@ private:
   std::shared_ptr<InputProcessor::OutputBufferType> bulkBuffer;
 
   std::mutex accessLock;
+  std::condition_variable accessNotifier;
   std::atomic<bool> isDisconnected;
   std::atomic<bool> isReceiving;
 
