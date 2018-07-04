@@ -144,13 +144,13 @@ static std::mutex screenOutputLock;
       return;
     }
 
-//    std::unique_lock<std::mutex> lockAccess{accessLock};
+    std::unique_lock<std::mutex> lockAccess{accessLock};
 
-//    if (isDisconnected.load() == true)
-//    {
-//      lockAccess.unlock();
-//      return;
-//    }
+    if (isDisconnected.load() == true)
+    {
+      lockAccess.unlock();
+      return;
+    }
 
 //    isReceiving.store(true);
 
@@ -161,6 +161,8 @@ static std::mutex screenOutputLock;
       std::cout << "                                receiving started\n";
     }
 
+
+
     if (entryPoint != nullptr)
     {
       InputReader::EntryDataType newData{};
@@ -168,8 +170,12 @@ static std::mutex screenOutputLock;
       {
         newData.push_back(data[idx]);
       }
+
       entryPoint->putItem(std::move(newData));
+
     }
+
+    lockAccess.unlock();
 
 //    isReceiving.store(false);
 //    accessNotifier.notify_all();
@@ -188,7 +194,6 @@ static std::mutex screenOutputLock;
 
   void disconnect()
   {
-    //std::unique_lock<std::mutex> lockAccess{accessLock};
 
     {
       std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
@@ -208,11 +213,15 @@ static std::mutex screenOutputLock;
 //      });
 //    }
 
-//    isDisconnected.store(true);
+    std::unique_lock<std::mutex> lockAccess{accessLock};
+
+    isDisconnected.store(true);
+
+    entryPoint.reset();
+
+    lockAccess.unlock();
 
     sendMessage(Message::NoMoreData);
-
-//    lockAccess.unlock();
 
     {
       std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
