@@ -190,6 +190,8 @@ public:
       switch(message)
       {
       case Message::NoMoreData :
+      {
+        std::lock_guard<std::mutex> lockData{dataLock};
         noMoreData.store(true);
 
         #ifdef NDEBUG
@@ -198,6 +200,7 @@ public:
         #endif
 
         threadNotifier.notify_all();
+      }
         break;
 
       default:
