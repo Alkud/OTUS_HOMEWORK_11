@@ -56,6 +56,8 @@ static std::mutex screenOutputLock;
 
   ~AsyncCommandProcessor()
   {
+    std::lock_guard<std::mutex> lockAccess{accessLock};
+
     sendMessage(Message::NoMoreData);
     if (workingThread.joinable() == true)
     {
@@ -135,16 +137,12 @@ static std::mutex screenOutputLock;
 
   void receiveData(const char *data, std::size_t size)
   {
+    std::lock_guard<std::mutex> lockAccess{accessLock};
+
     if (nullptr == data || size == 0)
     {
       return;
     }
-
-//    std::cout << "\nreceive try lock. thread id:" << std::this_thread::get_id() << std::endl;
-
-//    std::lock_guard<std::mutex> lockAccess{accessLock};
-
-//    std::cout << "\nreceive locked. thread id:" << std::this_thread::get_id() << std::endl;
 
     if (isDisconnected.load() == true)
     {
@@ -165,17 +163,11 @@ static std::mutex screenOutputLock;
     #else
       //std::cout << "\n                    AsyncCP received data\n";
     #endif
-
-    //std::cout << "\nreceive unlock. thread id:" << std::this_thread::get_id() << std::endl;
   }
 
   void disconnect()
   {
-    //std::cout << "\ndisconnect try lock. thread id:" << std::this_thread::get_id() << std::endl;
-
-    //std::lock_guard<std::mutex> lockAccess{accessLock};
-
-    //std::cout << "\ndisconnect locked. thread id:" << std::this_thread::get_id() << std::endl;
+    std::lock_guard<std::mutex> lockAccess{accessLock};
 
     if (isDisconnected.load() == true)
     {
@@ -190,8 +182,6 @@ static std::mutex screenOutputLock;
     #else
       //std::cout << "\n                    AsyncCP disconnect\n";
     #endif
-
-    //std::cout << "\ndisconnect unlock. thread id:" << std::this_thread::get_id() << std::endl;
   }
 
   const std::shared_ptr<InputProcessor::InputBufferType>&
