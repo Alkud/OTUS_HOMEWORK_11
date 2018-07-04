@@ -26,6 +26,9 @@ static std::mutex screenOutputLock;
       std::ostream& newErrorStream = std::cerr,
       std::ostream& newMetricsStream = std::cout
   ) :    
+    accessLock{}, accessNotifier{},
+    isDisconnected{false}, isReceiving{false},
+
     bulkSize{newBulkSize},
     bulkOpenDelimiter{newBulkOpenDelimiter},
     bulkCloseDelimiter{newBulkCloseDelimiter},
@@ -48,8 +51,6 @@ static std::mutex screenOutputLock;
     entryPoint{processor->getEntryPoint()},
     commandBuffer{processor->getInputBuffer()},
     bulkBuffer{processor->getOutputBuffer()},
-    accessLock{}, accessNotifier{},
-    isDisconnected{false}, isReceiving{false},
     metrics{processor->getMetrics()}
   {
     this->addMessageListener(entryPoint);
@@ -153,6 +154,8 @@ static std::mutex screenOutputLock;
 
     isReceiving.store(true);
 
+    lockAccess.unlock();
+
     {
       std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
       std::cout << "                                receiving started\n";
@@ -167,8 +170,6 @@ static std::mutex screenOutputLock;
       }
       entryPoint->putItem(std::move(newData));
     }
-
-    lockAccess.unlock();
 
     isReceiving.store(false);
     accessNotifier.notify_all();
@@ -241,7 +242,13 @@ static std::mutex screenOutputLock;
   std::mutex& getScreenOutputLock()
   { return screenOutputLock;}
 
-private:
+private:  
+
+  std::mutex accessLock;
+  std::condition_variable accessNotifier;
+  std::atomic<bool> isDisconnected;
+  std::atomic<bool> isReceiving;
+
 
   const size_t bulkSize;
   const char bulkOpenDelimiter;
@@ -254,12 +261,7 @@ private:
 
   std::shared_ptr<InputReader::InputBufferType> entryPoint{nullptr};
   std::shared_ptr<InputProcessor::InputBufferType> commandBuffer;
-  std::shared_ptr<InputProcessor::OutputBufferType> bulkBuffer;
-
-  std::mutex accessLock;
-  std::condition_variable accessNotifier;
-  std::atomic<bool> isDisconnected;
-  std::atomic<bool> isReceiving;
+  std::shared_ptr<InputProcessor::OutputBufferType> bulkBuffer;  
 
   std::thread workingThread;
 
