@@ -191,7 +191,7 @@ public:
       {
       case Message::NoMoreData :
       {
-        //std::lock_guard<std::mutex> lockData{dataLock};
+        std::lock_guard<std::mutex> lockData{dataLock};
         noMoreData.store(true);
 
         #ifdef NDEBUG

@@ -144,17 +144,17 @@ static std::mutex screenOutputLock;
       return;
     }
 
-    std::unique_lock<std::mutex> lockAccess{accessLock};
+//    std::unique_lock<std::mutex> lockAccess{accessLock};
 
-    if (isDisconnected.load() == true)
-    {
-      lockAccess.unlock();
-      return;
-    }
+//    if (isDisconnected.load() == true)
+//    {
+//      lockAccess.unlock();
+//      return;
+//    }
 
-    isReceiving.store(true);
+//    isReceiving.store(true);
 
-    lockAccess.unlock();
+//    lockAccess.unlock();
 
     {
       std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
@@ -171,8 +171,8 @@ static std::mutex screenOutputLock;
       entryPoint->putItem(std::move(newData));
     }
 
-    isReceiving.store(false);
-    accessNotifier.notify_all();
+//    isReceiving.store(false);
+//    accessNotifier.notify_all();
 
     {
       std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
@@ -188,7 +188,7 @@ static std::mutex screenOutputLock;
 
   void disconnect()
   {
-    std::unique_lock<std::mutex> lockAccess{accessLock};
+    //std::unique_lock<std::mutex> lockAccess{accessLock};
 
     {
       std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
@@ -196,23 +196,23 @@ static std::mutex screenOutputLock;
     }
 
 
-    if (isReceiving.load() == true)
-    {
-      accessNotifier.wait(lockAccess, [this]()
-      {
-        {
-          std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
-          std::cout << "                                waiting receiving termination\n";
-        }
-        return isReceiving.load() == false;
-      });
-    }
+//    if (isReceiving.load() == true)
+//    {
+//      accessNotifier.wait(lockAccess, [this]()
+//      {
+//        {
+//          std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
+//          std::cout << "                                waiting receiving termination\n";
+//        }
+//        return isReceiving.load() == false;
+//      });
+//    }
 
-    isDisconnected.store(true);
+//    isDisconnected.store(true);
 
     sendMessage(Message::NoMoreData);
 
-    lockAccess.unlock();
+//    lockAccess.unlock();
 
     {
       std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
