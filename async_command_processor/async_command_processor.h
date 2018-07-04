@@ -97,7 +97,7 @@ public:
     }
   }
 
-  void run(const bool outputMetrics = true)
+  void run(const bool outputMetrics = false)
   {
      processor->run();
 

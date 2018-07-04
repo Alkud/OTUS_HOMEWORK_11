@@ -4,7 +4,7 @@
 #include <iostream>
 #include <mutex>
 
-std::mutex outputLock{};
+static std::mutex outputLock{};
 
 async::handle_t async::connect(std::size_t bulk)
 {
