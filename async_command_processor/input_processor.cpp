@@ -166,7 +166,7 @@ bool InputProcessor::threadProcess(const size_t)
 void InputProcessor::onThreadException(const std::exception& ex, const size_t threadIndex)
 {
   {
-    //std::lock_guard<std::mutex> lockErrorOut{*errorOutLock};
+    std::lock_guard<std::mutex> lockErrorOut{*errorOutLock};
     errorOut << this->workerName << " thread #" << threadIndex << " stopped. Reason: " << ex.what() << std::endl;
   }
 

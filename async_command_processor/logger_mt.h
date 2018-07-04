@@ -157,7 +157,7 @@ private:
 
     if(!logFile)
     {
-      //std::lock_guard<std::mutex> lockErrorOut{*errorOutLock};
+      std::lock_guard<std::mutex> lockErrorOut{*errorOutLock};
       errorOut << "Cannot create log file " <<
                   logFileName << " !" << std::endl;
       throw(std::ios_base::failure{"Log file creation error!"});
@@ -180,7 +180,7 @@ private:
   void onThreadException(const std::exception& ex, const size_t threadIndex) override
   {
     {
-      //std::lock_guard<std::mutex> lockErrorOut{*errorOutLock};
+      std::lock_guard<std::mutex> lockErrorOut{*errorOutLock};
       errorOut << this->workerName << " thread #" << threadIndex << " stopped. Reason: " << ex.what() << std::endl;
     }
 

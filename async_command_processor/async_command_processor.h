@@ -90,7 +90,7 @@ static std::shared_ptr<std::mutex> screenOutputLock;
     }
     catch (const std::exception& ex)
     {
-      //std::lock_guard<std::mutex> lockOutput{*screenOutputLock};
+      std::lock_guard<std::mutex> lockOutput{*screenOutputLock};
 
       errorStream << "Connection failed. Reason: " << ex.what() << std::endl;
       return false;
@@ -107,7 +107,7 @@ static std::shared_ptr<std::mutex> screenOutputLock;
      }
 
      /* Output metrics */
-     //std::lock_guard<std::mutex> lockOutput{*screenOutputLock};
+     std::lock_guard<std::mutex> lockOutput{*screenOutputLock};
 
      metricsStream << "total received - "
                    << metrics["input reader"]->totalReceptionCount << " data chunk(s), "
