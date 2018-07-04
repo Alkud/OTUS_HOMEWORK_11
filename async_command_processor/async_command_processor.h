@@ -11,6 +11,8 @@
 #include <condition_variable>
 #include "command_processor_instance.h"
 
+using namespace std::chrono_literals;
+
 template <size_t loggingThreadCount = 2u>
 class AsyncCommandProcessor : public MessageBroadcaster
 {
@@ -150,20 +152,22 @@ static std::mutex screenOutputLock;
 
   void receiveData(const char *data, std::size_t size)
   {
-    if (nullptr == data || size == 0)
+    if (nullptr == data || size == 0 || disconnected.load() == true)
     {
       return;
     }
 
     std::unique_lock<std::mutex> lockAccess{accessLock};
 
+    receiving.store(true);
+
     if (disconnected.load() == true)
     {
       lockAccess.unlock();
+      receiving.store(false);
+      accessNotifier.notify_all();
       return;
     }
-
-//    isReceiving.store(true);
 
 //    lockAccess.unlock();
 
@@ -187,8 +191,8 @@ static std::mutex screenOutputLock;
 
     lockAccess.unlock();
 
-//    isReceiving.store(false);
-//    accessNotifier.notify_all();
+    receiving.store(false);
+    accessNotifier.notify_all();
 
     {
       std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
@@ -204,14 +208,12 @@ static std::mutex screenOutputLock;
 
   void disconnect()
   {
+    std::unique_lock<std::mutex> lockAccess{accessLock};
 
     {
       std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
       std::cout << "                                disconnect started\n";
     }
-
-
-    std::unique_lock<std::mutex> lockAccess{accessLock};
 
     disconnected.store(true);
 
@@ -226,6 +228,18 @@ static std::mutex screenOutputLock;
     if (workingThread.joinable() == true)
     {
       workingThread.join();
+    }
+
+    while (receiving.load() == true)
+    {
+      std::unique_lock<std::mutex> lockAccess{accessLock};
+
+      accessNotifier.wait_for(lockAccess, 100ms, [this]()
+      {
+         std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
+         std::cout << "                                waiting receiving termination\n";
+         return receiving.load() == false;
+       });
     }
 
     {
