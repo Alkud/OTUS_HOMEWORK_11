@@ -141,11 +141,11 @@ static std::shared_ptr<std::mutex> screenOutputLock;
 
     //std::cout << "\nreceive try lock. thread id:" << std::this_thread::get_id() << std::endl;
 
-    std::lock_guard<std::mutex> lockAccess{accessLock};
+    //std::lock_guard<std::mutex> lockAccess{accessLock};
 
     //std::cout << "\nreceive locked. thread id:" << std::this_thread::get_id() << std::endl;
 
-    if (isDisconnected)
+    if (isDisconnected.load() == true)
     {
       return;
     }
@@ -172,16 +172,16 @@ static std::shared_ptr<std::mutex> screenOutputLock;
   {
     //std::cout << "\ndisconnect try lock. thread id:" << std::this_thread::get_id() << std::endl;
 
-    std::lock_guard<std::mutex> lockAccess{accessLock};
+    //std::lock_guard<std::mutex> lockAccess{accessLock};
 
     //std::cout << "\ndisconnect locked. thread id:" << std::this_thread::get_id() << std::endl;
 
-    if (isDisconnected)
+    if (isDisconnected.load() == true)
     {
       return;
     }
 
-    isDisconnected = true;
+    isDisconnected.store(true);
 
     sendMessage(Message::NoMoreData);
 
@@ -226,7 +226,7 @@ private:
   std::shared_ptr<InputProcessor::OutputBufferType> bulkBuffer;
 
   std::mutex accessLock;
-  bool isDisconnected;
+  std::atomic<bool> isDisconnected;
 
   std::thread workingThread;
 
@@ -237,4 +237,4 @@ private:
 
 template <size_t loggingThreadCount>
 std::shared_ptr<std::mutex>
-AsyncCommandProcessor<loggingThreadCount>::screenOutputLock{ new std::mutex{} };
+AsyncCommandProcessor<loggingThreadCount>::screenOutputLock{ new std::mutex() };
