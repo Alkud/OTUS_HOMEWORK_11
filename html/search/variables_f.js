@@ -1,17 +1,9 @@
 var searchData=
 [
-  ['tempbuffer',['tempBuffer',['../class_input_processor.html#a2658dc0872c430bf0f19d4e91a037154',1,'InputProcessor::tempBuffer()'],['../class_input_reader.html#adc7ade8d8f386722c0a0df1324b61a0b',1,'InputReader::tempBuffer()']]],
-  ['terminationlock',['terminationLock',['../class_async_worker.html#aaa730d06827fe13e6e82d0398f18966f',1,'AsyncWorker']]],
-  ['terminationnotifier',['terminationNotifier',['../class_command_processor_instance.html#a533dc972d295e48c2cca2c1cd11ddcf4',1,'CommandProcessorInstance']]],
-  ['threadfinished',['threadFinished',['../class_async_worker.html#a27fb8708b6ab9a4180f3e92bb8222435',1,'AsyncWorker']]],
-  ['threadid',['threadID',['../class_async_worker.html#ac3a8315b2b4b26bfa7f0d7e01797f5cc',1,'AsyncWorker']]],
-  ['threadmetrics',['threadMetrics',['../class_input_processor.html#a8349a38e76025f8728536ab9ab446a8b',1,'InputProcessor::threadMetrics()'],['../class_input_reader.html#afc2e35a16dac62683cac011ab57c919a',1,'InputReader::threadMetrics()'],['../class_logger.html#aa61d876c4e69d921026e2b967914dac7',1,'Logger::threadMetrics()'],['../class_logger.html#a3ffe281c47ffcecfaf9daabfbb1c0a02',1,'Logger::threadMetrics()'],['../class_publisher.html#ac939707f0077aa0b7e4b09b91e309ac8',1,'Publisher::threadMetrics()']]],
-  ['threadname',['threadName',['../struct_thread_metrics.html#adc1df4f380523aa793778676bede9a3d',1,'ThreadMetrics']]],
-  ['threadnotifier',['threadNotifier',['../class_async_worker.html#a6e2f251afbb0ac6c4c294a2e8c40d20b',1,'AsyncWorker']]],
-  ['timestampid',['timeStampID',['../class_async_command_processor.html#aed1d6e5ad297908bf6f29595154bca67',1,'AsyncCommandProcessor']]],
-  ['totalbulkcount',['totalBulkCount',['../struct_thread_metrics.html#ad453420240b6d93c8b07347b1efb4800',1,'ThreadMetrics']]],
-  ['totalcharactercount',['totalCharacterCount',['../struct_thread_metrics.html#a9cd82d0bc79e30ef95b3735d9e00ef70',1,'ThreadMetrics']]],
-  ['totalcommandcount',['totalCommandCount',['../struct_thread_metrics.html#ae2f4d59214c5fa21db87f64a2b2b0e0e',1,'ThreadMetrics']]],
-  ['totalreceptioncount',['totalReceptionCount',['../struct_thread_metrics.html#aaa00df642aab5ef8f3aeae59297a228c',1,'ThreadMetrics']]],
-  ['totalstringcount',['totalStringCount',['../struct_thread_metrics.html#ae1360b42e5d59b495931cf00b744311d',1,'ThreadMetrics']]]
+  ['screenoutputlock',['screenOutputLock',['../class_async_command_processor.html#ae72345064cd0935d70ed97c66200c9ba',1,'AsyncCommandProcessor::screenOutputLock()'],['../class_command_processor_instance.html#a823a525f6c3149f0dd089eb35bf4e77b',1,'CommandProcessorInstance::screenOutputLock()']]],
+  ['shouldexit',['shouldExit',['../class_async_worker.html#ad9ddf369aab8745b691ba4f24676c88f',1,'AsyncWorker::shouldExit()'],['../class_command_processor_instance.html#ae934fb344a66f329340d431ca66a2b55',1,'CommandProcessorInstance::shouldExit()']]],
+  ['state',['state',['../class_async_worker.html#a586cf4490e20774a5f740b7fc5045cf1',1,'AsyncWorker']]],
+  ['stringthreadid',['stringThreadID',['../class_logger.html#a1e067056657638942881f0b002a5d4bb',1,'Logger::stringThreadID()'],['../class_logger.html#a7bc5cb459c66858b7450d19e9ce8b001',1,'Logger::stringThreadID()']]],
+  ['sz1',['sz1',['../test4_8cpp.html#ab76d3852686941b6f71655f1fd25f2e1',1,'test4.cpp']]],
+  ['sz2',['sz2',['../test4_8cpp.html#a90bf98ab5aa3066915c6fad60b0cdf76',1,'test4.cpp']]]
 ];

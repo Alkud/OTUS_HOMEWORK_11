@@ -33,16 +33,21 @@ async::handle_t async::connect(std::size_t bulk)
 
 void async::receive(async::handle_t handle, const char* data, std::size_t size)
 {
+  if (nullptr == handle)
+  {
+    return;
+  }
+
+  auto commandProcessor {reinterpret_cast<AsyncCommandProcessor<2>*>(handle)};
+
   {
     std::lock_guard<std::mutex> lockContext{contextLock};
-
-    if (nullptr == handle)
+    if (commandProcessor->isDisconnected())
     {
       return;
     }
   }
 
-  auto commandProcessor {reinterpret_cast<AsyncCommandProcessor<2>*>(handle)};
   commandProcessor->receiveData(data, size);
 }
 
@@ -57,15 +62,13 @@ void async::disconnect(async::handle_t handle)
   #else
     //std::cout << "\n                    async::disconnect\n";
   #endif
-  auto tmp = handle;
+
+  auto commandProcessor {reinterpret_cast<AsyncCommandProcessor<2>*>(handle)};
 
   {
     std::lock_guard<std::mutex> lockContext{contextLock};
-    handle = nullptr;
+    commandProcessor->disconnect();
   }
-
-  auto commandProcessor {reinterpret_cast<AsyncCommandProcessor<2>*>(tmp)};
-  commandProcessor->disconnect();  
 
   delete commandProcessor;
 }
