@@ -153,6 +153,11 @@ static std::mutex screenOutputLock;
 
     isReceiving.store(true);
 
+    {
+      std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
+      std::cout << "                                receiving started\n";
+    }
+
     lockAccess.unlock();
 
 
@@ -169,6 +174,12 @@ static std::mutex screenOutputLock;
     isReceiving.store(false);
     accessNotifier.notify_all();
 
+    {
+      std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
+      std::cout << "                                receiving finished\n";
+    }
+
+
     #ifdef NDEBUG
     #else
       //std::cout << "\n                    AsyncCP received data\n";
@@ -179,10 +190,20 @@ static std::mutex screenOutputLock;
   {
     std::unique_lock<std::mutex> lockAccess{accessLock};
 
+    {
+      std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
+      std::cout << "                                disconnect started\n";
+    }
+
+
     if (isReceiving.load() == true)
     {
       accessNotifier.wait(lockAccess, [this]()
       {
+        {
+          std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
+          std::cout << "                                waiting receiving termination\n";
+        }
         return isReceiving.load() == false;
       });
     }
@@ -192,6 +213,11 @@ static std::mutex screenOutputLock;
     sendMessage(Message::NoMoreData);
 
     lockAccess.unlock();
+
+    {
+      std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
+      std::cout << "                                disconnect finished\n";
+    }
 
     #ifdef NDEBUG
     #else
