@@ -1,10 +1,10 @@
-Start testing: Jul 05 07:01 UTC
+Start testing: Jul 05 07:44 UTC
 ----------------------------------------------------------
 1/1 Testing: test_hw_11
 1/1 Test: test_hw_11
 Command: "/home/travis/build/Alkud/OTUS_HOMEWORK_11/otus_hw_11_test"
 Directory: /home/travis/build/Alkud/OTUS_HOMEWORK_11
-"test_hw_11" start time: Jul 05 07:01 UTC
+"test_hw_11" start time: Jul 05 07:44 UTC
 Output:
 ----------------------------------------------------------
 Running 7 test cases...
@@ -75,26 +75,6 @@ Running 7 test cases...
                                 disconnect started
                                 disconnect started
                                 disconnect started
-                                disconnect finished
-
-                            AsyncCP destructor
-
-                    input reader destructor, shouldExit = 1
-
-                    input processor  destructor, shouldExit = 1
-
-                    publisher destructor, shouldExit = 1
-
-                    logger destructor, shouldExit = 1
-
-                    bulk buffer destructor, shouldExit = 1
-
-                    command buffer destructor, shouldExit = 1
-
-                    character buffer destructor, shouldExit = 1
-                                disconnect started
-                                disconnect started
-                                disconnect started
                                 disconnect started
                                 disconnect started
                                 disconnect finished
@@ -108,12 +88,15 @@ Running 7 test cases...
                     publisher destructor, shouldExit = 1
 
                     logger destructor, shouldExit = 1
+                                disconnect started
 
                     bulk buffer destructor, shouldExit = 1
 
                     command buffer destructor, shouldExit = 1
 
                     character buffer destructor, shouldExit = 1
+                                disconnect started
+                                disconnect started
                                 disconnect finished
 
                             AsyncCP destructor
@@ -161,28 +144,8 @@ Running 7 test cases...
                     logger destructor, shouldExit = 1
 
                     bulk buffer destructor, shouldExit = 1
-                                disconnect finished
-
-                            AsyncCP destructor
-
-                    input reader destructor, shouldExit = 1
-
-                    input processor  destructor, shouldExit = 1
-
-                    publisher destructor, shouldExit = 1
-
-                    logger destructor, shouldExit = 1
-
-                    bulk buffer destructor, shouldExit = 1
-                                disconnect finished
-
-                            AsyncCP destructor
 
                     command buffer destructor, shouldExit = 1
-
-                    input reader destructor, shouldExit = 1
-
-                    input processor  destructor, shouldExit = 1
 
                     character buffer destructor, shouldExit = 1
                                 disconnect finished
@@ -192,20 +155,6 @@ Running 7 test cases...
                     input reader destructor, shouldExit = 1
 
                     input processor  destructor, shouldExit = 1
-
-                    command buffer destructor, shouldExit = 1
-
-                    publisher destructor, shouldExit = 1
-
-                    logger destructor, shouldExit = 1
-
-                    bulk buffer destructor, shouldExit = 1
-
-                    command buffer destructor, shouldExit = 1
-
-                    character buffer destructor, shouldExit = 1
-
-                    character buffer destructor, shouldExit = 1
 
                     publisher destructor, shouldExit = 1
 
@@ -229,11 +178,60 @@ Running 7 test cases...
 
                     input reader destructor, shouldExit = 1
 
+                    input processor  destructor, shouldExit = 1
+
                     publisher destructor, shouldExit = 1
+                                disconnect finished
+
+                            AsyncCP destructor
+
+                    input reader destructor, shouldExit = 1
 
                     input processor  destructor, shouldExit = 1
 
+                    publisher destructor, shouldExit = 1
+
                     logger destructor, shouldExit = 1
+
+                    bulk buffer destructor, shouldExit = 1
+
+                    logger destructor, shouldExit = 1
+
+                    
+                    publisher destructor, shouldExit = bulk buffer destructor, shouldExit = 11
+
+
+                    logger destructor, shouldExit = 1
+
+                    command buffer destructor, shouldExit = 1
+
+                    character buffer destructor, shouldExit = 1
+
+                    bulk buffer destructor, shouldExit = 1
+
+                    command buffer destructor, shouldExit = 1
+
+                    character buffer destructor, shouldExit = 1
+                                disconnect finished
+
+                            AsyncCP destructor
+
+                    input reader destructor, shouldExit = 1
+
+                    input processor  destructor, shouldExit = 1
+                                disconnect finished
+
+                            AsyncCP destructor
+
+                    input reader destructor, shouldExit = 1
+
+                    input processor  destructor, shouldExit = 1
+
+                    command buffer destructor, shouldExit = 1
+
+                    publisher destructor, shouldExit = 1
+
+                    character buffer destructor, shouldExit = 1
 
                     publisher destructor, shouldExit = 1
 
@@ -243,9 +241,11 @@ Running 7 test cases...
 
                     command buffer destructor, shouldExit = 1
 
-                    bulk buffer destructor, shouldExit = 1
-
                     character buffer destructor, shouldExit = 1
+
+                    logger destructor, shouldExit = 1
+
+                    bulk buffer destructor, shouldExit = 1
 
                     command buffer destructor, shouldExit = 1
 
@@ -353,11 +353,11 @@ Running 7 test cases...
 
 *** No errors detected
 <end of output>
-Test time =   1.03 sec
+Test time =   0.02 sec
 ----------------------------------------------------------
 Test Passed.
-"test_hw_11" end time: Jul 05 07:01 UTC
-"test_hw_11" time elapsed: 00:00:01
+"test_hw_11" end time: Jul 05 07:44 UTC
+"test_hw_11" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Jul 05 07:01 UTC
+End testing: Jul 05 07:44 UTC
