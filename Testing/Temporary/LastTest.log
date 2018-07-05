@@ -1,17 +1,19 @@
-Start testing: Jul 05 08:01 UTC
+Start testing: Jul 05 08:36 UTC
 ----------------------------------------------------------
 1/1 Testing: test_hw_11
 1/1 Test: test_hw_11
 Command: "/home/travis/build/Alkud/OTUS_HOMEWORK_11/otus_hw_11_test"
 Directory: /home/travis/build/Alkud/OTUS_HOMEWORK_11
-"test_hw_11" start time: Jul 05 08:01 UTC
+"test_hw_11" start time: Jul 05 08:36 UTC
 Output:
 ----------------------------------------------------------
 Running 7 test cases...
                                 disconnect started
                                 disconnect finished
 
-                            AsyncCP destructor
+                            AsyncCP destructor started
+
+                            AsyncCP destructor finished
                                 receiving started
                                 receiving finished
                                 receiving started
@@ -23,103 +25,135 @@ Running 7 test cases...
                                 disconnect started
                                 disconnect finished
 
-                            AsyncCP destructor
+                            AsyncCP destructor started
+
+                            AsyncCP destructor finished
                                 disconnect started
                                 disconnect finished
 
-                            AsyncCP destructor
-                                disconnect started
-                                disconnect started
-                                disconnect started
-                                disconnect started
-                                disconnect started
-                                disconnect started
-                                disconnect started
-                                disconnect started
-                                disconnect finished
+                            AsyncCP destructor started
 
-                            AsyncCP destructor
+                            AsyncCP destructor finished
+                                disconnect started
+                                disconnect started
+                                disconnect started
+                                disconnect started
                                 disconnect started
                                 disconnect started
                                 disconnect finished
 
-                            AsyncCP destructor
-                                disconnect finished
+                            AsyncCP destructor started
 
-                            AsyncCP destructor
-                                disconnect finished
-
-                            AsyncCP destructor
-                                disconnect finished
-
-                            AsyncCP destructor
-                                disconnect finished
-
-                            AsyncCP destructor
-                                disconnect finished
-
-                            AsyncCP destructor
-                                disconnect finished
-
-                            AsyncCP destructor
-                                disconnect finished
-
-                            AsyncCP destructor
-                                disconnect finished
-
-                            AsyncCP destructor
-                                receiving started
-                                receiving finished
-                                receiving started
-                                receiving finished
-                                receiving started
-                                receiving started
-                                receiving finished
-                                receiving started
-                                receiving started
-                                receiving started
-                                receiving started
-                                receiving started
-                                receiving started
-                                receiving finished
-                                receiving finished
-                                receiving finished
-                                receiving finished
-                                receiving finished
-                                receiving finished
-                                receiving finished
+                            AsyncCP destructor finished
+                                disconnect started
+                                disconnect started
+                                disconnect started
                                 disconnect started
                                 disconnect finished
 
-                            AsyncCP destructor
-                                disconnect started
+                            AsyncCP destructor started
+
+                            AsyncCP destructor finished
                                 disconnect finished
 
-                            AsyncCP destructor
+                            AsyncCP destructor started
+
+                            AsyncCP destructor finished
+                                disconnect finished
+
+                            AsyncCP destructor started
+
+                            AsyncCP destructor finished
+                                disconnect finished
+
+                            AsyncCP destructor started
+
+                            AsyncCP destructor finished
+                                disconnect finished
+
+                            AsyncCP destructor started
+
+                            AsyncCP destructor finished
+                                disconnect finished
+
+                            AsyncCP destructor started
+
+                            AsyncCP destructor finished
+                                disconnect finished
+
+                            AsyncCP destructor started
+
+                            AsyncCP destructor finished
+                                disconnect finished
+
+                            AsyncCP destructor started
+
+                            AsyncCP destructor finished
+                                disconnect finished
+
+                            AsyncCP destructor started
+
+                            AsyncCP destructor finished
                                 receiving started
                                 receiving finished
                                 receiving started
                                 receiving finished
                                 receiving started
                                 receiving finished
-                                disconnect started
-                                disconnect finished
-
-                            AsyncCP destructor
+                                receiving started
+                                receiving started
+                                receiving finished
+                                receiving finished
+                                receiving started
+                                receiving finished
+                                receiving started
+                                receiving finished
+                                receiving started
+                                receiving finished
+                                receiving started
+                                receiving finished
                                 receiving started
                                 receiving finished
                                 disconnect started
                                 disconnect finished
 
-                            AsyncCP destructor
+                            AsyncCP destructor started
+
+                            AsyncCP destructor finished
+                                disconnect started
+                                disconnect finished
+
+                            AsyncCP destructor started
+
+                            AsyncCP destructor finished
+                                receiving started
+                                receiving finished
+                                receiving started
+                                receiving finished
+                                receiving started
+                                receiving finished
+                                disconnect started
+                                disconnect finished
+
+                            AsyncCP destructor started
+
+                            AsyncCP destructor finished
+                                receiving started
+                                receiving finished
+                                disconnect started
+                                disconnect finished
+
+                            AsyncCP destructor started
+
+                            AsyncCP destructor finished
 
 *** No errors detected
 <end of output>
-Test time =   0.03 sec
+Test time =   0.04 sec
 ----------------------------------------------------------
 Test Passed.
-"test_hw_11" end time: Jul 05 08:01 UTC
+"test_hw_11" end time: Jul 05 08:36 UTC
 "test_hw_11" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Jul 05 08:01 UTC
+End testing: Jul 05 08:36 UTC

@@ -60,7 +60,7 @@ static std::mutex screenOutputLock;
 
   ~AsyncCommandProcessor()
   {
-      std::cout << "\n                            AsyncCP destructor\n";
+      std::cout << "\n                            AsyncCP destructor started\n";
 //    std::unique_lock<std::mutex> lockAccess{accessLock};
 
 //    if (isReceiving.load() == true)
@@ -75,10 +75,11 @@ static std::mutex screenOutputLock;
 //      });
 //    }
 
-//    if (workingThread.joinable() == true)
-//    {
-//      workingThread.join();
-//    }
+    if (workingThread.joinable() == true)
+    {
+      workingThread.join();
+    }
+    std::cout << "\n                            AsyncCP destructor finished\n";
   }
 
   bool connect(const bool outputMetrics = false) noexcept
