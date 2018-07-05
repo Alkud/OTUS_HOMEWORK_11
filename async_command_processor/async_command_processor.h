@@ -161,13 +161,13 @@ static std::mutex screenOutputLock;
 
     std::unique_lock<std::mutex> lockAccess{accessLock};
 
-    receiving.store(true);
+    //receiving.store(true);
 
     if (disconnected.load() == true)
     {
-      receiving.store(false);
+      //receiving.store(false);
       lockAccess.unlock();
-      accessNotifier.notify_all();
+      //accessNotifier.notify_all();
       return;
     }
 
@@ -190,11 +190,11 @@ static std::mutex screenOutputLock;
       entryPoint->putItem(std::move(newData));
     }
 
-    receiving.store(false);
+    //receiving.store(false);
 
     lockAccess.unlock();
 
-    accessNotifier.notify_all();
+    //accessNotifier.notify_all();
 
     {
       std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
@@ -223,20 +223,20 @@ static std::mutex screenOutputLock;
 
     lockAccess.unlock();
 
-    while (receiving.load() == true)
-    {
-      std::unique_lock<std::mutex> lockAccess{accessLock};
+//    while (receiving.load() == true)
+//    {
+//      std::unique_lock<std::mutex> lockAccess{accessLock};
 
-      std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
-      std::cout << "                                waiting receiving termination\n";
+//      std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
+//      std::cout << "                                waiting receiving termination\n";
 
-      accessNotifier.wait_for(lockAccess, 100ms, [this]()
-      {
-         return receiving.load() == false;
-       });
+//      accessNotifier.wait_for(lockAccess, 100ms, [this]()
+//      {
+//         return receiving.load() == false;
+//       });
 
-      lockAccess.unlock();
-    }
+//      lockAccess.unlock();
+//    }
 
     {
       std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};

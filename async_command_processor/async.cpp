@@ -49,6 +49,8 @@ void async::receive(async::handle_t handle, const char* data, std::size_t size)
     {
       return;
     }
+
+    commandProcessor->receiveData(data, size);
   }
   catch(...)
   {
@@ -56,7 +58,7 @@ void async::receive(async::handle_t handle, const char* data, std::size_t size)
     return;
   }
 
-  commandProcessor->receiveData(data, size);
+
 }
 
 void async::disconnect(async::handle_t handle)

@@ -1,1 +1,1 @@
-/usr/bin/g++    -rdynamic CMakeFiles/bulkasync.dir/bulkasync.cpp.o CMakeFiles/bulkasync.dir/homework_11.cpp.o  -o bulkasync -Wl,-rpath,/home/travis/build/Alkud/OTUS_HOMEWORK_11/async_command_processor async_command_processor/libasync.so.0.0.53 -lpthread 
+/usr/bin/g++    -rdynamic CMakeFiles/bulkasync.dir/bulkasync.cpp.o CMakeFiles/bulkasync.dir/homework_11.cpp.o  -o bulkasync -Wl,-rpath,/home/travis/build/Alkud/OTUS_HOMEWORK_11/async_command_processor async_command_processor/libasync.so.0.0.54 -lpthread 

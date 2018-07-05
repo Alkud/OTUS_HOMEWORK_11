@@ -253,13 +253,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;</div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    std::unique_lock&lt;std::mutex&gt; lockAccess{accessLock};</div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    receiving.store(<span class="keyword">true</span>);</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="comment">//receiving.store(true);</span></div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;</div>
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <span class="keywordflow">if</span> (disconnected.load() == <span class="keyword">true</span>)</div>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    {</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;      receiving.store(<span class="keyword">false</span>);</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;      <span class="comment">//receiving.store(false);</span></div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;      lockAccess.unlock();</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;      accessNotifier.notify_all();</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;      <span class="comment">//accessNotifier.notify_all();</span></div>
 <div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;      <span class="keywordflow">return</span>;</div>
 <div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    }</div>
 <div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;</div>
@@ -282,11 +282,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;      entryPoint-&gt;putItem(std::move(newData));</div>
 <div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    }</div>
 <div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    receiving.store(<span class="keyword">false</span>);</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    <span class="comment">//receiving.store(false);</span></div>
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;</div>
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    lockAccess.unlock();</div>
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    accessNotifier.notify_all();</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <span class="comment">//accessNotifier.notify_all();</span></div>
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;</div>
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    {</div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;      std::lock_guard&lt;std::mutex&gt; lockScreenOutput{screenOutputLock};</div>
@@ -315,20 +315,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;</div>
 <div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    lockAccess.unlock();</div>
 <div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    <span class="keywordflow">while</span> (receiving.load() == <span class="keyword">true</span>)</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    {</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;      std::unique_lock&lt;std::mutex&gt; lockAccess{accessLock};</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;<span class="comment">//    while (receiving.load() == true)</span></div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;<span class="comment">//    {</span></div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;<span class="comment">//      std::unique_lock&lt;std::mutex&gt; lockAccess{accessLock};</span></div>
 <div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;      std::lock_guard&lt;std::mutex&gt; lockScreenOutput{screenOutputLock};</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;      std::cout &lt;&lt; <span class="stringliteral">&quot;                                waiting receiving termination\n&quot;</span>;</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;<span class="comment">//      std::lock_guard&lt;std::mutex&gt; lockScreenOutput{screenOutputLock};</span></div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;<span class="comment">//      std::cout &lt;&lt; &quot;                                waiting receiving termination\n&quot;;</span></div>
 <div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;      accessNotifier.wait_for(lockAccess, 100ms, [<span class="keyword">this</span>]()</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;      {</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;         <span class="keywordflow">return</span> receiving.load() == <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;       });</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;<span class="comment">//      accessNotifier.wait_for(lockAccess, 100ms, [this]()</span></div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;<span class="comment">//      {</span></div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;<span class="comment">//         return receiving.load() == false;</span></div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;<span class="comment">//       });</span></div>
 <div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;      lockAccess.unlock();</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    }</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;<span class="comment">//      lockAccess.unlock();</span></div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;<span class="comment">//    }</span></div>
 <div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;</div>
 <div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    {</div>
 <div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;      std::lock_guard&lt;std::mutex&gt; lockScreenOutput{screenOutputLock};</div>
