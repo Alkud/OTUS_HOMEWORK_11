@@ -158,15 +158,15 @@ static std::mutex screenOutputLock;
       return;
     }
 
-    std::unique_lock<std::mutex> lockAccess{accessLock};
+//    std::unique_lock<std::mutex> lockAccess{accessLock};
 
     receiving.store(true);
 
     if (disconnected.load() == true)
     {
-      lockAccess.unlock();
+//      lockAccess.unlock();
       receiving.store(false);
-      accessNotifier.notify_all();
+//      accessNotifier.notify_all();
       return;
     }
 
@@ -190,7 +190,7 @@ static std::mutex screenOutputLock;
       entryPoint->putItem(std::move(newData));
     }
 
-    lockAccess.unlock();
+//    lockAccess.unlock();
 
     receiving.store(false);
     accessNotifier.notify_all();
@@ -209,7 +209,7 @@ static std::mutex screenOutputLock;
 
   void disconnect()
   {
-    std::unique_lock<std::mutex> lockAccess{accessLock};
+//    std::unique_lock<std::mutex> lockAccess{accessLock};
 
     {
       //std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
@@ -224,7 +224,7 @@ static std::mutex screenOutputLock;
 
     sendMessage(Message::NoMoreData);
 
-    lockAccess.unlock();
+//    lockAccess.unlock();
 
     if (workingThread.joinable() == true)
     {
@@ -233,17 +233,17 @@ static std::mutex screenOutputLock;
 
     while (receiving.load() == true)
     {
-      std::unique_lock<std::mutex> lockAccess{accessLock};
+//      std::unique_lock<std::mutex> lockAccess{accessLock};
 
-      //std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
-      std::cout << "                                waiting receiving termination\n";
+//      //std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
+//      std::cout << "                                waiting receiving termination\n";
 
-      accessNotifier.wait_for(lockAccess, 100ms, [this]()
-      {
-         return receiving.load() == false;
-       });
+//      accessNotifier.wait_for(lockAccess, 100ms, [this]()
+//      {
+//         return receiving.load() == false;
+//       });
 
-      lockAccess.unlock();
+//      lockAccess.unlock();
     }
 
     {
