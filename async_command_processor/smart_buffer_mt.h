@@ -64,6 +64,7 @@ public:
   /// Copy new element to the buffer
   void putItem(const T& newItem)
   {
+    std::cout << "\nputItem. thread#" << std::this_thread::get_id() << "\n";
     std::lock_guard<std::mutex> lockData{dataLock};
 
     /* don't accept data if NoMoreData message received! */
@@ -81,6 +82,7 @@ public:
   /// Move new element to the buffer
   void putItem(T&& newItem)
   {
+    std::cout << "\nputItem. thread#" << std::this_thread::get_id() << "\n";
     std::lock_guard<std::mutex> lockData{dataLock};
 
     /* don't accept data if NoMoreData message received! */
@@ -191,6 +193,7 @@ public:
       {
       case Message::NoMoreData :
       {
+        std::cout << "\nNoMoreData. thread#" << std::this_thread::get_id() << "\n";
         std::lock_guard<std::mutex> lockData{dataLock};
         noMoreData.store(true);
 
