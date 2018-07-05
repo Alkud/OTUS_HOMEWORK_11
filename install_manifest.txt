@@ -1,2 +1,2 @@
-/usr/lib/libasync.so.0.0.52
+/usr/lib/libasync.so.0.0.53
 /usr/lib/libasync.so

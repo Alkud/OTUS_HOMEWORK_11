@@ -220,6 +220,18 @@ homework_11.h
 iostream
 -
 
+/home/travis/build/Alkud/OTUS_HOMEWORK_11/new_delete.h
+stdint.h
+-
+cstddef
+-
+new
+-
+atomic
+-
+cstdlib
+-
+
 /home/travis/build/Alkud/OTUS_HOMEWORK_11/otus_hw_11_test.cpp
 boost/test/unit_test.hpp
 -
@@ -229,6 +241,8 @@ homework_11.h
 /home/travis/build/Alkud/OTUS_HOMEWORK_11/./async_command_processor/async.h
 ./async_command_processor/async_command_processor.h
 /home/travis/build/Alkud/OTUS_HOMEWORK_11/./async_command_processor/async_command_processor.h
+new_delete.h
+/home/travis/build/Alkud/OTUS_HOMEWORK_11/new_delete.h
 string
 -
 iostream

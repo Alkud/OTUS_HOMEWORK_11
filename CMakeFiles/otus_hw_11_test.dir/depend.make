@@ -19,5 +19,6 @@ CMakeFiles/otus_hw_11_test.dir/otus_hw_11_test.cpp.o: ./async_command_processor/
 CMakeFiles/otus_hw_11_test.dir/otus_hw_11_test.cpp.o: ./async_command_processor/thread_metrics.h
 CMakeFiles/otus_hw_11_test.dir/otus_hw_11_test.cpp.o: ./async_command_processor/weak_ptr_less.h
 CMakeFiles/otus_hw_11_test.dir/otus_hw_11_test.cpp.o: homework_11.h
+CMakeFiles/otus_hw_11_test.dir/otus_hw_11_test.cpp.o: new_delete.h
 CMakeFiles/otus_hw_11_test.dir/otus_hw_11_test.cpp.o: otus_hw_11_test.cpp
 
