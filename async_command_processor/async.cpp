@@ -7,10 +7,7 @@
 #include <list>
 #include "async_command_processor.h"
 
-static std::mutex contextLock{};
-
-static std::list<std::unique_ptr<AsyncCommandProcessor<2>>> connections{};
-
+//static std::list<std::unique_ptr<AsyncCommandProcessor<2>>> connections{};
 
 async::handle_t async::connect(std::size_t bulk)
 {
@@ -19,15 +16,14 @@ async::handle_t async::connect(std::size_t bulk)
     return nullptr;
   }
 
-  auto newCommandProcessor {new AsyncCommandProcessor<2>(
+  auto newCommandProcessor {std::make_shared<AsyncCommandProcessor<2>>(
       bulk, '{', '}', std::cout, std::cerr, std::cout
     )
   };
 
   if (newCommandProcessor->connect() == true)
-  {
-    connections.emplace_back(newCommandProcessor);
-    return reinterpret_cast<void*>(newCommandProcessor);
+  {    
+    return reinterpret_cast<void*>(newCommandProcessor.get());
   }
   else
   {
@@ -48,7 +44,6 @@ void async::receive(async::handle_t handle, const char* data, std::size_t size)
 
   try
   {
-    //std::lock_guard<std::mutex> lockContext{contextLock};
     if (commandProcessor->isDisconnected())
     {
       return;
@@ -58,7 +53,11 @@ void async::receive(async::handle_t handle, const char* data, std::size_t size)
   }
   catch(...)
   {
-    std::cout << "\n------Wrong receive!-------\n";
+    #ifdef NDEBUG
+    #else
+      //std::cout << "\n------Wrong receive!-------\n";
+    #endif
+
     return;
   }
 }
@@ -79,13 +78,15 @@ void async::disconnect(async::handle_t handle)
 
   try
   {
-    //std::lock_guard<std::mutex> lockContext{contextLock};
     commandProcessor->disconnect();
-    //delete commandProcessor;
   }
   catch(...)
   {
-    std::cout << "\n------Wrong disconnect!-------\n";
+    #ifdef NDEBUG
+    #else
+      //std::cout << "\n------Wrong disconnect!-------\n";
+    #endif
+
     return;
   }
 }

@@ -20,11 +20,8 @@ void connect_disconnect(atomic_h& h)
     while(can_do)
     {
         h = async::connect(3);
-        std::this_thread::sleep_for(500ms);
         async::receive(h, data1, sz1);
-        std::this_thread::sleep_for(500ms);
         async::disconnect(h);
-        std::this_thread::sleep_for(500ms);
         std::this_thread::yield();
     }
 }
@@ -37,7 +34,7 @@ int main() {
 
         std::stringstream userInput;
 
-        for (size_t i{}; i < 50000; ++i)
+        for (size_t i{}; i < 5000; ++i)
         {
           userInput << i;
         }
@@ -47,10 +44,8 @@ int main() {
         {
             while(--N)
             {
-                async::receive(h1, data2, sz2);
-                //std::this_thread::sleep_for(2ms);
+                async::receive(h1, data2, sz2);                
                 async::receive(h2, data2, sz2);
-                //std::this_thread::sleep_for(2ms);
             }
             std::this_thread::yield();
         }

@@ -195,7 +195,11 @@ public:
       {
       case Message::NoMoreData :
       {
-        std::cout << "\nNoMoreData. thread#" << std::this_thread::get_id() << "\n";
+        #ifdef NDEBUG
+        #else
+          //std::cout << "\nNoMoreData. thread#" << std::this_thread::get_id() << "\n";
+        #endif
+
         std::lock_guard<std::mutex> lockData{dataLock};
         noMoreData.store(true);
 
@@ -260,10 +264,10 @@ private:
     {
       #ifdef NDEBUG
         #else
-      std::cout << "\n                    "
-                << workerName << " dataReceived=" << dataReceived.load()
-                << "data.size()=" << data.size()
-                << "notificationCount=" << notificationCount.load() << "\n";
+//      std::cout << "\n                    "
+//                << workerName << " dataReceived=" << dataReceived.load()
+//                << "data.size()=" << data.size()
+//                << "notificationCount=" << notificationCount.load() << "\n";
       #endif
 
       std::unique_lock<std::mutex> lockNotifier{notifierLock};

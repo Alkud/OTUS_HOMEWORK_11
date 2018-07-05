@@ -14,11 +14,10 @@
 using namespace std::chrono_literals;
 
 template <size_t loggingThreadCount = 2u>
-class AsyncCommandProcessor : public MessageBroadcaster
+class AsyncCommandProcessor : public std::enable_shared_from_this<AsyncCommandProcessor<loggingThreadCount>>,
+                              public MessageBroadcaster
 {
 public:
-
-static std::mutex screenOutputLock;
 
   AsyncCommandProcessor(      
       const size_t newBulkSize = 3,
@@ -28,6 +27,7 @@ static std::mutex screenOutputLock;
       std::ostream& newErrorStream = std::cerr,
       std::ostream& newMetricsStream = std::cout
   ) :    
+    sharedThis{},
     accessLock{}, accessNotifier{},
     disconnected{false}, receiving{false},
 
@@ -53,30 +53,22 @@ static std::mutex screenOutputLock;
     entryPoint{processor->getEntryPoint()},
     commandBuffer{processor->getInputBuffer()},
     bulkBuffer{processor->getOutputBuffer()},
-    metrics{processor->getMetrics()}
+    metrics{processor->getMetrics()},
+    selfDestroy{}
   {
     this->addMessageListener(entryPoint);
   }
 
   ~AsyncCommandProcessor()
   {
-      //std::cout << "\n                            AsyncCP destructor started\n";
-//    std::unique_lock<std::mutex> lockAccess{accessLock};
-
-//    if (isReceiving.load() == true)
-//    {
-//      accessNotifier.wait(lockAccess, [this]()
-//      {
-//        {
-//          //std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
-//          std::cout << "                                waiting receiving termination\n";
-//        }
-//        return isReceiving.load() == false;
-//      });
-//    }
-
-
-    //std::cout << "\n                            AsyncCP destructor finished\n";
+    #ifdef NDEBUG
+    #else
+      //std::cout << "\n                            AsyncCP destructor\n";
+    #endif
+    if (selfDestroy.joinable())
+    {
+      selfDestroy.join();
+    }
   }
 
   bool connect(const bool outputMetrics = false) noexcept
@@ -89,10 +81,15 @@ static std::mutex screenOutputLock;
         return false;
       }
 
+      if (nullptr == sharedThis)
+      {
+         sharedThis = this->shared_from_this();
+      }
+
       #ifdef NDEBUG
       #else
         //std::cout << "\n                    AsyncCP working thread start\n";
-      #endif
+      #endif      
 
       workingThread = std::thread{
           &AsyncCommandProcessor<loggingThreadCount>::run, this, outputMetrics
@@ -159,23 +156,11 @@ static std::mutex screenOutputLock;
       return;
     }
 
-
-
-    //receiving.store(true);
-
-//    if (disconnected.load() == true)
-//    {
-      //receiving.store(false);
-//      lockAccess.unlock();
-      //accessNotifier.notify_all();
-//      return;
-//    }
-
     {
        #ifdef NDEBUG
        #else
-        std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
-        std::cout << "                                receiving started\n";
+         //std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
+         //std::cout << "                                receiving started\n";
        #endif
     }
 
@@ -190,15 +175,14 @@ static std::mutex screenOutputLock;
       entryPoint->putItem(std::move(newData));
     }
 
-    //receiving.store(false);
-
     lockAccess.unlock();
 
-    //accessNotifier.notify_all();
-
     {
-      std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
-      std::cout << "                                receiving finished\n";
+      #ifdef NDEBUG
+      #else
+        //std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
+        //std::cout << "                                receiving finished\n";
+      #endif
     }
 
 
@@ -213,8 +197,11 @@ static std::mutex screenOutputLock;
     std::unique_lock<std::mutex> lockAccess{accessLock};
 
     {
-      std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
-      std::cout << "                                disconnect started\n";
+      #ifdef NDEBUG
+      #else
+        //std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
+        //std::cout << "                                disconnect started\n";
+      #endif
     }
 
     disconnected.store(true);
@@ -229,26 +216,30 @@ static std::mutex screenOutputLock;
     }
 
 
-
-//    while (receiving.load() == true)
-//    {
-//      std::unique_lock<std::mutex> lockAccess{accessLock};
-
-//      std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
-//      std::cout << "                                waiting receiving termination\n";
-
-//      accessNotifier.wait_for(lockAccess, 100ms, [this]()
-//      {
-//         return receiving.load() == false;
-//       });
-
-//      lockAccess.unlock();
-//    }
-
     {
-      std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
-      std::cout << "                                disconnect finished\n";
+      #ifdef NDEBUG
+      #else
+        //std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
+        //std::cout << "                                disconnect finished\n";
+      #endif
     }
+
+    selfDestroy = std::thread(
+      [this]()
+      {
+        try
+        {
+          std::this_thread::sleep_for(200ms);
+          sharedThis.reset();
+        }
+        catch (const std::exception& ex)
+        {
+           std::cerr << ex.what() << std::endl;
+        }
+      }
+    );
+
+    sharedThis.reset();
 
     #ifdef NDEBUG
     #else
@@ -278,7 +269,11 @@ static std::mutex screenOutputLock;
   std::mutex& getScreenOutputLock()
   { return screenOutputLock;}
 
-private:  
+private:
+
+  static std::mutex screenOutputLock;
+
+  std::shared_ptr<AsyncCommandProcessor<loggingThreadCount>> sharedThis;
 
   std::mutex accessLock;
   std::condition_variable accessNotifier;
@@ -304,6 +299,8 @@ private:
   SharedGlobalMetrics metrics;
 
   std::size_t timeStampID;
+
+  std::thread selfDestroy;
 };
 
 template <size_t loggingThreadCount>
