@@ -24,6 +24,7 @@ void connect_disconnect(atomic_h& h)
         async::receive(h, data1, sz1);
         std::this_thread::sleep_for(500ms);
         async::disconnect(h);
+        std::this_thread::sleep_for(500ms);
         std::this_thread::yield();
     }
 }
@@ -47,9 +48,9 @@ int main() {
             while(--N)
             {
                 async::receive(h1, data2, sz2);
-                std::this_thread::sleep_for(2ms);
+                //std::this_thread::sleep_for(2ms);
                 async::receive(h2, data2, sz2);
-                std::this_thread::sleep_for(2ms);
+                //std::this_thread::sleep_for(2ms);
             }
             std::this_thread::yield();
         }

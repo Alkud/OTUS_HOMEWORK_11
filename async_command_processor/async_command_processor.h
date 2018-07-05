@@ -165,8 +165,8 @@ static std::mutex screenOutputLock;
 
     if (disconnected.load() == true)
     {
-      lockAccess.unlock();
       receiving.store(false);
+      lockAccess.unlock();
       accessNotifier.notify_all();
       return;
     }
@@ -190,9 +190,10 @@ static std::mutex screenOutputLock;
       entryPoint->putItem(std::move(newData));
     }
 
+    receiving.store(false);
+
     lockAccess.unlock();
 
-    receiving.store(false);
     accessNotifier.notify_all();
 
     {
