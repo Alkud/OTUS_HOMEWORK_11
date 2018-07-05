@@ -41,7 +41,7 @@ public:
   {
     #ifdef NDEBUG
     #else
-      //std::cout << "\n                    " << workerName << " destructor, shouldExit = " << shouldExit << "\n";
+      std::cout << "\n                    " << workerName << " destructor, shouldExit = " << shouldExit << "\n";
     #endif
 
     assert(isStopped == true);
