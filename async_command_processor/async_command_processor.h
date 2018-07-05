@@ -159,17 +159,17 @@ static std::mutex screenOutputLock;
       return;
     }
 
-    std::unique_lock<std::mutex> lockAccess{accessLock};
+    //std::unique_lock<std::mutex> lockAccess{accessLock};
 
     //receiving.store(true);
 
-    if (disconnected.load() == true)
-    {
+//    if (disconnected.load() == true)
+//    {
       //receiving.store(false);
-      lockAccess.unlock();
+//      lockAccess.unlock();
       //accessNotifier.notify_all();
-      return;
-    }
+//      return;
+//    }
 
     {
        #ifdef NDEBUG
@@ -192,7 +192,7 @@ static std::mutex screenOutputLock;
 
     //receiving.store(false);
 
-    lockAccess.unlock();
+//    lockAccess.unlock();
 
     //accessNotifier.notify_all();
 
@@ -210,7 +210,7 @@ static std::mutex screenOutputLock;
 
   void disconnect()
   {
-    std::unique_lock<std::mutex> lockAccess{accessLock};
+    //std::unique_lock<std::mutex> lockAccess{accessLock};
 
     {
       std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
@@ -221,7 +221,7 @@ static std::mutex screenOutputLock;
 
     sendMessage(Message::NoMoreData);
 
-    lockAccess.unlock();
+    //lockAccess.unlock();
 
 //    while (receiving.load() == true)
 //    {
