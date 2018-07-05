@@ -72,5 +72,5 @@ void async::disconnect(async::handle_t handle)
     commandProcessor->disconnect();
   }
 
-  delete commandProcessor;
+  //delete commandProcessor;
 }
