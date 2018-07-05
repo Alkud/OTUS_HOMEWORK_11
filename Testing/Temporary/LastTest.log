@@ -1,20 +1,20 @@
-Start testing: Jul 05 08:52 UTC
+Start testing: Jul 05 09:10 UTC
 ----------------------------------------------------------
 1/1 Testing: test_hw_11
 1/1 Test: test_hw_11
 Command: "/home/travis/build/Alkud/OTUS_HOMEWORK_11/otus_hw_11_test"
 Directory: /home/travis/build/Alkud/OTUS_HOMEWORK_11
-"test_hw_11" start time: Jul 05 08:52 UTC
+"test_hw_11" start time: Jul 05 09:10 UTC
 Output:
 ----------------------------------------------------------
 Running 7 test cases...
                                 disconnect started
 
-NoMoreData. thread#47693568859584
+NoMoreData. thread#46967612726720
 
-NoMoreData. thread#47693678270208
+NoMoreData. thread#46967654307584
 
-NoMoreData. thread#47693676168960
+NoMoreData. thread#46967652206336
                                 disconnect finished
 
                             AsyncCP destructor started
@@ -22,61 +22,61 @@ NoMoreData. thread#47693676168960
                             AsyncCP destructor finished
                                 receiving started
 
-putItem. thread#47693568859584
+putItem. thread#46967612726720
                                 receiving finished
                                 receiving started
 
-putItem. thread#47693568859584
+putItem. thread#46967612726720
                                 receiving finished
                                 receiving started
 
-putItem. thread#47693568859584
+putItem. thread#46967612726720
                                 receiving finished
                                 receiving started
 
-putItem. thread#47693568859584
+putItem. thread#46967612726720
                                 receiving finished
                                 disconnect started
 
-NoMoreData. thread#47693568859584
+NoMoreData. thread#46967612726720
 
-putItem. thread#47693680371456
+putItem. thread#46967673218816
 
-putItem. thread#47693680371456
+putItem. thread#46967656408832
 
-putItem. thread#47693680371456
+putItem. thread#46967656408832
 
-putItem. thread#47693680371456
+putItem. thread#46967656408832
 
-putItem. thread#47693680371456
+putItem. thread#46967656408832
 
-putItem. thread#47693680371456
+putItem. thread#46967656408832
 
-putItem. thread#47693680371456
+putItem. thread#46967656408832
 
-putItem. thread#47693680371456
+putItem. thread#46967656408832
 
-putItem. thread#47693680371456
+putItem. thread#46967656408832
 
-putItem. thread#47693680371456
+putItem. thread#46967654307584
 
-putItem. thread#47693680371456
+putItem. thread#46967656408832
 
-putItem. thread#47693680371456
+putItem. thread#46967656408832
 
-putItem. thread#47693680371456
+putItem. thread#46967656408832
 
-NoMoreData. thread#47693680371456
+putItem. thread#46967656408832
 
-putItem. thread#47693678270208
+putItem. thread#46967656408832
 
-putItem. thread#47693678270208
+NoMoreData. thread#46967656408832
 
-putItem. thread#47693678270208
+putItem. thread#46967654307584
 
-putItem. thread#47693697181440
+putItem. thread#46967654307584
 
-NoMoreData. thread#47693678270208
+NoMoreData. thread#46967654307584
                                 disconnect finished
 
                             AsyncCP destructor started
@@ -84,13 +84,13 @@ NoMoreData. thread#47693678270208
                             AsyncCP destructor finished
                                 disconnect started
 
-NoMoreData. thread#47693568859584
+NoMoreData. thread#46967612726720
 
-NoMoreData. thread#47693697181440
+NoMoreData. thread#46967673218816
 
-putItem. thread#47693695080192
+putItem. thread#46967671117568
 
-NoMoreData. thread#47693695080192
+NoMoreData. thread#46967671117568
                                 disconnect finished
 
                             AsyncCP destructor started
@@ -98,14 +98,32 @@ NoMoreData. thread#47693695080192
                             AsyncCP destructor finished
                                 disconnect started
 
-NoMoreData. thread#47693682472704
+NoMoreData. thread#46967658510080
                                 disconnect started
 
-NoMoreData. thread#47693684573952
+NoMoreData. thread#46967660611328
 
-NoMoreData. thread#47693699282688
+NoMoreData. thread#46967677421312
 
-NoMoreData. thread#47693680371456
+NoMoreData. thread#46967656408832
+                                disconnect started
+
+NoMoreData. thread#46967662712576
+                                disconnect started
+
+NoMoreData. thread#46967666915072
+                                disconnect started
+
+NoMoreData. thread#46967671117568
+                                disconnect started
+
+NoMoreData. thread#46967637497600
+                                disconnect started
+
+NoMoreData. thread#46967669016320
+                                disconnect started
+
+NoMoreData. thread#46967673218816
                                 disconnect finished
 
                             AsyncCP destructor started
@@ -113,99 +131,81 @@ NoMoreData. thread#47693680371456
                             AsyncCP destructor finished
                                 disconnect started
 
-NoMoreData. thread#47693688776448
+NoMoreData. thread#46967641700096
                                 disconnect started
 
-NoMoreData. thread#47693686675200
-                                disconnect started
+NoMoreData. thread#46967664813824
 
-NoMoreData. thread#47693692978944
-                                disconnect started
+NoMoreData. thread#46967658510080
 
-NoMoreData. thread#47693695080192
-
-NoMoreData. thread#47693680371456
-
-NoMoreData. thread#47693671966464
-                                disconnect started
-
-NoMoreData. thread#47693697181440
-                                disconnect finished
-
-                            AsyncCP destructor started
-
-                            AsyncCP destructor finished
-                                disconnect started
-
-NoMoreData. thread#47693676168960
-
-NoMoreData. thread#47693669865216
-
-NoMoreData. thread#47693595735808
-                                disconnect started
-
-NoMoreData. thread#47693690877696
+NoMoreData. thread#46968241956608
                                 disconnect finished
 
                             AsyncCP destructor started
 
                             AsyncCP destructor finished
 
-NoMoreData. thread#47693682472704
+NoMoreData. thread#46968241956608
 
-NoMoreData. thread#47693720295168
-
-NoMoreData. thread#47693595735808
-
-NoMoreData. thread#47693674067712
-                                disconnect started
-
-NoMoreData. thread#47693597837056
+NoMoreData. thread#46967654307584
                                 disconnect finished
 
                             AsyncCP destructor started
 
                             AsyncCP destructor finished
 
-NoMoreData. thread#47693711890176
+NoMoreData. thread#46967656408832
 
-NoMoreData. thread#47693671966464
-                                disconnect finished
+NoMoreData. thread#46967648003840
 
-                            AsyncCP destructor started
+NoMoreData. thread#46967656408832
 
-                            AsyncCP destructor finished
-                                disconnect finished
-
-                            AsyncCP destructor started
-
-                            AsyncCP destructor finished
-
-NoMoreData. thread#47693699282688
-
-NoMoreData. thread#47693730801408
-
-NoMoreData. thread#47694542280448
-
-NoMoreData. thread#47693722396416
+NoMoreData. thread#46968277677824
                                 disconnect finished
 
                             AsyncCP destructor started
 
                             AsyncCP destructor finished
 
-NoMoreData. thread#47693718193920
+NoMoreData. thread#46967645902592
+
+NoMoreData. thread#46968254564096
+
+NoMoreData. thread#46968558589696
+
+NoMoreData. thread#46967681623808
                                 disconnect finished
 
                             AsyncCP destructor started
 
                             AsyncCP destructor finished
 
-NoMoreData. thread#47693690877696
+NoMoreData. thread#46968269272832
+                                disconnect finished
 
-NoMoreData. thread#47693713991424
+                            AsyncCP destructor started
 
-NoMoreData. thread#47693678270208
+                            AsyncCP destructor finished
+
+NoMoreData. thread#46967650105088
+
+NoMoreData. thread#46968235652864
+                                disconnect finished
+
+                            AsyncCP destructor started
+
+                            AsyncCP destructor finished
+
+NoMoreData. thread#46968231450368
+
+NoMoreData. thread#46967669016320
+
+NoMoreData. thread#46968564893440
+                                disconnect finished
+
+                            AsyncCP destructor started
+
+                            AsyncCP destructor finished
                                 disconnect finished
 
                             AsyncCP destructor started
@@ -218,75 +218,75 @@ NoMoreData. thread#47693678270208
                             AsyncCP destructor finished
                                 receiving started
 
-putItem. thread#47693678270208
+putItem. thread#46967679522560
                                 receiving finished
                                 receiving started
 
-putItem. thread#47693688776448
+putItem. thread#46967650105088
                                 receiving finished
                                 receiving started
 
-putItem. thread#47694559090432
+putItem. thread#46968223045376
                                 receiving finished
                                 receiving started
 
-putItem. thread#47693593634560
+putItem. thread#46968273475328
                                 receiving finished
                                 receiving started
 
-putItem. thread#47693692978944
+putItem. thread#46968256665344
                                 receiving finished
                                 receiving started
 
-putItem. thread#47694550685440
+putItem. thread#46967643801344
                                 receiving finished
                                 receiving started
 
-putItem. thread#47694544381696
+putItem. thread#46967666915072
                                 receiving finished
                                 receiving started
 
-putItem. thread#47693695080192
+putItem. thread#46967671117568
                                 receiving finished
                                 receiving started
 
-putItem. thread#47693676168960
+putItem. thread#46967637497600
                                 receiving finished
                                 receiving started
 
-putItem. thread#47693697181440
+putItem. thread#46967673218816
                                 receiving finished
                                 disconnect started
 
-NoMoreData. thread#47693568859584
+NoMoreData. thread#46967612726720
 
-putItem. thread#47693716092672
+putItem. thread#46967648003840
 
-putItem. thread#47693716092672
+putItem. thread#46967648003840
 
-putItem. thread#47693716092672
+putItem. thread#46967648003840
 
-putItem. thread#47693716092672
+putItem. thread#46967648003840
 
-putItem. thread#47693716092672
+putItem. thread#46967648003840
 
-putItem. thread#47693716092672
+putItem. thread#46967648003840
 
-putItem. thread#47693716092672
+putItem. thread#46967648003840
 
-putItem. thread#47693716092672
+putItem. thread#46968281880320
 
-putItem. thread#47693716092672
+putItem. thread#46967648003840
 
-putItem. thread#47693716092672
+putItem. thread#46967648003840
 
-NoMoreData. thread#47693716092672
+putItem. thread#46967648003840
 
-putItem. thread#47693690877696
+NoMoreData. thread#46967648003840
 
-putItem. thread#47693690877696
+putItem. thread#46968281880320
 
-NoMoreData. thread#47693690877696
+NoMoreData. thread#46968281880320
                                 disconnect finished
 
                             AsyncCP destructor started
@@ -294,11 +294,11 @@ NoMoreData. thread#47693690877696
                             AsyncCP destructor finished
                                 disconnect started
 
-NoMoreData. thread#47693568859584
+NoMoreData. thread#46967612726720
 
-NoMoreData. thread#47693716092672
+NoMoreData. thread#46967648003840
 
-NoMoreData. thread#47693597837056
+NoMoreData. thread#46967641700096
                                 disconnect finished
 
                             AsyncCP destructor started
@@ -306,47 +306,47 @@ NoMoreData. thread#47693597837056
                             AsyncCP destructor finished
                                 receiving started
 
-putItem. thread#47693568859584
+putItem. thread#46967612726720
                                 receiving finished
                                 receiving started
 
-putItem. thread#47693568859584
+putItem. thread#46967612726720
                                 receiving finished
                                 receiving started
 
-putItem. thread#47693568859584
+putItem. thread#46967612726720
                                 receiving finished
                                 disconnect started
 
-NoMoreData. thread#47693568859584
+NoMoreData. thread#46967612726720
 
-putItem. thread#47693716092672
+putItem. thread#46967648003840
 
-putItem. thread#47693716092672
+putItem. thread#46967648003840
 
-putItem. thread#47693716092672
+putItem. thread#46967648003840
 
-putItem. thread#47693716092672
+putItem. thread#46967648003840
 
-putItem. thread#47693716092672
+putItem. thread#46967648003840
 
-putItem. thread#47693716092672
+putItem. thread#46967648003840
 
-putItem. thread#47693716092672
+putItem. thread#46967648003840
 
-putItem. thread#47693716092672
+putItem. thread#46967648003840
 
-putItem. thread#47693716092672
+putItem. thread#46967664813824
 
-putItem. thread#47693726598912
+putItem. thread#46967648003840
 
-putItem. thread#47693716092672
+putItem. thread#46967648003840
 
-putItem. thread#47693716092672
+putItem. thread#46967648003840
 
-NoMoreData. thread#47693716092672
+NoMoreData. thread#46967648003840
 
-NoMoreData. thread#47693726598912
+NoMoreData. thread#46967664813824
                                 disconnect finished
 
                             AsyncCP destructor started
@@ -354,19 +354,19 @@ NoMoreData. thread#47693726598912
                             AsyncCP destructor finished
                                 receiving started
 
-putItem. thread#47693568859584
+putItem. thread#46967612726720
                                 receiving finished
                                 disconnect started
 
-NoMoreData. thread#47693568859584
+NoMoreData. thread#46967612726720
 
-putItem. thread#47693716092672
+putItem. thread#46967648003840
 
-NoMoreData. thread#47693716092672
+NoMoreData. thread#46967648003840
 
-putItem. thread#47693709788928
+putItem. thread#46968250361600
 
-NoMoreData. thread#47693709788928
+NoMoreData. thread#46968250361600
                                 disconnect finished
 
                             AsyncCP destructor started
@@ -375,11 +375,11 @@ NoMoreData. thread#47693709788928
 
 *** No errors detected
 <end of output>
-Test time =   0.02 sec
+Test time =   0.03 sec
 ----------------------------------------------------------
 Test Passed.
-"test_hw_11" end time: Jul 05 08:52 UTC
+"test_hw_11" end time: Jul 05 09:10 UTC
 "test_hw_11" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Jul 05 08:52 UTC
+End testing: Jul 05 09:10 UTC
