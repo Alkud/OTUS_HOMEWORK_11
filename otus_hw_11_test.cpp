@@ -6,7 +6,7 @@
 #include "homework_11.h"
 #include "./async_command_processor/async.h"
 #include "./async_command_processor/async_command_processor.h"
-#include "new_delete.h"
+//#include "new_delete.h"
 
 #include <string>
 #include <iostream>
@@ -148,6 +148,8 @@ BOOST_AUTO_TEST_SUITE(homework_11_test)
 //    BOOST_CHECK(handle != nullptr);
 
 //    async::disconnect(handle);
+
+//    std::this_thread::sleep_for(200ms);
 
 //    auto finalAllocCounter{my::malloc_counter.load()};
 //    auto finalFreeCounter{my::free_counter.load()};

@@ -1,309 +1,185 @@
-Start testing: Jul 05 09:23 UTC
+Start testing: Jul 05 10:26 UTC
 ----------------------------------------------------------
 1/1 Testing: test_hw_11
 1/1 Test: test_hw_11
 Command: "/home/travis/build/Alkud/OTUS_HOMEWORK_11/otus_hw_11_test"
 Directory: /home/travis/build/Alkud/OTUS_HOMEWORK_11
-"test_hw_11" start time: Jul 05 09:23 UTC
+"test_hw_11" start time: Jul 05 10:26 UTC
 Output:
 ----------------------------------------------------------
 Running 6 test cases...
                                 receiving started
-
-putItem. thread#47445559930304
                                 receiving finished
                                 receiving started
-
-putItem. thread#47445559930304
                                 receiving finished
                                 receiving started
-
-putItem. thread#47445559930304
                                 receiving finished
                                 receiving started
-
-putItem. thread#47445559930304
                                 receiving finished
                                 disconnect started
 
-NoMoreData. thread#47445559930304
+NoMoreData. thread#47732233379328
+                                disconnect finished
 
-putItem. thread#47445603612416
+NoMoreData. thread#47732277065472
 
-putItem. thread#47445603612416
+NoMoreData. thread#47732274964224
+                                disconnect started
 
-putItem. thread#47445603612416
+NoMoreData. thread#47732233379328
+                                disconnect finished
 
-putItem. thread#47445603612416
+NoMoreData. thread#47732293875456
 
-putItem. thread#47445603612416
+NoMoreData. thread#47732291774208
+                                disconnect started
 
-putItem. thread#47445603612416
-putItem. thread#
-47445620422400
-
-putItem. thread#47445603612416
-
-putItem. thread#47445603612416
-
-putItem. thread#47445603612416
-
-putItem. thread#47445603612416
-
-putItem. thread#47445603612416
-
-putItem. thread#47445603612416
-
-putItem. thread#47445603612416
-
-NoMoreData. thread#47445603612416
-
-putItem. thread#47445601511168
-
-putItem. thread#47445601511168
-
-putItem. thread#47445601511168
-
-NoMoreData. thread#47445601511168
+NoMoreData. thread#47732279166720
                                 disconnect finished
                                 disconnect started
 
-NoMoreData. thread#47445559930304
-
-NoMoreData. thread#47445620422400
-
-putItem. thread#47445618321152
-
-NoMoreData. thread#47445618321152
+NoMoreData. thread#47732281267968
                                 disconnect finished
                                 disconnect started
 
-NoMoreData. thread#47445630928640
+NoMoreData. thread#47732283369216
+                                disconnect finished
+
+NoMoreData. thread#47732298077952
+
+NoMoreData. thread#47732277065472
                                 disconnect started
 
-NoMoreData. thread#47445628827392
+NoMoreData. thread#47732289672960
+                                disconnect finished
                                 disconnect started
 
-NoMoreData. thread#47445588903680
+NoMoreData. thread#47732287571712
+                                disconnect finished
+
+NoMoreData. thread#47732268660480
+
+NoMoreData. thread#47732274964224
                                 disconnect started
 
-NoMoreData. thread#47445626726144
+NoMoreData. thread#47732285470464
+                                disconnect finished
                                 disconnect started
 
-NoMoreData. thread#47445624624896
+NoMoreData. thread#47732262356736
+                                disconnect finished
                                 disconnect started
 
-NoMoreData. thread#47445622523648
+NoMoreData. thread#47732260255488
+                                disconnect finished
                                 disconnect started
 
-NoMoreData. thread#47445603612416
+NoMoreData. thread#47732291774208
+                                disconnect finished
+
+NoMoreData. thread#47733140383488
+
+NoMoreData. thread#47732264457984
                                 disconnect started
 
-NoMoreData. thread#47445584701184
-                                disconnect started
-
-NoMoreData. thread#47446239483648
-                                disconnect started
-
-NoMoreData. thread#47445620422400
-
-NoMoreData. thread#47446398916352
-
-NoMoreData. thread#47446384207616
+NoMoreData. thread#47732293875456
                                 disconnect finished
 
-NoMoreData. thread#47446434637568
+NoMoreData. thread#47732312786688
 
-NoMoreData. thread#47446398916352
-                                disconnect finished
+NoMoreData. thread#47732274964224
 
-NoMoreData. thread#47446793164544
+NoMoreData. thread#47732316989184
 
-NoMoreData. thread#47446245787392
+NoMoreData. thread#47733131978496
 
-NoMoreData. thread#47446799468288
+NoMoreData. thread#47732258154240
 
-NoMoreData. thread#47446784759552
+NoMoreData. thread#47732270761728
 
-NoMoreData. thread#47446812075776
+NoMoreData. thread#47733136180992
 
-NoMoreData. thread#47446809974528
+NoMoreData. thread#47733169800960
 
-NoMoreData. thread#47446816278272
+NoMoreData. thread#47732298077952
 
-NoMoreData. thread#47446434637568
+NoMoreData. thread#47733159294720
 
-NoMoreData. thread#47446801569536
+NoMoreData. thread#47733171902208
 
-NoMoreData. thread#47446241584896
+NoMoreData. thread#47733148788480
 
-NoMoreData. thread#47446809974528
+NoMoreData. thread#47732302280448
 
-NoMoreData. thread#47446814177024
-
-NoMoreData. thread#47446816278272
-
-NoMoreData. thread#47446818379520
-                                disconnect finished
-                                disconnect finished
-                                disconnect finished
-                                disconnect finished
-                                disconnect finished
-                                disconnect finished
-
-NoMoreData. thread#47446820480768
-
-NoMoreData. thread#47446807873280
-                                disconnect finished
-                                disconnect finished
+NoMoreData. thread#47732310685440
                                 receiving started
-
-putItem. thread#47446243686144
                                 receiving finished
                                 receiving started
-
-putItem. thread#47446816278272
                                 receiving finished
                                 receiving started
-
-putItem. thread#47445584701184
                                 receiving finished
                                 receiving started
-
-putItem. thread#47445588903680
                                 receiving finished
                                 receiving started
-
-putItem. thread#47446820480768
                                 receiving finished
                                 receiving started
-
-putItem. thread#47446809974528
                                 receiving finished
                                 receiving started
-
-putItem. thread#47445622523648
                                 receiving finished
                                 receiving started
-
-putItem. thread#47445626726144
                                 receiving finished
                                 receiving started
-
-putItem. thread#47445628827392
                                 receiving finished
                                 receiving started
-
-putItem. thread#47445630928640
                                 receiving finished
                                 disconnect started
 
-NoMoreData. thread#47445559930304
-
-putItem. thread#47446268901120
-
-putItem. thread#47446268901120
-
-putItem. thread#47446268901120
-
-putItem. thread#47446268901120
-
-putItem. thread#47446268901120
-
-putItem. thread#47446268901120
-
-putItem. thread#47446268901120
-
-putItem. thread#47446268901120
-
-putItem. thread#47446268901120
-
-putItem. thread#47446268901120
-
-putItem. thread#47446260496128
-
-NoMoreData. thread#47446268901120
-
-putItem. thread#47446260496128
-
-NoMoreData. thread#47446260496128
+NoMoreData. thread#47732233379328
                                 disconnect finished
+
+NoMoreData. thread#47733144585984
+
+NoMoreData. thread#47733165598464
                                 disconnect started
 
-NoMoreData. thread#47445559930304
-
-NoMoreData. thread#47445622523648
-
-NoMoreData. thread#47445584701184
+NoMoreData. thread#47732233379328
                                 disconnect finished
-                                receiving started
 
-putItem. thread#47445559930304
+NoMoreData. thread#47733150889728
+
+NoMoreData. thread#47732274964224
+                                receiving started
                                 receiving finished
                                 receiving started
-
-putItem. thread#47445559930304
                                 receiving finished
                                 receiving started
-
-putItem. thread#47445559930304
                                 receiving finished
                                 disconnect started
 
-NoMoreData. thread#47445559930304
-
-putItem. thread#47446799468288
-
-putItem. thread#47446799468288
-
-putItem. thread#47446799468288
-
-putItem. thread#47446799468288
-
-putItem. thread#47446799468288
-
-putItem. thread#47446799468288
-
-putItem. thread#47446799468288
-
-putItem. thread#47446799468288
-
-putItem. thread#47446799468288
-
-putItem. thread#47446799468288
-
-putItem. thread#47446799468288
-
-NoMoreData. thread#47446799468288
-
-putItem. thread#47446793164544
-
-NoMoreData. thread#47446793164544
+NoMoreData. thread#47732233379328
                                 disconnect finished
-                                receiving started
 
-putItem. thread#47445559930304
+NoMoreData. thread#47733150889728
+
+NoMoreData. thread#47732260255488
+                                receiving started
                                 receiving finished
                                 disconnect started
 
-NoMoreData. thread#47445559930304
-
-putItem. thread#47446833088256
-
-NoMoreData. thread#47446833088256
-
-putItem. thread#47446830987008
-
-NoMoreData. thread#47446830987008
+NoMoreData. thread#47732233379328
                                 disconnect finished
+
+NoMoreData. thread#47733150889728
+
+NoMoreData. thread#47733144585984
 
 *** No errors detected
 <end of output>
-Test time =   1.06 sec
+Test time =   0.02 sec
 ----------------------------------------------------------
 Test Passed.
-"test_hw_11" end time: Jul 05 09:23 UTC
-"test_hw_11" time elapsed: 00:00:01
+"test_hw_11" end time: Jul 05 10:26 UTC
+"test_hw_11" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Jul 05 09:23 UTC
+End testing: Jul 05 10:26 UTC

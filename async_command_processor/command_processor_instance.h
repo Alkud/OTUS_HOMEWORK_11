@@ -111,6 +111,15 @@ public:
   {
     shouldExit.store(true);
     terminationNotifier.notify_all();
+
+    /* waiting for all workers to finish */
+    while(inputReader->getWorkerState() != WorkerState::Finished
+          && inputProcessor->getWorkerState() != WorkerState::Finished
+          && inputBuffer->getWorkerState() != WorkerState::Finished
+          && outputBuffer->getWorkerState() != WorkerState::Finished
+          && logger->getWorkerState() != WorkerState::Finished
+          && publisher->getWorkerState() != WorkerState::Finished)
+    {}
   }
 
   void reactMessage(MessageBroadcaster* /*sender*/, Message message)
@@ -190,7 +199,7 @@ public:
       {
         #ifdef NDEBUG
         #else
-          //std::cout << "\n                     CPInstance waiting\n";
+         //std::cout << "\n                     CPInstance waiting\n";
         #endif
 
         std::unique_lock<std::mutex> lockNotifier{notifierLock};

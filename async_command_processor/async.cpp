@@ -42,12 +42,18 @@ void async::receive(async::handle_t handle, const char* data, std::size_t size)
 
   auto commandProcessor {reinterpret_cast<AsyncCommandProcessor<2>*>(handle)};
 
+  try
   {
     //std::lock_guard<std::mutex> lockContext{contextLock};
     if (commandProcessor->isDisconnected())
     {
       return;
     }
+  }
+  catch(...)
+  {
+    std::cout << "\n------Wrong receive!-------\n";
+    return;
   }
 
   commandProcessor->receiveData(data, size);
@@ -67,10 +73,16 @@ void async::disconnect(async::handle_t handle)
 
   auto commandProcessor {reinterpret_cast<AsyncCommandProcessor<2>*>(handle)};
 
+  try
   {
     //std::lock_guard<std::mutex> lockContext{contextLock};
     commandProcessor->disconnect();
   }
+  catch(...)
+  {
+    std::cout << "\n------Wrong disconnect!-------\n";
+    return;
+  }
 
-  //delete commandProcessor;
+  delete commandProcessor;
 }
