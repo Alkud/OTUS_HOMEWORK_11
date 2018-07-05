@@ -65,6 +65,7 @@ public:
     #else
       //std::cout << "\n                            AsyncCP destructor\n";
     #endif
+
     if (selfDestroy.joinable())
     {
       selfDestroy.join();
@@ -156,6 +157,8 @@ public:
       return;
     }
 
+    lockAccess.unlock();
+
     {
        #ifdef NDEBUG
        #else
@@ -163,6 +166,7 @@ public:
          //std::cout << "                                receiving started\n";
        #endif
     }
+
 
     if (entryPoint != nullptr)
     {
@@ -174,8 +178,6 @@ public:
 
       entryPoint->putItem(std::move(newData));
     }
-
-    lockAccess.unlock();
 
     {
       #ifdef NDEBUG
@@ -215,6 +217,10 @@ public:
       workingThread.join();
     }
 
+    auto emptyEntryPoint{std::shared_ptr<InputReader::InputBufferType>(nullptr)};
+    std::atomic_exchange(&entryPoint, emptyEntryPoint);
+
+    emptyEntryPoint.reset();
 
     {
       #ifdef NDEBUG
