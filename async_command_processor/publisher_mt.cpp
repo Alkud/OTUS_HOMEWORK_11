@@ -90,8 +90,8 @@ bool Publisher::threadProcess(const size_t /*threadIndex*/)
 
   auto nextBulkInfo{bufferReply.second};
 
-  std::lock_guard<std::mutex> lockOutput{outputLock};
-  output << nextBulkInfo.second << '\n';
+//  std::lock_guard<std::mutex> lockOutput{outputLock};
+//  output << nextBulkInfo.second << '\n';
 
   /* Refresh metrics */
   ++threadMetrics->totalBulkCount;
