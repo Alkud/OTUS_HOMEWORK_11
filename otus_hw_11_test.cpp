@@ -136,33 +136,33 @@ void checkMetrics(const SharedGlobalMetrics& metrics,
 
 BOOST_AUTO_TEST_SUITE(homework_11_test)
 
-//BOOST_AUTO_TEST_CASE(memory_leak_test)
-//{
-//  try
-//  {
-//    auto startAllocCounter{my::malloc_counter.load()};
-//    auto startFreeCounter{my::free_counter.load()};
+BOOST_AUTO_TEST_CASE(memory_leak_test)
+{
+  try
+  {
+    auto startAllocCounter{my::malloc_counter.load()};
+    auto startFreeCounter{my::free_counter.load()};
 
-//    auto handle {async::connect(10)};
+    auto handle {async::connect(10)};
 
-//    BOOST_CHECK(handle != nullptr);
+    BOOST_CHECK(handle != nullptr);
 
-//    async::disconnect(handle);
+    async::disconnect(handle);
 
-//    std::this_thread::sleep_for(200ms);
+    std::this_thread::sleep_for(1100ms);
 
-//    auto finalAllocCounter{my::malloc_counter.load()};
-//    auto finalFreeCounter{my::free_counter.load()};
+    auto finalAllocCounter{my::malloc_counter.load()};
+    auto finalFreeCounter{my::free_counter.load()};
 
-//    BOOST_CHECK((startAllocCounter - startFreeCounter)
-//                == (finalAllocCounter - finalFreeCounter));
-//  }
-//  catch (const std::exception& ex)
-//  {
-//    std::cerr << "memory_leak_test failed: " << ex.what() << std::endl;
-//    BOOST_FAIL("");
-//  }
-//}
+    BOOST_CHECK((startAllocCounter - startFreeCounter)
+                == (finalAllocCounter - finalFreeCounter));
+  }
+  catch (const std::exception& ex)
+  {
+    std::cerr << "memory_leak_test failed: " << ex.what() << std::endl;
+    BOOST_FAIL("");
+  }
+}
 
 BOOST_AUTO_TEST_CASE(homework_11_test)
 {
@@ -218,12 +218,11 @@ BOOST_AUTO_TEST_CASE(multithread_connect_disconnect)
     {
       futureResults.push_back(
         std::async(
-          std::launch::async, [](const size_t startValue)
+          std::launch::async, []()
           {
             try
             {
               auto handle {async::connect(5)};
-              //BOOST_CHECK(handle != nullptr);
               async::disconnect(handle);
               return true;
             }
@@ -232,10 +231,9 @@ BOOST_AUTO_TEST_CASE(multithread_connect_disconnect)
               std::cerr << ex.what() << std::endl;
               return false;
             }
-          },
-          idx
-          )
-        );
+          }
+        )
+      );
     }
 
     for (auto& result : futureResults)

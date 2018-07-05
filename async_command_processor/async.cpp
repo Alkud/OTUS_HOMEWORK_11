@@ -7,8 +7,6 @@
 #include <list>
 #include "async_command_processor.h"
 
-//static std::list<std::unique_ptr<AsyncCommandProcessor<2>>> connections{};
-
 async::handle_t async::connect(std::size_t bulk)
 {
   if (0 == bulk)
