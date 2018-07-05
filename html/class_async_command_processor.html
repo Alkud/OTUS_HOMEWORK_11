@@ -86,8 +86,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="class_async_command_processor-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">AsyncCommandProcessor&lt; loggingThreadCount &gt; Class Template Reference</div>  </div>
@@ -100,14 +100,14 @@ Inheritance diagram for AsyncCommandProcessor&lt; loggingThreadCount &gt;:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_async_command_processor__inherit__graph.png" border="0" usemap="#_async_command_processor_3_01logging_thread_count_01_4_inherit__map" alt="Inheritance graph"/></div>
 <map name="_async_command_processor_3_01logging_thread_count_01_4_inherit__map" id="_async_command_processor_3_01logging_thread_count_01_4_inherit__map">
-<area shape="rect" id="node2" href="class_message_broadcaster.html" title="MessageBroadcaster" alt="" coords="22,5,167,32"/></map>
+<area shape="rect" id="node3" href="class_message_broadcaster.html" title="MessageBroadcaster" alt="" coords="58,85,203,112"/></map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for AsyncCommandProcessor&lt; loggingThreadCount &gt;:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_async_command_processor__coll__graph.png" border="0" usemap="#_async_command_processor_3_01logging_thread_count_01_4_coll__map" alt="Collaboration graph"/></div>
 <map name="_async_command_processor_3_01logging_thread_count_01_4_coll__map" id="_async_command_processor_3_01logging_thread_count_01_4_coll__map">
-<area shape="rect" id="node2" href="class_message_broadcaster.html" title="MessageBroadcaster" alt="" coords="22,5,167,32"/></map>
+<area shape="rect" id="node3" href="class_message_broadcaster.html" title="MessageBroadcaster" alt="" coords="58,85,203,112"/></map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -152,13 +152,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a72bdc718a0558928fcb918399369dd80 inherit pub_methods_class_message_broadcaster"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove all listenenrs from the list.  <a href="#a72bdc718a0558928fcb918399369dd80">More...</a><br/></td></tr>
 <tr class="separator:a72bdc718a0558928fcb918399369dd80 inherit pub_methods_class_message_broadcaster"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:ae72345064cd0935d70ed97c66200c9ba"><td class="memItemLeft" align="right" valign="top">static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_async_command_processor.html#ae72345064cd0935d70ed97c66200c9ba">screenOutputLock</a> {}</td></tr>
-<tr class="separator:ae72345064cd0935d70ed97c66200c9ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
+<tr class="memitem:a01561fe9b8899f7dc0baac29aa142809"><td class="memItemLeft" align="right" valign="top">std::shared_ptr<br class="typebreak"/>
+&lt; <a class="el" href="class_async_command_processor.html">AsyncCommandProcessor</a><br class="typebreak"/>
+&lt; loggingThreadCount &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_async_command_processor.html#a01561fe9b8899f7dc0baac29aa142809">sharedThis</a></td></tr>
+<tr class="separator:a01561fe9b8899f7dc0baac29aa142809"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab0eac12c1e7d154e94a958c5a231fcc5"><td class="memItemLeft" align="right" valign="top">std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_async_command_processor.html#ab0eac12c1e7d154e94a958c5a231fcc5">accessLock</a></td></tr>
 <tr class="separator:ab0eac12c1e7d154e94a958c5a231fcc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f6d7516c5072064b5a5a639a73f7dfb"><td class="memItemLeft" align="right" valign="top">std::condition_variable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_async_command_processor.html#a5f6d7516c5072064b5a5a639a73f7dfb">accessNotifier</a></td></tr>
@@ -198,6 +197,13 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a09b89dc8aaf6a0005e30cb8c8904bbae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed1d6e5ad297908bf6f29595154bca67"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_async_command_processor.html#aed1d6e5ad297908bf6f29595154bca67">timeStampID</a></td></tr>
 <tr class="separator:aed1d6e5ad297908bf6f29595154bca67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a233c3cd65e826a1da61b7ee77f14fdbe"><td class="memItemLeft" align="right" valign="top">std::thread&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_async_command_processor.html#a233c3cd65e826a1da61b7ee77f14fdbe">selfDestroy</a></td></tr>
+<tr class="separator:a233c3cd65e826a1da61b7ee77f14fdbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
+Static Private Attributes</h2></td></tr>
+<tr class="memitem:ae72345064cd0935d70ed97c66200c9ba"><td class="memItemLeft" align="right" valign="top">static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_async_command_processor.html#ae72345064cd0935d70ed97c66200c9ba">screenOutputLock</a> {}</td></tr>
+<tr class="separator:ae72345064cd0935d70ed97c66200c9ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -878,7 +884,51 @@ template&lt;size_t loggingThreadCount = 2u&gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a233c3cd65e826a1da61b7ee77f14fdbe"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;size_t loggingThreadCount = 2u&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::thread <a class="el" href="class_async_command_processor.html">AsyncCommandProcessor</a>&lt; loggingThreadCount &gt;::selfDestroy</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a01561fe9b8899f7dc0baac29aa142809"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;size_t loggingThreadCount = 2u&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="class_async_command_processor.html">AsyncCommandProcessor</a>&lt;loggingThreadCount&gt; &gt; <a class="el" href="class_async_command_processor.html">AsyncCommandProcessor</a>&lt; loggingThreadCount &gt;::sharedThis</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
