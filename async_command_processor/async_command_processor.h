@@ -219,7 +219,7 @@ static std::mutex screenOutputLock;
 
     disconnected.store(true);
 
-    entryPoint.reset();
+    //entryPoint.reset();
 
     disconnected.store(true);
 
