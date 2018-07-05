@@ -1,5 +1,5 @@
 Package: async
-Version: 0.0.59
+Version: 0.0.60
 Section: devel
 Priority: optional
 Architecture: amd64

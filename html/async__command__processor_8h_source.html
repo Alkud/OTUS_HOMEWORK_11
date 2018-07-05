@@ -298,9 +298,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;</div>
 <div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    disconnected.store(<span class="keyword">true</span>);</div>
 <div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    lockAccess.unlock();</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    sendMessage(<a class="code" href="broadcasters_8h.html#aff97733e4706e994965da50c70605422a72c846e189c7a9cb5ecedde873e4e203">Message::NoMoreData</a>);</div>
 <div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    sendMessage(<a class="code" href="broadcasters_8h.html#aff97733e4706e994965da50c70605422a72c846e189c7a9cb5ecedde873e4e203">Message::NoMoreData</a>);</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    lockAccess.unlock();</div>
 <div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;</div>
 <div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    <span class="keywordflow">if</span> (workingThread.joinable() == <span class="keyword">true</span>)</div>
 <div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    {</div>

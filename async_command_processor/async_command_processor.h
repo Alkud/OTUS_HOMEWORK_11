@@ -206,9 +206,9 @@ public:
 
     disconnected.store(true);
 
-    lockAccess.unlock();
-
     sendMessage(Message::NoMoreData);
+
+    lockAccess.unlock();
 
     if (workingThread.joinable() == true)
     {
