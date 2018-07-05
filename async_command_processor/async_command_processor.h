@@ -60,6 +60,7 @@ static std::mutex screenOutputLock;
 
   ~AsyncCommandProcessor()
   {
+      std::cout << "\n                            AsyncCP destructor\n";
 //    std::unique_lock<std::mutex> lockAccess{accessLock};
 
 //    if (isReceiving.load() == true)
