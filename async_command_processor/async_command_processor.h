@@ -229,7 +229,7 @@ public:
       {
         try
         {
-          std::this_thread::sleep_for(300ms);
+          std::this_thread::sleep_for(1500ms);
           sharedThis.reset();
         }
         catch (const std::exception& ex)
