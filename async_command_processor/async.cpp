@@ -4,9 +4,12 @@
 #include <iostream>
 #include <mutex>
 #include <memory>
+#include <list>
 #include "async_command_processor.h"
 
 static std::mutex contextLock{};
+
+static std::list<std::unique_ptr<AsyncCommandProcessor<2>>> connections{};
 
 
 async::handle_t async::connect(std::size_t bulk)
@@ -23,6 +26,7 @@ async::handle_t async::connect(std::size_t bulk)
 
   if (newCommandProcessor->connect() == true)
   {
+    connections.emplace_back(newCommandProcessor);
     return reinterpret_cast<void*>(newCommandProcessor);
   }
   else
@@ -44,7 +48,7 @@ void async::receive(async::handle_t handle, const char* data, std::size_t size)
 
   try
   {
-    std::lock_guard<std::mutex> lockContext{contextLock};
+    //std::lock_guard<std::mutex> lockContext{contextLock};
     if (commandProcessor->isDisconnected())
     {
       return;
@@ -75,9 +79,9 @@ void async::disconnect(async::handle_t handle)
 
   try
   {
-    std::lock_guard<std::mutex> lockContext{contextLock};
+    //std::lock_guard<std::mutex> lockContext{contextLock};
     commandProcessor->disconnect();
-    delete commandProcessor;
+    //delete commandProcessor;
   }
   catch(...)
   {

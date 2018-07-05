@@ -75,10 +75,7 @@ static std::mutex screenOutputLock;
 //      });
 //    }
 
-    if (workingThread.joinable() == true)
-    {
-      workingThread.join();
-    }
+
     //std::cout << "\n                            AsyncCP destructor finished\n";
   }
 
@@ -154,12 +151,15 @@ static std::mutex screenOutputLock;
 
   void receiveData(const char *data, std::size_t size)
   {
+    std::unique_lock<std::mutex> lockAccess{accessLock};
+
     if (nullptr == data || size == 0 || disconnected.load() == true)
     {
+      lockAccess.unlock();
       return;
     }
 
-    //std::unique_lock<std::mutex> lockAccess{accessLock};
+
 
     //receiving.store(true);
 
@@ -192,7 +192,7 @@ static std::mutex screenOutputLock;
 
     //receiving.store(false);
 
-//    lockAccess.unlock();
+    lockAccess.unlock();
 
     //accessNotifier.notify_all();
 
@@ -210,7 +210,7 @@ static std::mutex screenOutputLock;
 
   void disconnect()
   {
-    //std::unique_lock<std::mutex> lockAccess{accessLock};
+    std::unique_lock<std::mutex> lockAccess{accessLock};
 
     {
       std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
@@ -219,9 +219,16 @@ static std::mutex screenOutputLock;
 
     disconnected.store(true);
 
+    lockAccess.unlock();
+
     sendMessage(Message::NoMoreData);
 
-    //lockAccess.unlock();
+    if (workingThread.joinable() == true)
+    {
+      workingThread.join();
+    }
+
+
 
 //    while (receiving.load() == true)
 //    {
