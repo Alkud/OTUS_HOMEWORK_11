@@ -260,10 +260,10 @@ private:
     {
       #ifdef NDEBUG
         #else
-//      std::cout << "\n                    "
-//                << workerName << " dataReceived=" << dataReceived.load()
-//                << "data.size()=" << data.size()
-//                << "notificationCount=" << notificationCount.load() << "\n";
+      std::cout << "\n                    "
+                << workerName << " dataReceived=" << dataReceived.load()
+                << "data.size()=" << data.size()
+                << "notificationCount=" << notificationCount.load() << "\n";
       #endif
 
       std::unique_lock<std::mutex> lockNotifier{notifierLock};

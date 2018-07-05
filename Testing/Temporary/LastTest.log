@@ -1,21 +1,21 @@
-Start testing: Jul 05 11:06 UTC
+Start testing: Jul 05 11:14 UTC
 ----------------------------------------------------------
 1/1 Testing: test_hw_11
 1/1 Test: test_hw_11
 Command: "/home/travis/build/Alkud/OTUS_HOMEWORK_11/otus_hw_11_test"
 Directory: /home/travis/build/Alkud/OTUS_HOMEWORK_11
-"test_hw_11" start time: Jul 05 11:06 UTC
+"test_hw_11" start time: Jul 05 11:14 UTC
 Output:
 ----------------------------------------------------------
 Running 7 test cases...
                                 disconnect started
 
-NoMoreData. thread#47957390187968
+NoMoreData. thread#47072167562688
                                 disconnect finished
 
-NoMoreData. thread#47957431772928
+NoMoreData. thread#47072209147648
 
-NoMoreData. thread#47957429671680
+NoMoreData. thread#47072207046400
                                 receiving started
                                 receiving finished
                                 receiving started
@@ -26,100 +26,108 @@ NoMoreData. thread#47957429671680
                                 receiving finished
                                 disconnect started
 
-NoMoreData. thread#47957390187968
+NoMoreData. thread#47072167562688
                                 disconnect finished
 
-NoMoreData. thread#47957433874176
+                    character buffer dataReceived=0data.size()=3notificationCount=0
 
-NoMoreData. thread#47957431772928
+NoMoreData. thread#47072211248896
+
+                    command buffer dataReceived=0data.size()=5notificationCount=0
+
+NoMoreData. thread#47072209147648
+
+                    bulk buffer dataReceived=0data.size()=2notificationCount=0
                                 disconnect started
 
-NoMoreData. thread#47957390187968
+NoMoreData. thread#47072167562688
                                 disconnect finished
 
-NoMoreData. thread#47957450684160
+NoMoreData. thread#47072228058880
 
-NoMoreData. thread#47957448582912
+NoMoreData. thread#47072225957632
+
+                    bulk buffer dataReceived=0data.size()=1notificationCount=0
                                 disconnect started
 
-NoMoreData. thread#47957435975424
+NoMoreData. thread#47072213350144
                                 disconnect finished
 
-NoMoreData. thread#47957452785408
+NoMoreData. thread#47073036715776
 
-NoMoreData. thread#47957433874176
+NoMoreData. thread#47073022007040
                                 disconnect started
 
-NoMoreData. thread#47957440177920
+NoMoreData. thread#47072202843904
                                 disconnect finished
 
-NoMoreData. thread#47957469595392
+NoMoreData. thread#47072232261376
 
-NoMoreData. thread#47957433874176
+NoMoreData. thread#47072230160128
                                 disconnect started
 
-NoMoreData. thread#47957438076672
+NoMoreData. thread#47072228058880
                                 disconnect finished
 
-NoMoreData. thread#47957429671680
+NoMoreData. thread#47072881485568
 
-NoMoreData. thread#47957435975424
+NoMoreData. thread#47072875181824
                                 disconnect started
 
-NoMoreData. thread#47957448582912
+NoMoreData. thread#47072196540160
                                 disconnect finished
 
-NoMoreData. thread#47957456987904
+NoMoreData. thread#47073032513280
 
-NoMoreData. thread#47957433874176
+NoMoreData. thread#47073024108288
                                 disconnect started
 
-NoMoreData. thread#47957421266688
+NoMoreData. thread#47072221755136
                                 disconnect finished
 
-NoMoreData. thread#47958219310848
+NoMoreData. thread#47073384736512
 
-NoMoreData. thread#47958559057664
+NoMoreData. thread#47073028310784
                                 disconnect started
 
-NoMoreData. thread#47957444380416
+NoMoreData. thread#47072225957632
                                 disconnect finished
 
-NoMoreData. thread#47958556956416
+NoMoreData. thread#47072864675584
 
-NoMoreData. thread#47957435975424
+NoMoreData. thread#47073388939008
                                 disconnect started
 
-NoMoreData. thread#47957419165440
+NoMoreData. thread#47072219653888
                                 disconnect finished
 
-NoMoreData. thread#47958250829568
+NoMoreData. thread#47073395242752
 
-NoMoreData. thread#47958265538304
+NoMoreData. thread#47073382635264
                                 disconnect started
 
-NoMoreData. thread#47957446481664
+NoMoreData. thread#47072215451392
                                 disconnect finished
 
-NoMoreData. thread#47958210905856
+NoMoreData. thread#47073397344000
 
-NoMoreData. thread#47957463291648
+NoMoreData. thread#47072198641408
                                 disconnect started
 
-NoMoreData. thread#47957442279168
+NoMoreData. thread#47072223856384
                                 disconnect finished
 
-NoMoreData. thread#47958234019584
+NoMoreData. thread#47072204945152
 
-NoMoreData. thread#47958561158912
+NoMoreData. thread#47072213350144
                                 disconnect started
 
-NoMoreData. thread#47957450684160
+NoMoreData. thread#47072217552640
                                 disconnect finished
 
-NoMoreData. thread#47958240323328
+NoMoreData. thread#47072192337664
 
-NoMoreData. thread#47957456987904
+NoMoreData. thread#47073391040256
                                 receiving started
                                 receiving finished
                                 receiving started
@@ -142,52 +150,66 @@ NoMoreData. thread#47957456987904
                                 receiving finished
                                 disconnect started
 
-NoMoreData. thread#47957390187968
+NoMoreData. thread#47072167562688
                                 disconnect finished
 
-NoMoreData. thread#47958271842048
+                    character buffer dataReceived=0data.size()=10notificationCount=0
 
-NoMoreData. thread#47958255032064
+NoMoreData. thread#47073007298304
+
+NoMoreData. thread#47072982083328
+
+                    bulk buffer dataReceived=0data.size()=2notificationCount=0
                                 disconnect started
 
-NoMoreData. thread#47957390187968
+NoMoreData. thread#47072167562688
                                 disconnect finished
 
-NoMoreData. thread#47958271842048
+NoMoreData. thread#47073007298304
 
-NoMoreData. thread#47957419165440
+NoMoreData. thread#47072196540160
                                 receiving started
                                 receiving finished
                                 receiving started
                                 receiving finished
-                                receiving started
-                                receiving finished
-                                disconnect started
-
-NoMoreData. thread#47957390187968
-                                disconnect finished
-
-NoMoreData. thread#47958271842048
-
-NoMoreData. thread#47958240323328
                                 receiving started
                                 receiving finished
                                 disconnect started
 
-NoMoreData. thread#47957390187968
+NoMoreData. thread#47072167562688
                                 disconnect finished
 
-NoMoreData. thread#47958271842048
+                    character buffer dataReceived=0data.size()=3notificationCount=0
 
-NoMoreData. thread#47957448582912
+NoMoreData. thread#47073007298304
+
+                    command buffer dataReceived=0data.size()=3notificationCount=0
+
+NoMoreData. thread#47072219653888
+                                receiving started
+                                receiving finished
+                                disconnect started
+
+NoMoreData. thread#47072167562688
+                                disconnect finished
+
+                    character buffer dataReceived=0data.size()=1notificationCount=0
+
+NoMoreData. thread#47073007298304
+
+                    command buffer dataReceived=0data.size()=1notificationCount=0
+
+NoMoreData. thread#47072223856384
+
+                    bulk buffer dataReceived=0data.size()=1notificationCount=0
 
 *** No errors detected
 <end of output>
 Test time =   0.24 sec
 ----------------------------------------------------------
 Test Passed.
-"test_hw_11" end time: Jul 05 11:06 UTC
+"test_hw_11" end time: Jul 05 11:14 UTC
 "test_hw_11" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Jul 05 11:06 UTC
+End testing: Jul 05 11:14 UTC
