@@ -242,6 +242,8 @@ static std::mutex screenOutputLock;
       {
          return receiving.load() == false;
        });
+
+      lockAccess.unlock();
     }
 
     {
