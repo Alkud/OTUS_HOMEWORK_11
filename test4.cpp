@@ -2,6 +2,8 @@
 #include "./async_command_processor/async.h"
 #include <sstream>
 
+using namespace std::chrono_literals;
+
 const char *data1="0 0\n\n1 1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n{\n11\n}\n{";
 const char *data2= "\n12\n13\n14\n}\n15\n{\n16\n{\n17\n{\n18\n}\n19\n}\n20\n}\n{\n21\n22\n23\n";
 
@@ -18,7 +20,9 @@ void connect_disconnect(atomic_h& h)
     while(can_do)
     {
         h = async::connect(3);
+        std::this_thread::sleep_for(500ms);
         async::receive(h, data1, sz1);
+        std::this_thread::sleep_for(500ms);
         async::disconnect(h);
         std::this_thread::yield();
     }
@@ -43,7 +47,9 @@ int main() {
             while(--N)
             {
                 async::receive(h1, data2, sz2);
+                std::this_thread::sleep_for(2ms);
                 async::receive(h2, data2, sz2);
+                std::this_thread::sleep_for(2ms);
             }
             std::this_thread::yield();
         }
