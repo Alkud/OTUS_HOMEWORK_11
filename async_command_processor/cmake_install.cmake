@@ -34,7 +34,7 @@ endif()
 
 if("${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   foreach(file
-      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libasync.so.0.0.46"
+      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libasync.so.0.0.47"
       "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libasync.so"
       )
     if(EXISTS "${file}" AND
@@ -45,11 +45,11 @@ if("${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMP
     endif()
   endforeach()
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib" TYPE SHARED_LIBRARY FILES
-    "/home/travis/build/Alkud/OTUS_HOMEWORK_11/async_command_processor/libasync.so.0.0.46"
+    "/home/travis/build/Alkud/OTUS_HOMEWORK_11/async_command_processor/libasync.so.0.0.47"
     "/home/travis/build/Alkud/OTUS_HOMEWORK_11/async_command_processor/libasync.so"
     )
   foreach(file
-      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libasync.so.0.0.46"
+      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libasync.so.0.0.47"
       "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/lib/libasync.so"
       )
     if(EXISTS "${file}" AND
