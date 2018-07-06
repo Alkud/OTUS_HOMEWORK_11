@@ -4,10 +4,15 @@
 #include <iostream>
 #include <mutex>
 #include <memory>
+#include <unordered_set>
 #include <list>
 #include "async_command_processor.h"
 
-std::list<std::unique_ptr<AsyncCommandProcessor<2>>> connections{};
+using ACPPointer = std::shared_ptr<AsyncCommandProcessor<2>>;
+using HandleType = ACPPointer*;
+
+//std::unordered_map<ACPPointer, std::atomic_flag> connections{};
+std::unordered_set<HandleType> connections{};
 
 async::handle_t async::connect(std::size_t bulk)
 {
@@ -16,15 +21,21 @@ async::handle_t async::connect(std::size_t bulk)
     return nullptr;
   }
 
-  auto newCommandProcessor { new AsyncCommandProcessor<2>(
+  auto newCommandProcessor { std::make_shared<AsyncCommandProcessor<2>>(
       bulk, '{', '}', std::cout, std::cerr, std::cout
     )
   };
 
+
+  auto newHandle { new ACPPointer(newCommandProcessor)};
+
   if (newCommandProcessor->connect() == true)
   {
-    connections.emplace_back(newCommandProcessor);
-    return reinterpret_cast<void*>(newCommandProcessor);
+//    connections.emplace(std::make_pair(ACPPointer{newCommandProcessor},
+//                        std::atomic_flag{ATOMIC_FLAG_INIT}));
+
+    connections.insert(newHandle);
+    return reinterpret_cast<void*>(newHandle);
   }
   else
   {
@@ -41,12 +52,26 @@ void async::receive(async::handle_t handle, const char* data, std::size_t size)
     return;
   }
 
-  auto commandProcessor {reinterpret_cast<AsyncCommandProcessor<2>*>(handle)};
+  auto testHandle {reinterpret_cast<HandleType>(handle)};
+
+  if(connections.find(testHandle) == connections.end())
+  {
+    return;
+  }
+
+  auto commandProcessor{*testHandle};
 
   try
   {
-    if (commandProcessor->isDisconnected())
+//    if (connections[commandProcessor].test_and_set(std::memory_order_acquire) == false)
+//    {
+//      connections[commandProcessor].clear(std::memory_order_release);
+//      return;
+//    }
+    if (commandProcessor == nullptr
+        || commandProcessor->isDisconnected() == true)
     {
+      std::cout << "\n------Wrong receive!-------\n";
       return;
     }
 
@@ -75,11 +100,22 @@ void async::disconnect(async::handle_t handle)
     //std::cout << "\n                    async::disconnect\n";
   #endif
 
-  auto commandProcessor {reinterpret_cast<AsyncCommandProcessor<2>*>(handle)};
+  auto testHandle {reinterpret_cast<HandleType>(handle)};
+
+  if(connections.find(testHandle) == connections.end())
+  {
+    return;
+  }
+
+  auto commandProcessor{*testHandle};
 
   try
   {
-    commandProcessor->disconnect();
+    //connections[commandProcessor].clear(std::memory_order_release);
+    std::atomic_exchange(&commandProcessor, ACPPointer{nullptr});
+    (*testHandle)->disconnect();
+
+    testHandle->reset();
   }
   catch(...)
   {

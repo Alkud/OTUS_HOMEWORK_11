@@ -63,7 +63,7 @@ public:
   {
     #ifdef NDEBUG
     #else
-      //std::cout << "\n                            AsyncCP destructor\n";
+      std::cout << "\n                            AsyncCP destructor\n";
     #endif
 
 //    if (selfDestroy.joinable())
@@ -157,13 +157,15 @@ public:
       return;
     }
 
+    receiving.store(true);
+
     lockAccess.unlock();
 
     {
        #ifdef NDEBUG
        #else
-         //std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
-         //std::cout << "                                receiving started\n";
+         std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
+         std::cout << "                                receiving started\n";
        #endif
     }
 
@@ -182,16 +184,15 @@ public:
     {
       #ifdef NDEBUG
       #else
-        //std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
-        //std::cout << "                                receiving finished\n";
+        std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
+        std::cout << "                                receiving finished\n";
       #endif
     }
 
 
-    #ifdef NDEBUG
-    #else
-      //std::cout << "\n                    AsyncCP received data\n";
-    #endif
+   receiving.store(false);
+
+   accessNotifier.notify_all();
   }
 
   void disconnect()
@@ -201,8 +202,8 @@ public:
     {
       #ifdef NDEBUG
       #else
-        //std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
-        //std::cout << "                                disconnect started\n";
+        std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
+        std::cout << "                                disconnect started\n";
       #endif
     }
 
@@ -212,23 +213,32 @@ public:
 
     lockAccess.unlock();
 
+
+    {
+      #ifdef NDEBUG
+      #else
+        std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
+        std::cout << "                                disconnect finished\n";
+      #endif
+    }
+
+    std::unique_lock<std::mutex> lockTermination{accessLock};
+
+    while (receiving.load() == true)
+    {
+      accessNotifier.wait_for(lockTermination, 100ms, [this]()
+      {
+        return receiving.load() == false;
+      }
+      );
+    }
+
     if (workingThread.joinable() == true)
     {
       workingThread.join();
     }
 
-//    auto emptyEntryPoint{std::shared_ptr<InputReader::InputBufferType>(nullptr)};
-//    std::atomic_exchange(&entryPoint, emptyEntryPoint);
-
-//    emptyEntryPoint.reset();
-
-    {
-      #ifdef NDEBUG
-      #else
-        //std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
-        //std::cout << "                                disconnect finished\n";
-      #endif
-    }
+    lockTermination.unlock();
 
 //    selfDestroy = std::thread(
 //      [this]()
@@ -249,7 +259,7 @@ public:
 
     #ifdef NDEBUG
     #else
-      //std::cout << "\n                    AsyncCP disconnect\n";
+      std::cout << "\n                    AsyncCP disconnect\n";
     #endif
   }
 
