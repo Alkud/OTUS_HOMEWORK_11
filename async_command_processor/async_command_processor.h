@@ -217,10 +217,10 @@ public:
       workingThread.join();
     }
 
-    auto emptyEntryPoint{std::shared_ptr<InputReader::InputBufferType>(nullptr)};
-    std::atomic_exchange(&entryPoint, emptyEntryPoint);
+//    auto emptyEntryPoint{std::shared_ptr<InputReader::InputBufferType>(nullptr)};
+//    std::atomic_exchange(&entryPoint, emptyEntryPoint);
 
-    emptyEntryPoint.reset();
+//    emptyEntryPoint.reset();
 
     {
       #ifdef NDEBUG
