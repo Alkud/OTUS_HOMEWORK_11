@@ -7,6 +7,8 @@
 #include <list>
 #include "async_command_processor.h"
 
+std::list<std::unique_ptr<AsyncCommandProcessor<2>>> connections{};
+
 async::handle_t async::connect(std::size_t bulk)
 {
   if (0 == bulk)
@@ -14,14 +16,15 @@ async::handle_t async::connect(std::size_t bulk)
     return nullptr;
   }
 
-  auto newCommandProcessor {std::make_shared<AsyncCommandProcessor<2>>(
+  auto newCommandProcessor { new AsyncCommandProcessor<2>(
       bulk, '{', '}', std::cout, std::cerr, std::cout
     )
   };
 
   if (newCommandProcessor->connect() == true)
-  {    
-    return reinterpret_cast<void*>(newCommandProcessor.get());
+  {
+    connections.emplace_back(newCommandProcessor);
+    return reinterpret_cast<void*>(newCommandProcessor);
   }
   else
   {

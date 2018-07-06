@@ -66,10 +66,10 @@ public:
       //std::cout << "\n                            AsyncCP destructor\n";
     #endif
 
-    if (selfDestroy.joinable())
-    {
-      selfDestroy.join();
-    }
+//    if (selfDestroy.joinable())
+//    {
+//      selfDestroy.join();
+//    }
   }
 
   bool connect(const bool outputMetrics = false) noexcept
@@ -82,10 +82,10 @@ public:
         return false;
       }
 
-      if (nullptr == sharedThis)
-      {
-         sharedThis = this->shared_from_this();
-      }
+//      if (nullptr == sharedThis)
+//      {
+//         sharedThis = this->shared_from_this();
+//      }
 
       #ifdef NDEBUG
       #else
@@ -230,22 +230,22 @@ public:
       #endif
     }
 
-    selfDestroy = std::thread(
-      [this]()
-      {
-        try
-        {
-          std::this_thread::sleep_for(1500ms);
-          sharedThis.reset();
-        }
-        catch (const std::exception& ex)
-        {
-           std::cerr << ex.what() << std::endl;
-        }
-      }
-    );
+//    selfDestroy = std::thread(
+//      [this]()
+//      {
+//        try
+//        {
+//          std::this_thread::sleep_for(1500ms);
+//          sharedThis.reset();
+//        }
+//        catch (const std::exception& ex)
+//        {
+//           std::cerr << ex.what() << std::endl;
+//        }
+//      }
+//    );
 
-    sharedThis.reset();
+//    sharedThis.reset();
 
     #ifdef NDEBUG
     #else
