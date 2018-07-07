@@ -37,7 +37,7 @@ int main() {
 
         std::stringstream userInput;
 
-        for (size_t i{}; i < 150000; ++i)
+        for (size_t i{}; i < 1500000; ++i)
         {
           userInput << i;
         }

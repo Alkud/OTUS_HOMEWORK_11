@@ -2,7 +2,7 @@ var searchData=
 [
   ['tempbuffer',['tempBuffer',['../class_input_processor.html#a2658dc0872c430bf0f19d4e91a037154',1,'InputProcessor::tempBuffer()'],['../class_input_reader.html#adc7ade8d8f386722c0a0df1324b61a0b',1,'InputReader::tempBuffer()']]],
   ['terminationlock',['terminationLock',['../class_async_worker.html#aaa730d06827fe13e6e82d0398f18966f',1,'AsyncWorker']]],
-  ['terminationnotifier',['terminationNotifier',['../class_command_processor_instance.html#a533dc972d295e48c2cca2c1cd11ddcf4',1,'CommandProcessorInstance']]],
+  ['terminationnotifier',['terminationNotifier',['../class_async_command_processor.html#a62fc0bcfd35882e9eccd50a23fd5e27a',1,'AsyncCommandProcessor::terminationNotifier()'],['../class_command_processor_instance.html#a533dc972d295e48c2cca2c1cd11ddcf4',1,'CommandProcessorInstance::terminationNotifier()']]],
   ['test4_2ecpp',['test4.cpp',['../test4_8cpp.html',1,'']]],
   ['thread_5fmetrics_2eh',['thread_metrics.h',['../thread__metrics_8h.html',1,'']]],
   ['threadfinished',['threadFinished',['../class_async_worker.html#a27fb8708b6ab9a4180f3e92bb8222435',1,'AsyncWorker']]],

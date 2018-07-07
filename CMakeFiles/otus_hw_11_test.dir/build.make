@@ -116,7 +116,7 @@ otus_hw_11_test_EXTERNAL_OBJECTS =
 otus_hw_11_test: CMakeFiles/otus_hw_11_test.dir/otus_hw_11_test.cpp.o
 otus_hw_11_test: CMakeFiles/otus_hw_11_test.dir/homework_11.cpp.o
 otus_hw_11_test: CMakeFiles/otus_hw_11_test.dir/build.make
-otus_hw_11_test: async_command_processor/libasync.so.0.0.68
+otus_hw_11_test: async_command_processor/libasync.so.0.0.69
 otus_hw_11_test: /usr/lib/x86_64-linux-gnu/libboost_unit_test_framework.so
 otus_hw_11_test: CMakeFiles/otus_hw_11_test.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/travis/build/Alkud/OTUS_HOMEWORK_11/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable otus_hw_11_test"
