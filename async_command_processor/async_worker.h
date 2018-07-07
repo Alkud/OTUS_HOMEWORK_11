@@ -40,6 +40,7 @@ public:
 
   virtual ~AsyncWorker()
   {
+    stop();
     #ifdef NDEBUG
     #else
       //std::cout << "\n                    " << workerName << " destructor, shouldExit = " << shouldExit << "\n";
@@ -98,6 +99,8 @@ public:
     }
 
     isStopped = true;
+
+    futureResults.clear();
   }
 
   WorkerState getWorkerState()

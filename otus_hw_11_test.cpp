@@ -85,7 +85,7 @@ using ACPPointer = std::shared_ptr<AsyncCommandProcessor<2>>;
 using HandleType = ACPPointer*;
 
 //std::unordered_map<ACPPointer, std::atomic_flag> connections{};
-std::unordered_set<HandleType> connections{};
+std::unordered_set<HandleType> mockConnections{};
 
 void*
 mockConnect(
@@ -107,7 +107,7 @@ mockConnect(
 //    connections.emplace(std::make_pair(ACPPointer{newCommandProcessor},
 //                        std::atomic_flag{ATOMIC_FLAG_INIT}));
 
-    //connections.insert(newHandle);
+    mockConnections.insert(newHandle);
     return reinterpret_cast<void*>(newHandle);
   }
   else

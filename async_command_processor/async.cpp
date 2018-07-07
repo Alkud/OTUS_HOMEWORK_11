@@ -12,7 +12,7 @@ using SharedACP = std::shared_ptr<AsyncCommandProcessor<2>>;
 using HandleType = SharedACP*;
 
 //std::unordered_map<ACPPointer, std::atomic_flag> connections{};
-//std::unordered_set<HandleType> connections{};
+std::unordered_set<HandleType> connections{};
 
 async::handle_t async::connect(std::size_t bulk)
 {
@@ -34,7 +34,7 @@ async::handle_t async::connect(std::size_t bulk)
 //    connections.emplace(std::make_pair(ACPPointer{newCommandProcessor},
 //                        std::atomic_flag{ATOMIC_FLAG_INIT}));
 
-    //connections.insert(newHandle);
+    connections.insert(newHandle);
     return reinterpret_cast<void*>(newHandle);
   }
   else
@@ -123,6 +123,8 @@ void async::disconnect(async::handle_t handle)
     tmp->disconnect();
 
     tmp.reset();
+
+    delete testHandle;
   }
   catch(...)
   {
