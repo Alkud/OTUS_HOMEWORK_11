@@ -9,6 +9,7 @@
 #include <array>
 #include <future>
 #include <cassert>
+#include <iostream>
 
 enum class WorkerState
 {
@@ -87,7 +88,7 @@ public:
       {
         shouldExit.store(true);
         threadNotifier.notify_all();
-        result.wait_for(std::chrono::milliseconds(500));
+        result.wait_for(std::chrono::milliseconds(100));
       }
     }
 
@@ -140,7 +141,7 @@ protected:
     return workSuccess;
   }
 
-  virtual void onThreadStart(const size_t threadIndex)
+  virtual void onThreadStart(const size_t /*threadIndex*/)
   {}
 
   virtual bool run(const size_t threadIndex)
@@ -179,13 +180,13 @@ protected:
           {
             #ifdef NDEBUG
             #else
-              //std::cout << "\n                     " << this->workerName
-              //          << " waiting. shouldExit="<< shouldExit
-              //          << ", noMoreData=" << noMoreData
-              //          << "notificationCount=" << notificationCount.load() << "\n";
+//              std::cout << "\n                     " << this->workerName
+//                        << " waiting. shouldExit="<< shouldExit
+//                        << ", noMoreData=" << noMoreData
+//                        << "notificationCount=" << notificationCount.load() << "\n";
             #endif
 
-            threadNotifier.wait_for(lockNotifier, std::chrono::milliseconds(1000), [this]()
+            threadNotifier.wait_for(lockNotifier, std::chrono::milliseconds(100), [this]()
             {
               return this->noMoreData.load() || this->notificationCount.load() > 0 || this->shouldExit.load();
             });

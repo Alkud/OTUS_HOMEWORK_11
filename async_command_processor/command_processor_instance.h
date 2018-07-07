@@ -151,7 +151,7 @@ public:
       case Message::AllDataPublsihed :
         #ifdef NDEBUG
         #else
-          //std::cout << "\n                     AllDataReceived received\n";
+          //std::cout << "\n                     AllDataPublished received\n";
         #endif
 
         dataPublished.store(true);
@@ -203,7 +203,7 @@ public:
         #endif
 
         std::unique_lock<std::mutex> lockNotifier{notifierLock};
-        terminationNotifier.wait_for(lockNotifier, std::chrono::seconds{1}, [this]()
+        terminationNotifier.wait_for(lockNotifier, std::chrono::milliseconds{100}, [this]()
         {
           return (  shouldExit.load()
 
