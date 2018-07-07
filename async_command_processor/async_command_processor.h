@@ -28,8 +28,9 @@ public:
       std::ostream& newMetricsStream = std::cout
   ) :    
     sharedThis{},
-    accessLock{}, accessNotifier{},
+    accessLock{},
     disconnected{false}, receiving{false},
+    terminationNotifier{}, activeReceptionCount{},
 
     bulkSize{newBulkSize},
     bulkOpenDelimiter{newBulkOpenDelimiter},
@@ -63,7 +64,7 @@ public:
   {
     #ifdef NDEBUG
     #else
-      std::cout << "\n                            AsyncCP destructor\n";
+      //std::cout << "\n                            AsyncCP destructor\n";
     #endif
 
 //    if (selfDestroy.joinable())
@@ -149,6 +150,7 @@ public:
 
   void receiveData(const char *data, std::size_t size)
   {
+    ++activeReceptionCount;
     std::unique_lock<std::mutex> lockAccess{accessLock};
     receiving.store(true);
 
@@ -165,7 +167,9 @@ public:
 
       lockAccess.unlock();
 
-      accessNotifier.notify_all();
+      --activeReceptionCount;
+
+      terminationNotifier.notify_all();
 
       return;
     }
@@ -205,7 +209,9 @@ public:
 
    receiving.store(false);
 
-   accessNotifier.notify_all();
+   --activeReceptionCount;
+
+   terminationNotifier.notify_all();
   }
 
   void disconnect()
@@ -236,11 +242,11 @@ public:
 
     //std::unique_lock<std::mutex> lockTermination{accessLock};
 
-    while (receiving.load() == true)
+    while (activeReceptionCount.load() != 0)
     {
-      accessNotifier.wait_for(lockAccess, 100ms, [this]()
+      terminationNotifier.wait_for(lockAccess, 100ms, [this]()
       {
-        return receiving.load() == false;
+        return activeReceptionCount.load() == false;
       }
       );
     }
@@ -310,10 +316,12 @@ private:
 
   std::shared_ptr<AsyncCommandProcessor<loggingThreadCount>> sharedThis;
 
-  std::mutex accessLock;
-  std::condition_variable accessNotifier;
+  std::mutex accessLock;  
   std::atomic<bool> disconnected;
   std::atomic<bool> receiving;
+
+  std::atomic<size_t> activeReceptionCount;
+  std::condition_variable terminationNotifier;
 
 
   const size_t bulkSize;

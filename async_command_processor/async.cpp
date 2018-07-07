@@ -9,10 +9,9 @@
 #include "async_command_processor.h"
 
 using SharedACP = std::shared_ptr<AsyncCommandProcessor<2>>;
-using HandleType = SharedACP*;
+using HandleType = std::shared_ptr<SharedACP>;
 
-//std::unordered_map<ACPPointer, std::atomic_flag> connections{};
-std::unordered_set<HandleType> connections{};
+std::list<HandleType> connections{};
 
 async::handle_t async::connect(std::size_t bulk)
 {
@@ -27,15 +26,12 @@ async::handle_t async::connect(std::size_t bulk)
   };
 
 
-  auto newHandle { new SharedACP(newCommandProcessor)};
+  auto newHandle { std::make_shared<SharedACP>(newCommandProcessor)};
 
   if (newCommandProcessor->connect() == true)
   {
-//    connections.emplace(std::make_pair(ACPPointer{newCommandProcessor},
-//                        std::atomic_flag{ATOMIC_FLAG_INIT}));
-
-    connections.insert(newHandle);
-    return reinterpret_cast<void*>(newHandle);
+    connections.push_back(newHandle);
+    return reinterpret_cast<void*>(newHandle.get());
   }
   else
   {
@@ -57,26 +53,15 @@ void async::receive(async::handle_t handle, const char* data, std::size_t size)
     //std::cout << "\n                    async::receive\n";
   #endif
 
-  auto testHandle {reinterpret_cast<HandleType>(handle)};
-
-//  if(connections.find(testHandle) == connections.end())
-//  {
-//    return;
-//  }
+  auto testHandle {reinterpret_cast<HandleType::element_type*>(handle)};
 
   auto commandProcessor{*testHandle};
 
   try
   {
-//    if (connections[commandProcessor].test_and_set(std::memory_order_acquire) == false)
-//    {
-//      connections[commandProcessor].clear(std::memory_order_release);
-//      return;
-//    }
     if (commandProcessor == nullptr
         || commandProcessor->isDisconnected() == true)
     {
-      //rstd::cout << "\n------Wrong receive!-------\n";
       return;
     }
 
@@ -105,26 +90,19 @@ void async::disconnect(async::handle_t handle)
     //std::cout << "\n                    async::disconnect\n";
   #endif
 
-  auto testHandle {reinterpret_cast<HandleType>(handle)};
-
-//  if(connections.find(testHandle) == connections.end())
-//  {
-//    return;
-//  }
+  auto testHandle {reinterpret_cast<HandleType::element_type*>(handle)};
 
   auto commandProcessor{*testHandle};
 
   try
-  {
-
-    //connections[commandProcessor].clear(std::memory_order_release);
+  {    
     auto tmp = std::atomic_exchange(&commandProcessor, SharedACP{nullptr});
 
     tmp->disconnect();
 
-    tmp.reset();
+    //std::this_thread::sleep_for(500ms);
 
-    delete testHandle;
+    tmp.reset();
   }
   catch(...)
   {
