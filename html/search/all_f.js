@@ -4,6 +4,7 @@ var searchData=
   ['selfdestroy',['selfDestroy',['../class_async_command_processor.html#a233c3cd65e826a1da61b7ee77f14fdbe',1,'AsyncCommandProcessor']]],
   ['sendcurrentbulk',['sendCurrentBulk',['../class_input_processor.html#ab9a64f2a71dcc0d0706fa287ce24afda',1,'InputProcessor']]],
   ['sendmessage',['sendMessage',['../class_message_broadcaster.html#ae8e7f93dbbcf8cc1c62574ca6b71f2f8',1,'MessageBroadcaster']]],
+  ['sharedacp',['SharedACP',['../async_8cpp.html#a6431da36f66df3ffe70f25156a3dd721',1,'async.cpp']]],
   ['sharedglobalmetrics',['SharedGlobalMetrics',['../thread__metrics_8h.html#ac1589e063b43543469fafabc05566bcc',1,'thread_metrics.h']]],
   ['sharedmetrics',['SharedMetrics',['../thread__metrics_8h.html#a7c05dd501440a173e68ec65d91beb76d',1,'thread_metrics.h']]],
   ['sharedmultymetrics',['SharedMultyMetrics',['../thread__metrics_8h.html#ae5877028144abdb2fd0d601eae9bcf2e',1,'thread_metrics.h']]],

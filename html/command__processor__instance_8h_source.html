@@ -243,7 +243,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;      <span class="keywordflow">case</span> <a class="code" href="broadcasters_8h.html#aff97733e4706e994965da50c70605422a839cd0090d0f6a1d575d33607aeaef01">Message::AllDataPublsihed</a> :</div>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<span class="preprocessor">        #ifdef NDEBUG</span></div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;<span class="preprocessor"></span><span class="preprocessor">        #else</span></div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="preprocessor"></span>          <span class="comment">//std::cout &lt;&lt; &quot;\n                     AllDataReceived received\n&quot;;</span></div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="preprocessor"></span>          <span class="comment">//std::cout &lt;&lt; &quot;\n                     AllDataPublished received\n&quot;;</span></div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="preprocessor">        #endif</span></div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        <a class="code" href="class_command_processor_instance.html#a5269a88abcbe11af73361dd54445ffbc">dataPublished</a>.store(<span class="keyword">true</span>);</div>
@@ -295,7 +295,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;<span class="preprocessor">        #endif</span></div>
 <div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;<span class="preprocessor"></span></div>
 <div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        std::unique_lock&lt;std::mutex&gt; lockNotifier{<a class="code" href="class_command_processor_instance.html#a84286333e3e6f3f145a99ba89f3a36b8">notifierLock</a>};</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        <a class="code" href="class_command_processor_instance.html#a533dc972d295e48c2cca2c1cd11ddcf4">terminationNotifier</a>.wait_for(lockNotifier, std::chrono::seconds{1}, [<span class="keyword">this</span>]()</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        <a class="code" href="class_command_processor_instance.html#a533dc972d295e48c2cca2c1cd11ddcf4">terminationNotifier</a>.wait_for(lockNotifier, std::chrono::milliseconds{100}, [<span class="keyword">this</span>]()</div>
 <div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        {</div>
 <div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;          <span class="keywordflow">return</span> (  <a class="code" href="class_command_processor_instance.html#ae934fb344a66f329340d431ca66a2b55">shouldExit</a>.load()</div>
 <div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;</div>

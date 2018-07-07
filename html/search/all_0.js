@@ -2,6 +2,7 @@ var searchData=
 [
   ['accesslock',['accessLock',['../class_async_command_processor.html#ab0eac12c1e7d154e94a958c5a231fcc5',1,'AsyncCommandProcessor']]],
   ['accessnotifier',['accessNotifier',['../class_async_command_processor.html#a5f6d7516c5072064b5a5a639a73f7dfb',1,'AsyncCommandProcessor']]],
+  ['acppointer',['ACPPointer',['../otus__hw__11__test_8cpp.html#af812124984aa426cddefefde1ffd3a2a',1,'otus_hw_11_test.cpp']]],
   ['addcommandtobulk',['addCommandToBulk',['../class_input_processor.html#ab38266f1c7830c88b04bcff8f1001ad4',1,'InputProcessor']]],
   ['additionalnamesection',['additionalNameSection',['../class_logger.html#a4021e7a8a9ed768e84c79d463942aa2f',1,'Logger::additionalNameSection()'],['../class_logger.html#aed5365702e805b6453c631d079d08a06',1,'Logger::additionalNameSection()']]],
   ['addmessagelistener',['addMessageListener',['../class_message_broadcaster.html#ae93ef9f52518f8ad3ff58b011a6d0a2c',1,'MessageBroadcaster']]],

@@ -63,13 +63,13 @@ public:
   {
     #ifdef NDEBUG
     #else
-      //std::cout << "\n                            AsyncCP destructor\n";
+      std::cout << "\n                            AsyncCP destructor\n";
     #endif
 
-    if (selfDestroy.joinable())
-    {
-      selfDestroy.join();
-    }
+//    if (selfDestroy.joinable())
+//    {
+//      selfDestroy.join();
+//    }
   }
 
   bool connect(const bool outputMetrics = false) noexcept
@@ -82,10 +82,10 @@ public:
         return false;
       }
 
-      if (nullptr == sharedThis)
-      {
-         sharedThis = this->shared_from_this();
-      }
+//      if (nullptr == sharedThis)
+//      {
+//         sharedThis = this->shared_from_this();
+//      }
 
       #ifdef NDEBUG
       #else
@@ -149,26 +149,40 @@ public:
 
   void receiveData(const char *data, std::size_t size)
   {
-    std::unique_lock<std::mutex> lockAccess{accessLock};
+    //std::unique_lock<std::mutex> lockAccess{accessLock};
+    receiving.store(true);
+
 
     if (nullptr == data || size == 0 || disconnected.load() == true)
     {
-      lockAccess.unlock();
+      #ifdef NDEBUG
+      #else
+//        std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
+//        std::cout << "                                stop receiving\n";
+      #endif
+
+      //lockAccess.unlock();
+      receiving.store(false);
+
+      accessNotifier.notify_all();
+
       return;
     }
 
-    lockAccess.unlock();
+
+
+    //lockAccess.unlock();
 
     {
        #ifdef NDEBUG
        #else
-         //std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
-         //std::cout << "                                receiving started\n";
+//         std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
+//         std::cout << "                                receiving started\n";
        #endif
     }
 
 
-    if (entryPoint != nullptr)
+    if (entryPoint != nullptr && disconnected.load() != true)
     {
       InputReader::EntryDataType newData{};
       for (size_t idx{0}; idx < size; ++idx)
@@ -182,70 +196,84 @@ public:
     {
       #ifdef NDEBUG
       #else
-        //std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
-        //std::cout << "                                receiving finished\n";
+//        std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
+//        std::cout << "                                receiving finished\n";
       #endif
     }
 
 
-    #ifdef NDEBUG
-    #else
-      //std::cout << "\n                    AsyncCP received data\n";
-    #endif
+   receiving.store(false);
+
+   accessNotifier.notify_all();
   }
 
   void disconnect()
   {
-    std::unique_lock<std::mutex> lockAccess{accessLock};
+    //std::unique_lock<std::mutex> lockAccess{accessLock};
+    disconnected.store(true);
 
     {
       #ifdef NDEBUG
       #else
-        //std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
-        //std::cout << "                                disconnect started\n";
+//        std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
+//        std::cout << "                                disconnect started\n";
       #endif
     }
 
-    disconnected.store(true);
-
     sendMessage(Message::NoMoreData);
 
-    lockAccess.unlock();
+    //lockAccess.unlock();
+
+
+    {
+      #ifdef NDEBUG
+      #else
+//        std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
+//        std::cout << "                                disconnect finished\n";
+      #endif
+    }
+
+    std::unique_lock<std::mutex> lockTermination{accessLock};
+
+    while (receiving.load() == true)
+    {
+      accessNotifier.wait_for(lockTermination, 100ms, [this]()
+      {
+        return receiving.load() == false;
+      }
+      );
+    }
+
+    lockTermination.unlock();
+
+    #ifdef NDEBUG
+    #else
+      //std::cout << "\n                    AsyncCP finishing\n";
+    #endif
 
     if (workingThread.joinable() == true)
     {
       workingThread.join();
     }
 
-    auto emptyEntryPoint{std::shared_ptr<InputReader::InputBufferType>(nullptr)};
-    std::atomic_exchange(&entryPoint, emptyEntryPoint);
 
-    emptyEntryPoint.reset();
 
-    {
-      #ifdef NDEBUG
-      #else
-        //std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
-        //std::cout << "                                disconnect finished\n";
-      #endif
-    }
+//    selfDestroy = std::thread(
+//      [this]()
+//      {
+//        try
+//        {
+//          std::this_thread::sleep_for(1500ms);
+//          sharedThis.reset();
+//        }
+//        catch (const std::exception& ex)
+//        {
+//           std::cerr << ex.what() << std::endl;
+//        }
+//      }
+//    );
 
-    selfDestroy = std::thread(
-      [this]()
-      {
-        try
-        {
-          std::this_thread::sleep_for(1500ms);
-          sharedThis.reset();
-        }
-        catch (const std::exception& ex)
-        {
-           std::cerr << ex.what() << std::endl;
-        }
-      }
-    );
-
-    sharedThis.reset();
+//    sharedThis.reset();
 
     #ifdef NDEBUG
     #else
