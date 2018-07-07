@@ -149,7 +149,7 @@ public:
 
   void receiveData(const char *data, std::size_t size)
   {
-    //std::unique_lock<std::mutex> lockAccess{accessLock};
+    std::unique_lock<std::mutex> lockAccess{accessLock};
     receiving.store(true);
 
 
@@ -161,8 +161,9 @@ public:
 //        std::cout << "                                stop receiving\n";
       #endif
 
-      //lockAccess.unlock();
       receiving.store(false);
+
+      lockAccess.unlock();
 
       accessNotifier.notify_all();
 
@@ -171,7 +172,7 @@ public:
 
 
 
-    //lockAccess.unlock();
+    lockAccess.unlock();
 
     {
        #ifdef NDEBUG
@@ -209,7 +210,7 @@ public:
 
   void disconnect()
   {
-    //std::unique_lock<std::mutex> lockAccess{accessLock};
+    std::unique_lock<std::mutex> lockAccess{accessLock};
     disconnected.store(true);
 
     {
@@ -233,18 +234,18 @@ public:
       #endif
     }
 
-    std::unique_lock<std::mutex> lockTermination{accessLock};
+    //std::unique_lock<std::mutex> lockTermination{accessLock};
 
     while (receiving.load() == true)
     {
-      accessNotifier.wait_for(lockTermination, 100ms, [this]()
+      accessNotifier.wait_for(lockAccess, 100ms, [this]()
       {
         return receiving.load() == false;
       }
       );
     }
 
-    lockTermination.unlock();
+    lockAccess.unlock();
 
     #ifdef NDEBUG
     #else
