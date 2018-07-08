@@ -64,7 +64,7 @@ public:
   {
     #ifdef NDEBUG
     #else
-      //  std::cout << "\n                            AsyncCP destructor\n";
+        std::cout << "\n                            AsyncCP destructor\n";
     #endif
 
 //    if (selfDestroy.joinable())

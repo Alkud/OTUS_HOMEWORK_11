@@ -73,7 +73,7 @@ void async::receive(async::handle_t handle, const char* data, std::size_t size)
   {
     #ifdef NDEBUG
     #else
-      //std::cout << "\n------Wrong receive!-------\n";
+      std::cout << "\n------Wrong receive!-------\n";
     #endif
 
     return;
@@ -104,13 +104,23 @@ void async::disconnect(async::handle_t handle)
 
     std::this_thread::sleep_for(50ms);
 
+    #ifdef NDEBUG
+    #else
+      std::cout << "\n------delete handle-------\n";
+    #endif
+
     delete testHandle;
+
+    #ifdef NDEBUG
+    #else
+      std::cout << "\n------destroy ACP-------\n";
+    #endif
   }
   catch(...)
   {
     #ifdef NDEBUG
     #else
-      //std::cout << "\n------Wrong disconnect!-------\n";
+      std::cout << "\n------Wrong disconnect!-------\n";
     #endif
 
     return;
