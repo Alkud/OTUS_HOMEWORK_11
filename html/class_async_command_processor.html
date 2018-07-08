@@ -164,6 +164,8 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a87d0c15e13d669c066cde3d7e0d9c745"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aef501d3c5ee6751fdac8342c44f4d7eb"><td class="memItemLeft" align="right" valign="top">std::atomic&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_async_command_processor.html#aef501d3c5ee6751fdac8342c44f4d7eb">receiving</a></td></tr>
 <tr class="separator:aef501d3c5ee6751fdac8342c44f4d7eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe109c9ff17ddabfbfd87f69d36d02f6"><td class="memItemLeft" align="right" valign="top">std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_async_command_processor.html#afe109c9ff17ddabfbfd87f69d36d02f6">terminationLock</a></td></tr>
+<tr class="separator:afe109c9ff17ddabfbfd87f69d36d02f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4151919abb9ccf86e52b79970bb604e3"><td class="memItemLeft" align="right" valign="top">std::atomic&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_async_command_processor.html#a4151919abb9ccf86e52b79970bb604e3">activeReceptionCount</a></td></tr>
 <tr class="separator:a4151919abb9ccf86e52b79970bb604e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a62fc0bcfd35882e9eccd50a23fd5e27a"><td class="memItemLeft" align="right" valign="top">std::condition_variable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_async_command_processor.html#a62fc0bcfd35882e9eccd50a23fd5e27a">terminationNotifier</a></td></tr>
@@ -926,6 +928,28 @@ template&lt;size_t loggingThreadCount = 2u&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">std::shared_ptr&lt;<a class="el" href="class_async_command_processor.html">AsyncCommandProcessor</a>&lt;loggingThreadCount&gt; &gt; <a class="el" href="class_async_command_processor.html">AsyncCommandProcessor</a>&lt; loggingThreadCount &gt;::sharedThis</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="afe109c9ff17ddabfbfd87f69d36d02f6"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;size_t loggingThreadCount = 2u&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::mutex <a class="el" href="class_async_command_processor.html">AsyncCommandProcessor</a>&lt; loggingThreadCount &gt;::terminationLock</td>
         </tr>
       </table>
   </td>
