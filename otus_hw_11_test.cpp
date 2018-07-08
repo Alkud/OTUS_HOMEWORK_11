@@ -83,6 +83,7 @@ getProcessorOutput
 using SharedACP = std::shared_ptr<AsyncCommandProcessor<2>>;
 using HandleType = std::shared_ptr<SharedACP>;
 
+std::mutex mockConnectionLock{};
 std::list<HandleType> mockConnections{};
 
 void*
@@ -107,6 +108,7 @@ mockConnect(
 
   if (newCommandProcessor->connect() == true)
   {
+    std::lock_guard<std::mutex> lockMockConnection{mockConnectionLock};
     mockConnections.push_back(newHandle);
     return reinterpret_cast<void*>(newHandle.get());
   }

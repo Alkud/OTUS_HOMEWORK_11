@@ -58,6 +58,11 @@ public:
     metrics{processor->getMetrics()},
     selfDestroy{}
   {
+    #ifdef NDEBUG
+    #else
+        std::cout << "\n                            AsyncCP constructor\n";
+    #endif
+
     this->addMessageListener(entryPoint);
   }
 
@@ -65,7 +70,7 @@ public:
   {
     #ifdef NDEBUG
     #else
-        //std::cout << "\n                            AsyncCP destructor\n";
+        std::cout << "\n                            AsyncCP destructor\n";
     #endif
   }
 
@@ -144,9 +149,6 @@ public:
 
     std::unique_lock<std::mutex> lockAccess{accessLock};
 
-    receiving.store(true);
-
-
     if (nullptr == data || size == 0 || disconnected.load() == true)
     {
       #ifdef NDEBUG
@@ -154,8 +156,6 @@ public:
 //        std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
 //        std::cout << "                                stop receiving\n";
       #endif
-
-      receiving.store(false);
 
       lockAccess.unlock();
 
@@ -196,17 +196,17 @@ public:
       #endif
     }
 
-
-   receiving.store(false);
-
    --activeReceptionCount;
 
    terminationNotifier.notify_all();
+
+   return;
   }
 
   void disconnect()
   {
     std::unique_lock<std::mutex> lockAccess{accessLock};
+
     disconnected.store(true);
 
     {
@@ -219,7 +219,7 @@ public:
 
     sendMessage(Message::NoMoreData);
 
-    lockAccess.unlock();
+    //lockAccess.unlock();
 
     {
       #ifdef NDEBUG
@@ -229,17 +229,17 @@ public:
       #endif
     }
 
-    std::unique_lock<std::mutex> lockTermination{terminationLock};
+    //std::unique_lock<std::mutex> lockTermination{terminationLock};
 
     while (activeReceptionCount.load() != 0)
     {
-      terminationNotifier.wait_for(lockTermination, 100ms, [this]()
+      terminationNotifier.wait_for(lockAccess, 100ms, [this]()
       {
         return activeReceptionCount.load() == 0;
       });
     }
 
-    lockTermination.unlock();
+    lockAccess.unlock();
 
     #ifdef NDEBUG
     #else
