@@ -35,8 +35,6 @@ public:
     AsyncWorker<threadCount>{newWorkerName},
     buffer{newBuffer}, destinationDirectory{newDestinationDirectory},
     previousTimeStamp{}, additionalNameSection{},
-    sharedCounter{},
-    stringThreadID{},
     errorOut{newErrorOut}, errorOutLock{newErrorOutLock},
     threadMetrics{}
   {
@@ -53,7 +51,6 @@ public:
       additionalNameSection.push_back(1u);
     }
 
-    stringThreadID.resize(threadCount);
   }
 
   ~Logger()
@@ -109,7 +106,7 @@ public:
 
   auto getStringThreadID()
   {
-    return std::make_shared<std::vector<std::string>>(stringThreadID);
+    return std::make_shared<std::vector<std::string>>(this->stringThreadID);
   }
 
   const SharedMultyMetrics getMetrics()
@@ -143,7 +140,6 @@ private:
     if (nextBulkInfo.first != previousTimeStamp)
     {
       additionalNameSection[threadIndex] = 1u;
-      sharedCounter.store(0);
       previousTimeStamp = nextBulkInfo.first;
     }
 
@@ -152,9 +148,8 @@ private:
     };
 
     std::stringstream fileNameSuffix{};
-    fileNameSuffix << ::getpid() << stringThreadID[threadIndex]
-                   << "_" << sharedCounter.load() << "_"
-                   << additionalNameSection[threadIndex];
+    fileNameSuffix << ::getpid()<< "-" << this->stringThreadID[threadIndex]
+                   << "_" << additionalNameSection[threadIndex];
     auto logFileName {bulkFileName + "_" + fileNameSuffix.str() + ".log"};
 
 
@@ -172,7 +167,6 @@ private:
     logFile.close();
 
     ++additionalNameSection[threadIndex];
-    ++sharedCounter;
 
     /* Refresh metrics */
     ++threadMetrics[threadIndex]->totalBulkCount;
@@ -215,21 +209,12 @@ private:
     }
   }
 
-  void onThreadStart(const size_t threadIndex) override
-  {
-    std::stringstream stringID{};
-    stringID << std::this_thread::get_id();
-    stringThreadID[threadIndex] = stringID.str();
-  }
-
 
   SharedSizeStringBuffer buffer;
   std::string destinationDirectory;
 
   size_t previousTimeStamp;
   std::vector<size_t> additionalNameSection;
-  std::atomic<size_t> sharedCounter;
-  std::vector<std::string> stringThreadID;
 
   std::ostream& errorOut;
   std::mutex& errorOutLock;
