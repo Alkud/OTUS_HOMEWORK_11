@@ -13,6 +13,7 @@
 
 using namespace std::chrono_literals;
 
+
 template <size_t loggingThreadCount = 2u>
 class AsyncCommandProcessor : public std::enable_shared_from_this<AsyncCommandProcessor<loggingThreadCount>>,
                               public MessageBroadcaster
@@ -244,9 +245,14 @@ public:
 
     while (activeReceptionCount.load() != 0)
     {
+      #ifdef NDEBUG
+      #else
+        std::cout << "\n                    AsyncCP waiting active receptions termination\n";
+      #endif
+
       terminationNotifier.wait_for(lockAccess, 100ms, [this]()
       {
-        return activeReceptionCount.load() == false;
+        return activeReceptionCount.load() == 0;
       }
       );
     }
