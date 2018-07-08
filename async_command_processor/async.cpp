@@ -61,13 +61,17 @@ void async::receive(async::handle_t handle, const char* data, std::size_t size)
 
   try
   {
-    if (commandProcessor == nullptr
-        || commandProcessor->isDisconnected() == true)
+    if (commandProcessor == nullptr)
     {
       return;
     }
 
-    commandProcessor->receiveData(data, size);
+    if (commandProcessor->isDisconnected() != true)
+    {
+      commandProcessor->receiveData(data, size);
+    }
+
+    return;
   }
   catch(...)
   {
