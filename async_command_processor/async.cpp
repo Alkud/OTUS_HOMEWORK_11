@@ -106,7 +106,16 @@ void async::disconnect(async::handle_t handle)
 
     tmp->disconnect();
 
-    std::this_thread::sleep_for(50ms);
+    std::this_thread::sleep_for(150ms);
+
+    #ifdef NDEBUG
+    #else
+      std::cout << "\n------destroy ACP-------\n";
+    #endif
+
+    tmp.reset();
+
+
 
     #ifdef NDEBUG
     #else
@@ -115,10 +124,6 @@ void async::disconnect(async::handle_t handle)
 
     delete testHandle;
 
-    #ifdef NDEBUG
-    #else
-      std::cout << "\n------destroy ACP-------\n";
-    #endif
   }
   catch(...)
   {
