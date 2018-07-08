@@ -98,11 +98,11 @@ void async::disconnect(async::handle_t handle)
 
   auto testHandle {reinterpret_cast<HandleType>(handle)};
 
-  auto commandProcessor{*testHandle};
+  //auto commandProcessor{*testHandle};
 
   try
   {    
-    auto tmp = std::atomic_exchange(&commandProcessor, SharedACP{nullptr});
+    auto tmp = std::atomic_exchange(testHandle, SharedACP{nullptr});
 
     tmp->disconnect();
 
@@ -122,7 +122,7 @@ void async::disconnect(async::handle_t handle)
       std::cout << "\n------delete handle-------\n";
     #endif
 
-    //delete testHandle;
+    delete testHandle;
 
   }
   catch(...)
