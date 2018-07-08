@@ -1,10 +1,10 @@
-Start testing: Jul 08 08:25 UTC
+Start testing: Jul 08 08:35 UTC
 ----------------------------------------------------------
 1/1 Testing: test_hw_11
 1/1 Test: test_hw_11
 Command: "/home/travis/build/Alkud/OTUS_HOMEWORK_11/otus_hw_11_test"
 Directory: /home/travis/build/Alkud/OTUS_HOMEWORK_11
-"test_hw_11" start time: Jul 08 08:25 UTC
+"test_hw_11" start time: Jul 08 08:35 UTC
 Output:
 ----------------------------------------------------------
 Running 6 test cases...
@@ -13,19 +13,13 @@ Running 6 test cases...
 
 ------delete handle-------
 
-                            AsyncCP destructor
-
 ------destroy ACP-------
 
 ------delete handle-------
 
-                            AsyncCP destructor
-
 ------destroy ACP-------
 
 ------delete handle-------
-
-                            AsyncCP destructor
 
 ------destroy ACP-------
 
@@ -35,83 +29,57 @@ Running 6 test cases...
 
 ------delete handle-------
 
-                            AsyncCP destructor
+------destroy ACP-------
 
-                            AsyncCP destructor
+------delete handle-------
 
 ------destroy ACP-------
 
 ------delete handle-------
 
-                            AsyncCP destructor
+------destroy ACP-------
+
+------delete handle-------
 
 ------destroy ACP-------
 
 ------delete handle-------
 
-                            AsyncCP destructor
+------destroy ACP-------
+
+------delete handle-------
 
 ------destroy ACP-------
 
 ------delete handle-------
 
-                            AsyncCP destructor
+------destroy ACP-------
+
+------delete handle-------
 
 ------destroy ACP-------
 
 ------delete handle-------
 
-                            AsyncCP destructor
+------destroy ACP-------
+
+------delete handle-------
 
 ------destroy ACP-------
 
 ------delete handle-------
 
-                            AsyncCP destructor
-
 ------destroy ACP-------
 
 ------delete handle-------
-
-                            AsyncCP destructor
-
-------destroy ACP-------
-
-------delete handle-------
-
-                            AsyncCP destructor
-
-------destroy ACP-------
-
-------delete handle-------
-
-                            AsyncCP destructor
-
-------destroy ACP-------
-
-------delete handle-------
-
-                            AsyncCP destructor
-
-------destroy ACP-------
-
-------delete handle-------
-
-                            AsyncCP destructor
-
-------destroy ACP-------
-
-------delete handle-------
-
-                            AsyncCP destructor
 
 *** No errors detected
 <end of output>
-Test time =   1.10 sec
+Test time =   1.12 sec
 ----------------------------------------------------------
 Test Passed.
-"test_hw_11" end time: Jul 08 08:25 UTC
+"test_hw_11" end time: Jul 08 08:35 UTC
 "test_hw_11" time elapsed: 00:00:01
 ----------------------------------------------------------
 
-End testing: Jul 08 08:25 UTC
+End testing: Jul 08 08:35 UTC
