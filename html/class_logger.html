@@ -166,6 +166,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:ae7100760bee186fbf2a29912df663f55"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4021e7a8a9ed768e84c79d463942aa2f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_logger.html#a4021e7a8a9ed768e84c79d463942aa2f">additionalNameSection</a> {}</td></tr>
 <tr class="separator:a4021e7a8a9ed768e84c79d463942aa2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab2598dd70f6fd063254a829c203c55b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_logger.html#aab2598dd70f6fd063254a829c203c55b">sharedCounter</a> {}</td></tr>
+<tr class="separator:aab2598dd70f6fd063254a829c203c55b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e067056657638942881f0b002a5d4bb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_logger.html#a1e067056657638942881f0b002a5d4bb">stringThreadID</a> {}</td></tr>
 <tr class="separator:a1e067056657638942881f0b002a5d4bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb298fc74b1d87de485d535d2700075d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_logger.html#abb298fc74b1d87de485d535d2700075d">errorOut</a> {newErrorOut}</td></tr>
@@ -180,6 +182,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a504e461e6a66a902f1464452b4863cf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed5365702e805b6453c631d079d08a06"><td class="memItemLeft" align="right" valign="top">std::vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_logger.html#aed5365702e805b6453c631d079d08a06">additionalNameSection</a></td></tr>
 <tr class="separator:aed5365702e805b6453c631d079d08a06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4b454f16fe48d93f984b7a05ca77cd8"><td class="memItemLeft" align="right" valign="top">std::atomic&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_logger.html#ad4b454f16fe48d93f984b7a05ca77cd8">sharedCounter</a></td></tr>
+<tr class="separator:ad4b454f16fe48d93f984b7a05ca77cd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7bc5cb459c66858b7450d19e9ce8b001"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_logger.html#a7bc5cb459c66858b7450d19e9ce8b001">stringThreadID</a></td></tr>
 <tr class="separator:a7bc5cb459c66858b7450d19e9ce8b001"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aca4f9328402dec97b5991f8f8d008e3a"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_logger.html#aca4f9328402dec97b5991f8f8d008e3a">errorOut</a></td></tr>
@@ -458,6 +462,34 @@ template&lt;size_t threadCount = 2u&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">size_t <a class="el" href="class_logger.html">Logger</a>&lt; threadCount &gt;::previousTimeStamp</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aab2598dd70f6fd063254a829c203c55b"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;size_t threadCount = 2u&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_logger.html">Logger</a>&lt; threadCount &gt;::sharedCounter {}</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad4b454f16fe48d93f984b7a05ca77cd8"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;size_t threadCount = 2u&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::atomic&lt;size_t&gt; <a class="el" href="class_logger.html">Logger</a>&lt; threadCount &gt;::sharedCounter</td>
         </tr>
       </table>
 </div><div class="memdoc">
