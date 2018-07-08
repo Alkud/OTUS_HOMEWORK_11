@@ -9,8 +9,8 @@
 #include "async_command_processor.h"
 
 using SharedACP = std::shared_ptr<AsyncCommandProcessor<2>>;
-//using HandleType = std::shared_ptr<SharedACP>;
-using HandleType = SharedACP*;
+using HandleType = std::shared_ptr<SharedACP>;
+//using HandleType = SharedACP*;
 
 std::list<HandleType> connections{};
 
@@ -27,13 +27,13 @@ async::handle_t async::connect(std::size_t bulk)
   };
 
 
-//  auto newHandle { std::make_shared<SharedACP>(newCommandProcessor)};
-  auto newHandle { new SharedACP (newCommandProcessor)};
+  auto newHandle { std::make_shared<SharedACP>(newCommandProcessor)};
+//  auto newHandle { new SharedACP (newCommandProcessor)};
 
   if (newCommandProcessor->connect() == true)
   {
-    //connections.push_back(newHandle);
-    return reinterpret_cast<void*>(newHandle);
+    connections.push_back(newHandle);
+    return reinterpret_cast<void*>(newHandle.get());
   }
   else
   {
@@ -55,7 +55,7 @@ void async::receive(async::handle_t handle, const char* data, std::size_t size)
     //std::cout << "\n                    async::receive\n";
   #endif
 
-  auto testHandle {reinterpret_cast<HandleType>(handle)};
+  auto testHandle {reinterpret_cast<HandleType::element_type*>(handle)};
 
   auto commandProcessor{*testHandle};
 
@@ -96,7 +96,7 @@ void async::disconnect(async::handle_t handle)
     //std::cout << "\n                    async::disconnect\n";
   #endif
 
-  auto testHandle {reinterpret_cast<HandleType>(handle)};
+  auto testHandle {reinterpret_cast<HandleType::element_type*>(handle)};
 
   //auto commandProcessor{*testHandle};
 
@@ -106,7 +106,7 @@ void async::disconnect(async::handle_t handle)
 
     tmp->disconnect();
 
-    std::this_thread::sleep_for(150ms);
+    //std::this_thread::sleep_for(150ms);
 
     #ifdef NDEBUG
     #else
@@ -119,7 +119,7 @@ void async::disconnect(async::handle_t handle)
 
     #ifdef NDEBUG
     #else
-      std::cout << "\n------delete handle-------\n";
+      //std::cout << "\n------delete handle-------\n";
     #endif
 
     //delete testHandle;
