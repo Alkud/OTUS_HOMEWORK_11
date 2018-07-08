@@ -151,34 +151,31 @@ public:
 
   void receiveData(const char *data, std::size_t size)
   {
+    if (nullptr == data || size == 0 || disconnected.load() == true)
+    {
+      #ifdef NDEBUG
+      #else
+//        std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
+//          std::cout << "                                stop receiving\n";
+      #endif
+
+      receiving.store(false);
+
+//      lockAccess.unlock();
+
+//      --activeReceptionCount;
+
+//      terminationNotifier.notify_all();
+
+      return;
+    }
+
     ++activeReceptionCount;
 
     std::cout << "                                activeReceptionCount at receive:" << activeReceptionCount.load() << "\n";
 
     std::unique_lock<std::mutex> lockAccess{accessLock};
     receiving.store(true);
-
-
-    if (nullptr == data || size == 0 || disconnected.load() == true)
-    {
-      #ifdef NDEBUG
-      #else
-//        std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
-//        std::cout << "                                stop receiving\n";
-      #endif
-
-      receiving.store(false);
-
-      lockAccess.unlock();
-
-      --activeReceptionCount;
-
-      terminationNotifier.notify_all();
-
-      return;
-    }
-
-
 
     lockAccess.unlock();
 
@@ -243,6 +240,8 @@ public:
 //        std::cout << "                                disconnect finished\n";
       #endif
     }
+
+    //std::this_thread::sleep_for(250ms);
 
     std::unique_lock<std::mutex> lockTermination{terminationLock};
 
