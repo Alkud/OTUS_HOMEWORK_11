@@ -233,7 +233,7 @@ public:
 
     sendMessage(Message::NoMoreData);
 
-    //lockAccess.unlock();
+    lockAccess.unlock();
 
 
     {
@@ -244,7 +244,7 @@ public:
       #endif
     }
 
-    //std::unique_lock<std::mutex> lockTermination{accessLock};
+    std::unique_lock<std::mutex> lockTermination{terminationLock};
 
     while (activeReceptionCount.load() != 0)
     {
@@ -253,7 +253,7 @@ public:
         std::cout << "\n                    AsyncCP waiting active receptions termination\n";
       #endif
 
-      terminationNotifier.wait_for(lockAccess, 100ms, [this]()
+      terminationNotifier.wait_for(lockTermination, 100ms, [this]()
       {
         return activeReceptionCount.load() == 0;
       }
@@ -262,7 +262,7 @@ public:
 
     std::cout << "                                activeReceptionCount after disconnect:" << activeReceptionCount.load() << "\n";
 
-    lockAccess.unlock();
+    lockTermination.unlock();
 
     #ifdef NDEBUG
     #else
@@ -331,6 +331,7 @@ private:
   std::atomic<bool> disconnected;
   std::atomic<bool> receiving;
 
+  std::mutex terminationLock;
   std::atomic<size_t> activeReceptionCount;
   std::condition_variable terminationNotifier;
 
