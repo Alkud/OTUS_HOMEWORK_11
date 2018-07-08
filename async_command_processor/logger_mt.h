@@ -34,7 +34,9 @@ public:
          const std::string& newDestinationDirectory = "") :
     AsyncWorker<threadCount>{newWorkerName},
     buffer{newBuffer}, destinationDirectory{newDestinationDirectory},
-    previousTimeStamp{}, additionalNameSection{}, stringThreadID{},
+    previousTimeStamp{}, additionalNameSection{},
+    sharedCounter{},
+    stringThreadID{},
     errorOut{newErrorOut}, errorOutLock{newErrorOutLock},
     threadMetrics{}
   {
@@ -141,6 +143,7 @@ private:
     if (nextBulkInfo.first != previousTimeStamp)
     {
       additionalNameSection[threadIndex] = 1u;
+      sharedCounter.store(0);
       previousTimeStamp = nextBulkInfo.first;
     }
 
@@ -149,11 +152,13 @@ private:
     };
 
     std::stringstream fileNameSuffix{};
-    fileNameSuffix << ::getpid() << stringThreadID[threadIndex] << "_" << additionalNameSection[threadIndex];
+    fileNameSuffix << ::getpid() << stringThreadID[threadIndex]
+                   << "_" << sharedCounter.load() << "_"
+                   << additionalNameSection[threadIndex];
     auto logFileName {bulkFileName + "_" + fileNameSuffix.str() + ".log"};
 
 
-    std::ofstream logFile{logFileName, std::ios::app};
+    std::ofstream logFile{logFileName, std::ios::trunc};
 
     if(!logFile)
     {
@@ -167,6 +172,7 @@ private:
     logFile.close();
 
     ++additionalNameSection[threadIndex];
+    ++sharedCounter;
 
     /* Refresh metrics */
     ++threadMetrics[threadIndex]->totalBulkCount;
@@ -222,6 +228,7 @@ private:
 
   size_t previousTimeStamp;
   std::vector<size_t> additionalNameSection;
+  std::atomic<size_t> sharedCounter;
   std::vector<std::string> stringThreadID;
 
   std::ostream& errorOut;
