@@ -153,7 +153,7 @@ private:
     auto logFileName {bulkFileName + "_" + fileNameSuffix.str() + ".log"};
 
 
-    std::ofstream logFile{logFileName};
+    std::ofstream logFile{logFileName, std::ios::app};
 
     if(!logFile)
     {
