@@ -122,7 +122,7 @@ void async::disconnect(async::handle_t handle)
       std::cout << "\n------delete handle-------\n";
     #endif
 
-    delete testHandle;
+    //delete testHandle;
 
   }
   catch(...)

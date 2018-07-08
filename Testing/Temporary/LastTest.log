@@ -1,10 +1,10 @@
-Start testing: Jul 08 08:41 UTC
+Start testing: Jul 08 08:53 UTC
 ----------------------------------------------------------
 1/1 Testing: test_hw_11
 1/1 Test: test_hw_11
 Command: "/home/travis/build/Alkud/OTUS_HOMEWORK_11/otus_hw_11_test"
 Directory: /home/travis/build/Alkud/OTUS_HOMEWORK_11
-"test_hw_11" start time: Jul 08 08:41 UTC
+"test_hw_11" start time: Jul 08 08:53 UTC
 Output:
 ----------------------------------------------------------
 Running 6 test cases...
@@ -37,6 +37,12 @@ Running 6 test cases...
 
                             AsyncCP destructor
 
+------destroy ACP-------
+
+                            AsyncCP destructor
+
+------delete handle-------
+
 ------delete handle-------
 
 ------destroy ACP-------
@@ -49,17 +55,11 @@ Running 6 test cases...
 
                             AsyncCP destructor
 
-------delete handle-------
-
 ------destroy ACP-------
 
                             AsyncCP destructor
 
 ------delete handle-------
-
-------destroy ACP-------
-
-                            AsyncCP destructor
 
 ------delete handle-------
 
@@ -110,8 +110,8 @@ Running 6 test cases...
 Test time =   1.10 sec
 ----------------------------------------------------------
 Test Passed.
-"test_hw_11" end time: Jul 08 08:41 UTC
+"test_hw_11" end time: Jul 08 08:53 UTC
 "test_hw_11" time elapsed: 00:00:01
 ----------------------------------------------------------
 
-End testing: Jul 08 08:41 UTC
+End testing: Jul 08 08:53 UTC
