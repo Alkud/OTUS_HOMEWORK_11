@@ -74,7 +74,7 @@ public:
     #endif
   }
 
-  bool connect(const bool outputMetrics = true) noexcept
+  bool connect(const bool outputMetrics = false) noexcept
   {
     try
     {
