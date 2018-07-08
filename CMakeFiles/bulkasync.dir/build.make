@@ -116,7 +116,7 @@ bulkasync_EXTERNAL_OBJECTS =
 bulkasync: CMakeFiles/bulkasync.dir/bulkasync.cpp.o
 bulkasync: CMakeFiles/bulkasync.dir/homework_11.cpp.o
 bulkasync: CMakeFiles/bulkasync.dir/build.make
-bulkasync: async_command_processor/libasync.so.0.0.82
+bulkasync: async_command_processor/libasync.so.0.0.83
 bulkasync: CMakeFiles/bulkasync.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/travis/build/Alkud/OTUS_HOMEWORK_11/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable bulkasync"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/bulkasync.dir/link.txt --verbose=$(VERBOSE)

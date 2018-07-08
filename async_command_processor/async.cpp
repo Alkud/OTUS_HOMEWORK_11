@@ -11,6 +11,7 @@
 using SharedACP = std::shared_ptr<AsyncCommandProcessor<2>>;
 using HandleType = std::shared_ptr<SharedACP>;
 
+std::mutex connectionLock{};
 std::list<HandleType> connections{};
 
 async::handle_t async::connect(std::size_t bulk)
@@ -30,6 +31,7 @@ async::handle_t async::connect(std::size_t bulk)
 
   if (newCommandProcessor->connect() == true)
   {
+    std::lock_guard<std::mutex> lockConnection{connectionLock};
     connections.push_back(newHandle);
     return reinterpret_cast<void*>(newHandle.get());
   }
@@ -113,6 +115,8 @@ void async::disconnect(async::handle_t handle)
       #else
         //std::cout << "\n------destroy ACP-------\n";
       #endif
+
+      tmp.reset();
     }
 
     return;

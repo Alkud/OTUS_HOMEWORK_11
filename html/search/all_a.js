@@ -13,6 +13,7 @@ var searchData=
   ['metricsout',['metricsOut',['../class_command_processor_instance.html#a7e217592fb0e4836e12b53552ba97b32',1,'CommandProcessorInstance']]],
   ['metricsstream',['metricsStream',['../class_async_command_processor.html#a961eb744e665b2c64e149f9e467ecaa2',1,'AsyncCommandProcessor']]],
   ['mockconnect',['mockConnect',['../otus__hw__11__test_8cpp.html#aec86ed4da13412f5e095e8dc82cc3a5b',1,'otus_hw_11_test.cpp']]],
+  ['mockconnectionlock',['mockConnectionLock',['../otus__hw__11__test_8cpp.html#a27a6b5788e6917a4024f1fb2b75b194e',1,'otus_hw_11_test.cpp']]],
   ['mockconnections',['mockConnections',['../otus__hw__11__test_8cpp.html#ad3fd265a2c74b1369cb59589c1b8a170',1,'otus_hw_11_test.cpp']]],
   ['multymetrics',['MultyMetrics',['../thread__metrics_8h.html#a3fc51dddd1a620fcfcd6065b9530593c',1,'thread_metrics.h']]],
   ['my',['my',['../namespacemy.html',1,'']]]
