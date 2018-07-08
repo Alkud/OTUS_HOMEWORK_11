@@ -60,7 +60,7 @@ public:
   {
     #ifdef NDEBUG
     #else
-        std::cout << "\n                            AsyncCP constructor\n";
+        //std::cout << "\n                            AsyncCP constructor\n";
     #endif
 
     this->addMessageListener(entryPoint);
@@ -70,11 +70,11 @@ public:
   {
     #ifdef NDEBUG
     #else
-        std::cout << "\n                            AsyncCP destructor\n";
+        //std::cout << "\n                            AsyncCP destructor\n";
     #endif
   }
 
-  bool connect(const bool outputMetrics = false) noexcept
+  bool connect(const bool outputMetrics = true) noexcept
   {
     try
     {

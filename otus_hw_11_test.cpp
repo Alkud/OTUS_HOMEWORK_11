@@ -35,7 +35,7 @@ getProcessorOutput
   char closeDelimiter,
   size_t bulkSize,
   DebugOutput debugOutput,
-  SharedGlobalMetrics metrics
+  SharedGlobalMetrics& metrics
 )
 {
   std::stringstream inputStream{inputString};  
@@ -90,16 +90,17 @@ void*
 mockConnect(
     size_t bulkSize,
     std::stringstream& outputStream,
-    std::stringstream& errorStream
+    std::stringstream& errorStream,
+    std::stringstream& metricsStream
 )
 {
   if (0 == bulkSize)
   {
     return nullptr;
-  }
+  }  
 
   auto newCommandProcessor { std::make_shared<AsyncCommandProcessor<2>>(
-      bulkSize, '{', '}', outputStream, errorStream, outputStream
+          bulkSize, '{', '}', outputStream, errorStream, metricsStream
     )
   };
 
@@ -158,15 +159,15 @@ BOOST_AUTO_TEST_CASE(homework_11_test)
   try
   {
     std::stringstream outputStream{};
-    std::stringstream errorStream{};
+    std::stringstream errorStream{};    
     std::stringstream metricsStream{};
     SharedGlobalMetrics metrics1{};
     SharedGlobalMetrics metrics2{};
 
     const size_t bulk = 10;
 
-    auto h = mockConnect(bulk, outputStream, errorStream);
-    auto h2 = mockConnect(bulk, outputStream, errorStream);
+    auto h = mockConnect(bulk, outputStream, errorStream, metricsStream);
+    auto h2 = mockConnect(bulk, outputStream, errorStream, metricsStream);
     async::receive(h, "1", 1);
     async::receive(h2, "1\n", 2);
     async::receive(h, "\n2\n3\n4\n5\n6\n{\na\n", 15);
@@ -252,7 +253,7 @@ BOOST_AUTO_TEST_CASE(multithread_receive_test)
 
     const size_t bulk = 5;
 
-    auto handle = mockConnect(bulk, outputStream, errorStream);
+    auto handle = mockConnect(bulk, outputStream, errorStream, metricsStream);
 
     std::vector<std::future<bool>> futureResults{};
 
@@ -345,7 +346,7 @@ BOOST_AUTO_TEST_CASE(unterminated_string_test)
 
     const size_t bulk = 10;
 
-    auto handle = mockConnect(bulk, outputStream, errorStream);
+    auto handle = mockConnect(bulk, outputStream, errorStream, metricsStream);
     async::receive(handle, "10", 2);
     async::receive(handle, "\n11\n12\n13\n14\n15\n{\nA\n", 22);
     async::receive(handle, "B\nC\nD\n}", 7);
@@ -381,7 +382,7 @@ BOOST_AUTO_TEST_CASE(max_string_length_test)
 
     const size_t bulk = 10;
 
-    auto handle = mockConnect(bulk, outputStream, errorStream);
+    auto handle = mockConnect(bulk, outputStream, errorStream, metricsStream);
     auto testString{std::string(100, 'R') + "\n"};
     async::receive(handle, testString.c_str(), 101);
 
