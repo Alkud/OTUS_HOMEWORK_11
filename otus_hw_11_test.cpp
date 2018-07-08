@@ -82,8 +82,8 @@ getProcessorOutput
 //std::list<std::unique_ptr<AsyncCommandProcessor<2>>> connections{};
 
 using SharedACP = std::shared_ptr<AsyncCommandProcessor<2>>;
-//using HandleType = std::shared_ptr<SharedACP>;
-using HandleType = SharedACP*;
+using HandleType = std::shared_ptr<SharedACP>;
+//using HandleType = SharedACP*;
 
 std::list<HandleType> mockConnections{};
 
@@ -105,16 +105,16 @@ mockConnect(
   };
 
 
-//  auto newHandle { std::make_shared<SharedACP>(newCommandProcessor)};
-  auto newHandle {  new SharedACP (newCommandProcessor)};
+  auto newHandle { std::make_shared<SharedACP>(newCommandProcessor)};
+//  auto newHandle {  new SharedACP (newCommandProcessor)};
 
   if (newCommandProcessor->connect() == true)
   {
 //    connections.emplace(std::make_pair(ACPPointer{newCommandProcessor},
 //                        std::atomic_flag{ATOMIC_FLAG_INIT}));
 
-    //mockConnections.push_back(newHandle);
-    return reinterpret_cast<void*>(newHandle);
+    mockConnections.push_back(newHandle);
+    return reinterpret_cast<void*>(newHandle.get());
   }
   else
   {
@@ -204,8 +204,8 @@ BOOST_AUTO_TEST_CASE(homework_11_test)
     async::receive(h, "\n2\n3\n4\n5\n6\n{\na\n", 15);
     async::receive(h, "b\nc\nd\n}\n89\n", 11);
 
-    metrics1 = (*reinterpret_cast<HandleType>(h))->getMetrics();
-    metrics2 = (*reinterpret_cast<HandleType>(h2))->getMetrics();
+    metrics1 = (*reinterpret_cast<HandleType::element_type*>(h))->getMetrics();
+    metrics2 = (*reinterpret_cast<HandleType::element_type*>(h2))->getMetrics();
 
     async::disconnect(h);
     async::disconnect(h2);
@@ -323,7 +323,7 @@ BOOST_AUTO_TEST_CASE(multithread_receive_test)
       }
     }
 
-    auto metrics = (*reinterpret_cast<HandleType>(handle))->getMetrics();
+    auto metrics = (*reinterpret_cast<HandleType::element_type*>(handle))->getMetrics();
 
     async::disconnect(handle);
 
@@ -361,7 +361,7 @@ BOOST_AUTO_TEST_CASE(abnormal_usage_test)
 
   auto handle{async::connect(2)};
   async::receive(handle, "should not be received", 0);
-  auto metrics = (*reinterpret_cast<HandleType>(handle))->getMetrics();
+  auto metrics = (*reinterpret_cast<HandleType::element_type*>(handle))->getMetrics();
   async::disconnect(handle);
   checkMetrics(metrics, 0, 0, 0, 0, 0, 2);
 }
@@ -382,7 +382,7 @@ BOOST_AUTO_TEST_CASE(unterminated_string_test)
     async::receive(handle, "\n11\n12\n13\n14\n15\n{\nA\n", 22);
     async::receive(handle, "B\nC\nD\n}", 7);
 
-    metrics = (*reinterpret_cast<HandleType>(handle))->getMetrics();
+    metrics = (*reinterpret_cast<HandleType::element_type*>(handle))->getMetrics();
 
     async::disconnect(handle);
 
@@ -417,7 +417,7 @@ BOOST_AUTO_TEST_CASE(max_string_length_test)
     auto testString{std::string(100, 'R') + "\n"};
     async::receive(handle, testString.c_str(), 101);
 
-    metrics = (*reinterpret_cast<HandleType>(handle))->getMetrics();
+    metrics = (*reinterpret_cast<HandleType::element_type*>(handle))->getMetrics();
 
     async::disconnect(handle);
 
