@@ -152,6 +152,9 @@ public:
   void receiveData(const char *data, std::size_t size)
   {
     ++activeReceptionCount;
+
+    std::cout << "                                activeReceptionCount at receive:" << activeReceptionCount.load() << "\n";
+
     std::unique_lock<std::mutex> lockAccess{accessLock};
     receiving.store(true);
 
@@ -256,6 +259,8 @@ public:
       }
       );
     }
+
+    std::cout << "                                activeReceptionCount after disconnect:" << activeReceptionCount.load() << "\n";
 
     lockAccess.unlock();
 
