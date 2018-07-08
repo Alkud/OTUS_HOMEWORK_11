@@ -20,11 +20,11 @@ void connect_disconnect(atomic_h& h)
     while(can_do)
     {
         h = async::connect(3);
-        std::cout << "->connected" << std::endl;
+        //std::cout << "->connected" << std::endl;
         async::receive(h, data1, sz1);
-        std::cout << "->received" << std::endl;
+        //std::cout << "->received" << std::endl;
         async::disconnect(h);
-        std::cout << "->disconnected" << std::endl;
+        //std::cout << "->disconnected" << std::endl;
         std::this_thread::yield();
     }
 }
@@ -47,9 +47,7 @@ int main() {
         {
             while(--N)
             {
-              std::cout << "->bad receive h1" << std::endl;
                 async::receive(h1, data2, sz2);                
-              std::cout << "->bad receive h2" << std::endl;
                 async::receive(h2, data2, sz2);
             }
             std::this_thread::yield();

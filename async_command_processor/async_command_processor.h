@@ -13,7 +13,6 @@
 
 using namespace std::chrono_literals;
 
-
 template <size_t loggingThreadCount = 2u>
 class AsyncCommandProcessor : public std::enable_shared_from_this<AsyncCommandProcessor<loggingThreadCount>>,
                               public MessageBroadcaster
@@ -31,6 +30,7 @@ public:
     sharedThis{},
     accessLock{},
     disconnected{false}, receiving{false},
+    terminationLock{},
     terminationNotifier{}, activeReceptionCount{},
 
     bulkSize{newBulkSize},
@@ -65,13 +65,8 @@ public:
   {
     #ifdef NDEBUG
     #else
-        std::cout << "\n                            AsyncCP destructor\n";
+        //std::cout << "\n                            AsyncCP destructor\n";
     #endif
-
-//    if (selfDestroy.joinable())
-//    {
-//      selfDestroy.join();
-//    }
   }
 
   bool connect(const bool outputMetrics = false) noexcept
@@ -83,11 +78,6 @@ public:
       {
         return false;
       }
-
-//      if (nullptr == sharedThis)
-//      {
-//         sharedThis = this->shared_from_this();
-//      }
 
       #ifdef NDEBUG
       #else
@@ -108,7 +98,6 @@ public:
     catch (const std::exception& ex)
     {
       std::lock_guard<std::mutex> lockOutput{screenOutputLock};
-
       errorStream << "Connection failed. Reason: " << ex.what() << std::endl;
       return false;
     }
@@ -151,31 +140,31 @@ public:
 
   void receiveData(const char *data, std::size_t size)
   {
+    ++activeReceptionCount;
+
+    std::unique_lock<std::mutex> lockAccess{accessLock};
+
+    receiving.store(true);
+
+
     if (nullptr == data || size == 0 || disconnected.load() == true)
     {
       #ifdef NDEBUG
       #else
 //        std::lock_guard<std::mutex> lockScreenOutput{screenOutputLock};
-//          std::cout << "                                stop receiving\n";
+//        std::cout << "                                stop receiving\n";
       #endif
 
       receiving.store(false);
 
-//      lockAccess.unlock();
+      lockAccess.unlock();
 
-//      --activeReceptionCount;
+      --activeReceptionCount;
 
-//      terminationNotifier.notify_all();
+      terminationNotifier.notify_all();
 
       return;
     }
-
-    ++activeReceptionCount;
-
-    std::cout << "                                activeReceptionCount at receive:" << activeReceptionCount.load() << "\n";
-
-    std::unique_lock<std::mutex> lockAccess{accessLock};
-    receiving.store(true);
 
     lockAccess.unlock();
 
@@ -232,7 +221,6 @@ public:
 
     lockAccess.unlock();
 
-
     {
       #ifdef NDEBUG
       #else
@@ -241,25 +229,15 @@ public:
       #endif
     }
 
-    //std::this_thread::sleep_for(250ms);
-
     std::unique_lock<std::mutex> lockTermination{terminationLock};
 
     while (activeReceptionCount.load() != 0)
     {
-      #ifdef NDEBUG
-      #else
-        std::cout << "\n                    AsyncCP waiting active receptions termination\n";
-      #endif
-
       terminationNotifier.wait_for(lockTermination, 100ms, [this]()
       {
         return activeReceptionCount.load() == 0;
-      }
-      );
+      });
     }
-
-    std::cout << "                                activeReceptionCount after disconnect:" << activeReceptionCount.load() << "\n";
 
     lockTermination.unlock();
 
@@ -272,25 +250,6 @@ public:
     {
       workingThread.join();
     }
-
-
-
-//    selfDestroy = std::thread(
-//      [this]()
-//      {
-//        try
-//        {
-//          std::this_thread::sleep_for(1500ms);
-//          sharedThis.reset();
-//        }
-//        catch (const std::exception& ex)
-//        {
-//           std::cerr << ex.what() << std::endl;
-//        }
-//      }
-//    );
-
-//    sharedThis.reset();
 
     #ifdef NDEBUG
     #else
