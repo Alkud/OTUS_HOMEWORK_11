@@ -1,85 +1,87 @@
-Start testing: Jul 08 15:21 UTC
+Start testing: Jul 08 16:16 UTC
 ----------------------------------------------------------
 1/1 Testing: test_hw_11
 1/1 Test: test_hw_11
 Command: "/home/travis/build/Alkud/OTUS_HOMEWORK_11/otus_hw_11_test"
 Directory: /home/travis/build/Alkud/OTUS_HOMEWORK_11
-"test_hw_11" start time: Jul 08 15:21 UTC
+"test_hw_11" start time: Jul 08 16:16 UTC
 Output:
 ----------------------------------------------------------
 Running 6 test cases...
+total received - 0 data chunk(s), 0 character(s), 0 string(s)
+total processed - 0 string(s), 0 command(s), 0 bulk(s)
+total displayed - 0 bulk(s), 0 command(s)
+total saved by thread #0 - 0 bulk(s), 0 command(s)
+total saved by thread #1 - 0 bulk(s), 0 command(s)
 
-                            AsyncCP constructor
+total received - 0 data chunk(s), 0 character(s), 0 string(s)
+total processed - 0 string(s), 0 command(s), 0 bulk(s)
+total displayed - 0 bulk(s), 0 command(s)
+total saved by thread #0 - 0 bulk(s), 0 command(s)
+total saved by thread #1 - 0 bulk(s), 0 command(s)
 
-                            AsyncCP constructor
+total received - 0 data chunk(s), 0 character(s), 0 string(s)
+total processed - 0 string(s), 0 command(s), 0 bulk(s)
+total displayed - 0 bulk(s), 0 command(s)
+total saved by thread #0 - 0 bulk(s), 0 command(s)
+total saved by thread #1 - 0 bulk(s), 0 command(s)
 
-                            AsyncCP destructor
+total received - 0 data chunk(s), 0 character(s), 0 string(s)
+total processed - 0 string(s), 0 command(s), 0 bulk(s)
+total displayed - 0 bulk(s), 0 command(s)
+total saved by thread #0 - 0 bulk(s), 0 command(s)
+total saved by thread #1 - 0 bulk(s), 0 command(s)
 
-                            AsyncCP destructor
+total received - 0 data chunk(s), 0 character(s), 0 string(s)
+total processed - 0 string(s), 0 command(s), 0 bulk(s)
+total displayed - 0 bulk(s), 0 command(s)
+total saved by thread #0 - 0 bulk(s), 0 command(s)
+total saved by thread #1 - 0 bulk(s), 0 command(s)
 
-                            AsyncCP constructor
+total received - 0 data chunk(s), 0 character(s), 0 string(s)
+total processed - 0 string(s), 0 command(s), 0 bulk(s)
+total displayed - 0 bulk(s), 0 command(s)
+total saved by thread #0 - 0 bulk(s), 0 command(s)
+total saved by thread #1 - 0 bulk(s), 0 command(s)
 
-                            AsyncCP constructor
+total received - 0 data chunk(s), 0 character(s), 0 string(s)
+total processed - 0 string(s), 0 command(s), 0 bulk(s)
+total displayed - 0 bulk(s), 0 command(s)
+total saved by thread #0 - 0 bulk(s), 0 command(s)
+total saved by thread #1 - 0 bulk(s), 0 command(s)
 
-                            AsyncCP constructor
+total received - 0 data chunk(s), 0 character(s), 0 string(s)
+total processed - 0 string(s), 0 command(s), 0 bulk(s)
+total displayed - 0 bulk(s), 0 command(s)
+total saved by thread #0 - 0 bulk(s), 0 command(s)
+total saved by thread #1 - 0 bulk(s), 0 command(s)
 
-                            AsyncCP constructor
+total received - 0 data chunk(s), 0 character(s), 0 string(s)
+total processed - 0 string(s), 0 command(s), 0 bulk(s)
+total displayed - 0 bulk(s), 0 command(s)
+total saved by thread #0 - 0 bulk(s), 0 command(s)
+total saved by thread #1 - 0 bulk(s), 0 command(s)
 
-                            AsyncCP constructor
+total received - 0 data chunk(s), 0 character(s), 0 string(s)
+total processed - 0 string(s), 0 command(s), 0 bulk(s)
+total displayed - 0 bulk(s), 0 command(s)
+total saved by thread #0 - 0 bulk(s), 0 command(s)
+total saved by thread #1 - 0 bulk(s), 0 command(s)
 
-                            AsyncCP constructor
+total received - 0 data chunk(s), 0 character(s), 0 string(s)
+total processed - 0 string(s), 0 command(s), 0 bulk(s)
+total displayed - 0 bulk(s), 0 command(s)
+total saved by thread #0 - 0 bulk(s), 0 command(s)
+total saved by thread #1 - 0 bulk(s), 0 command(s)
 
-                            AsyncCP constructor
-
-                            AsyncCP constructor
-
-                            AsyncCP constructor
-
-                            AsyncCP destructor
-
-                            AsyncCP constructor
-
-                            AsyncCP destructor
-
-                            AsyncCP destructor
-
-                            AsyncCP destructor
-
-                            AsyncCP destructor
-
-                            AsyncCP destructor
-
-                            AsyncCP destructor
-
-                            AsyncCP destructor
-
-                            AsyncCP destructor
-
-                            AsyncCP destructor
-
-                            AsyncCP constructor
-
-                            AsyncCP destructor
-
-                            AsyncCP constructor
-
-                            AsyncCP destructor
-
-                            AsyncCP constructor
-
-                            AsyncCP destructor
-
-                            AsyncCP constructor
-
-                            AsyncCP destructor
 
 *** No errors detected
 <end of output>
 Test time =   0.03 sec
 ----------------------------------------------------------
 Test Passed.
-"test_hw_11" end time: Jul 08 15:21 UTC
+"test_hw_11" end time: Jul 08 16:16 UTC
 "test_hw_11" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Jul 08 15:21 UTC
+End testing: Jul 08 16:16 UTC

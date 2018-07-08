@@ -135,11 +135,11 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:afe573bf7463b9f04ccf45b93beaef50e"><td class="memItemLeft" align="right" valign="top">std::array&lt; std::vector<br class="typebreak"/>
-&lt; std::string &gt;, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="otus__hw__11__test_8cpp.html#afe573bf7463b9f04ccf45b93beaef50e">getProcessorOutput</a> (const std::string &amp;inputString, char openDelimiter, char closeDelimiter, size_t <a class="el" href="input__processor_8cpp.html#a642fd46fcccb815659284cd725d4a845">bulkSize</a>, <a class="el" href="otus__hw__11__test_8cpp.html#ad23721f303b059caeb1d8a751a39562b">DebugOutput</a> debugOutput, <a class="el" href="thread__metrics_8h.html#ac1589e063b43543469fafabc05566bcc">SharedGlobalMetrics</a> metrics)</td></tr>
-<tr class="separator:afe573bf7463b9f04ccf45b93beaef50e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aec86ed4da13412f5e095e8dc82cc3a5b"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="otus__hw__11__test_8cpp.html#aec86ed4da13412f5e095e8dc82cc3a5b">mockConnect</a> (size_t <a class="el" href="input__processor_8cpp.html#a642fd46fcccb815659284cd725d4a845">bulkSize</a>, std::stringstream &amp;outputStream, std::stringstream &amp;errorStream)</td></tr>
-<tr class="separator:aec86ed4da13412f5e095e8dc82cc3a5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a027e5e1bb467f7f00850c10f5e948205"><td class="memItemLeft" align="right" valign="top">std::array&lt; std::vector<br class="typebreak"/>
+&lt; std::string &gt;, 3 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="otus__hw__11__test_8cpp.html#a027e5e1bb467f7f00850c10f5e948205">getProcessorOutput</a> (const std::string &amp;inputString, char openDelimiter, char closeDelimiter, size_t <a class="el" href="input__processor_8cpp.html#a642fd46fcccb815659284cd725d4a845">bulkSize</a>, <a class="el" href="otus__hw__11__test_8cpp.html#ad23721f303b059caeb1d8a751a39562b">DebugOutput</a> debugOutput, <a class="el" href="thread__metrics_8h.html#ac1589e063b43543469fafabc05566bcc">SharedGlobalMetrics</a> &amp;metrics)</td></tr>
+<tr class="separator:a027e5e1bb467f7f00850c10f5e948205"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d9927d96402664cc41bbc58d317097f"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="otus__hw__11__test_8cpp.html#a2d9927d96402664cc41bbc58d317097f">mockConnect</a> (size_t <a class="el" href="input__processor_8cpp.html#a642fd46fcccb815659284cd725d4a845">bulkSize</a>, std::stringstream &amp;outputStream, std::stringstream &amp;errorStream, std::stringstream &amp;metricsStream)</td></tr>
+<tr class="separator:a2d9927d96402664cc41bbc58d317097f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afdc43529996621945068d679b11acebd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="otus__hw__11__test_8cpp.html#afdc43529996621945068d679b11acebd">checkMetrics</a> (const <a class="el" href="thread__metrics_8h.html#ac1589e063b43543469fafabc05566bcc">SharedGlobalMetrics</a> &amp;metrics, const size_t receptionCountExpected, const size_t characterCountExpected, const size_t stringCountExpected, const size_t commandCountExpected, const size_t bulkCountExpected, const size_t loggingThreadCount)</td></tr>
 <tr class="separator:afdc43529996621945068d679b11acebd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a4b57bf152f2d0ad7548bbdb087d98c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="otus__hw__11__test_8cpp.html#a6a4b57bf152f2d0ad7548bbdb087d98c">BOOST_AUTO_TEST_CASE</a> (homework_11_test)</td></tr>
@@ -380,7 +380,7 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="afe573bf7463b9f04ccf45b93beaef50e"></a>
+<a class="anchor" id="a027e5e1bb467f7f00850c10f5e948205"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -417,7 +417,7 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="thread__metrics_8h.html#ac1589e063b43543469fafabc05566bcc">SharedGlobalMetrics</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="thread__metrics_8h.html#ac1589e063b43543469fafabc05566bcc">SharedGlobalMetrics</a> &amp;&#160;</td>
           <td class="paramname"><em>metrics</em>&#160;</td>
         </tr>
         <tr>
@@ -430,7 +430,7 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aec86ed4da13412f5e095e8dc82cc3a5b"></a>
+<a class="anchor" id="a2d9927d96402664cc41bbc58d317097f"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -450,7 +450,13 @@ Variables</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">std::stringstream &amp;&#160;</td>
-          <td class="paramname"><em>errorStream</em>&#160;</td>
+          <td class="paramname"><em>errorStream</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::stringstream &amp;&#160;</td>
+          <td class="paramname"><em>metricsStream</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
