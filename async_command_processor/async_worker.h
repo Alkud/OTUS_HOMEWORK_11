@@ -10,6 +10,9 @@
 #include <future>
 #include <cassert>
 #include <iostream>
+#include <random>
+#include <sstream>
+#include <iomanip>
 
 enum class WorkerState
 {
@@ -32,6 +35,7 @@ public:
   {
     futureResults.reserve(workingThreadCount);
     threadID.resize(workingThreadCount, std::thread::id{});
+    stringThreadID.resize(workingThreadCount, std::string{});
     for (auto& item : threadFinished)
     {
       item.store(false);
@@ -110,6 +114,10 @@ public:
 
 protected:
 
+  static std::mt19937 idGenerator;
+
+  std::hash<std::thread::id> threadIDhasher{};
+
   void startWorkingThreads()
   {
     if (futureResults.empty() != true)
@@ -155,7 +163,11 @@ protected:
     {
       /* get unique thread ID */
       threadID[threadIndex] = std::this_thread::get_id();
+      std::stringstream idStream{};
+      idStream << threadID[threadIndex] << "-" << std::setw(12) << std::setfill('0') << idGenerator();
+      stringThreadID[threadIndex] = idStream.str();
 
+      /* main data processing loop */
       while(shouldExit.load() != true
             && (noMoreData.load() != true || notificationCount.load() > 0))
       {
@@ -257,7 +269,8 @@ protected:
   virtual void onTermination(const size_t threadIndex) = 0;
 
   std::vector<std::future<bool>> futureResults{};
-  std::vector<std::thread::id> threadID;
+  std::vector<std::thread::id> threadID{};
+  std::vector<std::string> stringThreadID{};
   std::atomic<bool> shouldExit;
   std::atomic<bool> noMoreData;
 
@@ -274,3 +287,7 @@ protected:
 
   std::atomic<WorkerState> state;
 };
+
+template<size_t workingThreadCount>
+std::mt19937
+AsyncWorker<workingThreadCount>::idGenerator{workingThreadCount};

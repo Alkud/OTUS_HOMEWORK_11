@@ -61,6 +61,12 @@ cassert
 -
 iostream
 -
+random
+-
+sstream
+-
+iomanip
+-
 
 /home/travis/build/Alkud/OTUS_HOMEWORK_11/async_command_processor/broadcasters.h
 set
