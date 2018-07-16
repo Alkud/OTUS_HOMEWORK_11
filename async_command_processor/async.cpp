@@ -14,6 +14,7 @@ using HandleType = std::shared_ptr<SharedACP>;
 std::mutex connectionLock{};
 std::list<HandleType> connections{};
 
+
 async::handle_t async::connect(std::size_t bulk)
 {
   if (0 == bulk)
@@ -33,6 +34,7 @@ async::handle_t async::connect(std::size_t bulk)
   {
     std::lock_guard<std::mutex> lockConnection{connectionLock};
     connections.push_back(newHandle);
+
     return reinterpret_cast<void*>(newHandle.get());
   }
   else
@@ -43,24 +45,25 @@ async::handle_t async::connect(std::size_t bulk)
 
 void async::receive(async::handle_t handle, const char* data, std::size_t size)
 {
-  if (nullptr == handle
+  if (nullptr == handle      
       || nullptr == data
       || 0 == size)
   {
+    std::cout << "\n                    async::receive FAILED\n";
     return;
   }
 
   #ifdef NDEBUG
   #else
     //std::cout << "\n                    async::receive\n";
-  #endif
-
-  auto testHandle {reinterpret_cast<HandleType::element_type*>(handle)};
-
-  auto commandProcessor{*testHandle};
+  #endif  
 
   try
   {
+    auto testHandle {reinterpret_cast<HandleType::element_type*>(handle)};
+
+    auto commandProcessor{*testHandle};
+
     if (commandProcessor == nullptr)
     {
       return;
@@ -88,6 +91,7 @@ void async::disconnect(async::handle_t handle)
 {
   if (nullptr == handle)
   {
+    std::cout << "\n                    async::disconnect FAILED\n";
     return;
   }
 

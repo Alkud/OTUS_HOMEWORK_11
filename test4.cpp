@@ -37,20 +37,20 @@ int main() {
 
         std::stringstream userInput;
 
-        for (size_t i{}; i < 150000; ++i)
+        for (size_t i{1}; i < 50000; ++i)
         {
-          userInput << i;
-        }
+          userInput << i << '\n';
+        }        
 
         size_t N{1};
         while(userInput /*std::cin*/ >> N)
         {
-            while(--N)
-            {
-                async::receive(h1, data2, sz2);                
-                async::receive(h2, data2, sz2);
-            }
-            std::this_thread::yield();
+          while(--N)
+          {
+            async::receive(h1, data2, sz2);
+            async::receive(h2, data2, sz2);
+          }
+          std::this_thread::yield();
         }
         std::cout << "stop" << std::endl;
         can_do = false;
