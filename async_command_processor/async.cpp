@@ -2,7 +2,7 @@
 
 #include "async.h"
 #include <iostream>
-#include <mutex>
+#include <shared_mutex>
 #include <memory>
 #include <unordered_set>
 #include <list>
@@ -13,7 +13,6 @@ using HandleType = std::shared_ptr<SharedACP>;
 
 std::mutex connectionLock{};
 std::list<HandleType> connections{};
-
 
 async::handle_t async::connect(std::size_t bulk)
 {
@@ -48,8 +47,7 @@ void async::receive(async::handle_t handle, const char* data, std::size_t size)
   if (nullptr == handle      
       || nullptr == data
       || 0 == size)
-  {
-    std::cout << "\n                    async::receive FAILED\n";
+  {    
     return;
   }
 
@@ -65,7 +63,7 @@ void async::receive(async::handle_t handle, const char* data, std::size_t size)
     auto commandProcessor{*testHandle};
 
     if (commandProcessor == nullptr)
-    {
+    {      
       return;
     }
 
@@ -89,9 +87,10 @@ void async::receive(async::handle_t handle, const char* data, std::size_t size)
 
 void async::disconnect(async::handle_t handle)
 {
+  std::lock_guard<std::mutex> lockConnection{connectionLock};
+
   if (nullptr == handle)
-  {
-    std::cout << "\n                    async::disconnect FAILED\n";
+  {    
     return;
   }
 

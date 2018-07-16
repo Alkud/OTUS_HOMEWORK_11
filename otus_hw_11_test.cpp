@@ -213,23 +213,6 @@ BOOST_AUTO_TEST_CASE(missed_disconnect_test)
   }
 }
 
-BOOST_AUTO_TEST_CASE(wrong_receive_test)
-{
-  try
-  {
-   BOOST_CHECK_NO_THROW(
-    {
-      async::receive((void*)121212, "1", 1);
-    }
-   );
-  }
-  catch (const std::exception& ex)
-  {
-    std::cerr << "wrong_receive_test failed: " << ex.what() << std::endl;
-    BOOST_FAIL("");
-  }
-}
-
 
 BOOST_AUTO_TEST_CASE(multithread_connect_disconnect)
 {
