@@ -1,7 +1,6 @@
 var searchData=
 [
   ['screenoutputlock',['screenOutputLock',['../class_async_command_processor.html#ae72345064cd0935d70ed97c66200c9ba',1,'AsyncCommandProcessor::screenOutputLock()'],['../class_command_processor_instance.html#a823a525f6c3149f0dd089eb35bf4e77b',1,'CommandProcessorInstance::screenOutputLock()']]],
-  ['selfdestroy',['selfDestroy',['../class_async_command_processor.html#a233c3cd65e826a1da61b7ee77f14fdbe',1,'AsyncCommandProcessor']]],
   ['sendcurrentbulk',['sendCurrentBulk',['../class_input_processor.html#ab9a64f2a71dcc0d0706fa287ce24afda',1,'InputProcessor']]],
   ['sendmessage',['sendMessage',['../class_message_broadcaster.html#ae8e7f93dbbcf8cc1c62574ca6b71f2f8',1,'MessageBroadcaster']]],
   ['sharedacp',['SharedACP',['../otus__hw__11__test_8cpp.html#a6431da36f66df3ffe70f25156a3dd721',1,'SharedACP():&#160;otus_hw_11_test.cpp'],['../async_8cpp.html#a6431da36f66df3ffe70f25156a3dd721',1,'SharedACP():&#160;async.cpp']]],
@@ -10,7 +9,6 @@ var searchData=
   ['sharedmultymetrics',['SharedMultyMetrics',['../thread__metrics_8h.html#ae5877028144abdb2fd0d601eae9bcf2e',1,'thread_metrics.h']]],
   ['sharedsizestringbuffer',['SharedSizeStringBuffer',['../smart__buffer__mt_8h.html#a74179bee4f33e3fb26e7adbcfa2e17d4',1,'smart_buffer_mt.h']]],
   ['sharedstringbuffer',['SharedStringBuffer',['../smart__buffer__mt_8h.html#ac3089a6c099deb305c66a331430bafc6',1,'smart_buffer_mt.h']]],
-  ['sharedthis',['sharedThis',['../class_async_command_processor.html#a01561fe9b8899f7dc0baac29aa142809',1,'AsyncCommandProcessor']]],
   ['shouldexit',['shouldExit',['../class_async_worker.html#ad9ddf369aab8745b691ba4f24676c88f',1,'AsyncWorker::shouldExit()'],['../class_command_processor_instance.html#ae934fb344a66f329340d431ca66a2b55',1,'CommandProcessorInstance::shouldExit()']]],
   ['sizestringbuffer',['SizeStringBuffer',['../smart__buffer__mt_8h.html#a5361e213eca45e3808a2b9a17da84cf9',1,'smart_buffer_mt.h']]],
   ['smart_5fbuffer_5fmt_2eh',['smart_buffer_mt.h',['../smart__buffer__mt_8h.html',1,'']]],

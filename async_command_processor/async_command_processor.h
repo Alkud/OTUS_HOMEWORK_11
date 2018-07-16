@@ -26,11 +26,9 @@ public:
       std::ostream& newOutputStream = std::cout,
       std::ostream& newErrorStream = std::cerr,
       std::ostream& newMetricsStream = std::cout
-  ) :    
-    sharedThis{},
+  ) :        
     accessLock{},
-    disconnected{false}, receiving{false},
-    terminationLock{},
+    disconnected{false},
     terminationNotifier{}, activeReceptionCount{},
 
     bulkSize{newBulkSize},
@@ -55,8 +53,7 @@ public:
     entryPoint{processor->getEntryPoint()},
     commandBuffer{processor->getInputBuffer()},
     bulkBuffer{processor->getOutputBuffer()},
-    metrics{processor->getMetrics()},
-    selfDestroy{}
+    metrics{processor->getMetrics()}
   {
     #ifdef NDEBUG
     #else
@@ -72,6 +69,13 @@ public:
     #else
         //std::cout << "\n                            AsyncCP destructor\n";
     #endif
+
+    sendMessage(Message::NoMoreData);
+
+    if (workingThread.joinable() == true)
+    {
+      workingThread.join();
+    }
   }
 
   bool connect(const bool outputMetrics = false) noexcept
@@ -219,8 +223,6 @@ public:
 
     sendMessage(Message::NoMoreData);
 
-    //lockAccess.unlock();
-
     {
       #ifdef NDEBUG
       #else
@@ -229,7 +231,6 @@ public:
       #endif
     }
 
-    //std::unique_lock<std::mutex> lockTermination{terminationLock};
 
     while (activeReceptionCount.load() != 0)
     {
@@ -281,15 +282,11 @@ public:
 
 private:
 
-  static std::mutex screenOutputLock;
-
-  std::shared_ptr<AsyncCommandProcessor<loggingThreadCount>> sharedThis;
+  static std::mutex screenOutputLock;  
 
   std::mutex accessLock;  
-  std::atomic<bool> disconnected;
-  std::atomic<bool> receiving;
+  std::atomic<bool> disconnected;  
 
-  std::mutex terminationLock;
   std::atomic<size_t> activeReceptionCount;
   std::condition_variable terminationNotifier;
 
@@ -310,10 +307,6 @@ private:
   std::thread workingThread;
 
   SharedGlobalMetrics metrics;
-
-  std::size_t timeStampID;
-
-  std::thread selfDestroy;
 };
 
 template <size_t loggingThreadCount>

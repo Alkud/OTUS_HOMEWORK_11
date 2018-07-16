@@ -115,6 +115,7 @@ public:
 protected:
 
   static std::mt19937 idGenerator;
+  static std::mutex idGenLock;
 
   std::hash<std::thread::id> threadIDhasher{};
 
@@ -164,7 +165,11 @@ protected:
       /* get unique thread ID */
       threadID[threadIndex] = std::this_thread::get_id();
       std::stringstream idStream{};
+
+      std::unique_lock<std::mutex> lockIdGen{idGenLock};
       idStream << threadID[threadIndex] << "-" << std::setw(12) << std::setfill('0') << idGenerator();
+      lockIdGen.unlock();
+
       stringThreadID[threadIndex] = idStream.str();
 
       /* main data processing loop */
@@ -291,3 +296,7 @@ protected:
 template<size_t workingThreadCount>
 std::mt19937
 AsyncWorker<workingThreadCount>::idGenerator{workingThreadCount};
+
+template<size_t workingThreadCount>
+std::mutex
+AsyncWorker<workingThreadCount>::idGenLock{};

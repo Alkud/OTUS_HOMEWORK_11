@@ -2,7 +2,7 @@
 
 #include "async.h"
 #include <iostream>
-#include <mutex>
+#include <shared_mutex>
 #include <memory>
 #include <unordered_set>
 #include <list>
@@ -33,6 +33,7 @@ async::handle_t async::connect(std::size_t bulk)
   {
     std::lock_guard<std::mutex> lockConnection{connectionLock};
     connections.push_back(newHandle);
+
     return reinterpret_cast<void*>(newHandle.get());
   }
   else
@@ -43,26 +44,26 @@ async::handle_t async::connect(std::size_t bulk)
 
 void async::receive(async::handle_t handle, const char* data, std::size_t size)
 {
-  if (nullptr == handle
+  if (nullptr == handle      
       || nullptr == data
       || 0 == size)
-  {
+  {    
     return;
   }
 
   #ifdef NDEBUG
   #else
     //std::cout << "\n                    async::receive\n";
-  #endif
-
-  auto testHandle {reinterpret_cast<HandleType::element_type*>(handle)};
-
-  auto commandProcessor{*testHandle};
+  #endif  
 
   try
   {
+    auto testHandle {reinterpret_cast<HandleType::element_type*>(handle)};
+
+    auto commandProcessor{*testHandle};
+
     if (commandProcessor == nullptr)
-    {
+    {      
       return;
     }
 
@@ -86,8 +87,10 @@ void async::receive(async::handle_t handle, const char* data, std::size_t size)
 
 void async::disconnect(async::handle_t handle)
 {
+  std::lock_guard<std::mutex> lockConnection{connectionLock};
+
   if (nullptr == handle)
-  {
+  {    
     return;
   }
 

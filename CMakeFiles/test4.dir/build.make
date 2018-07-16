@@ -90,7 +90,7 @@ test4_EXTERNAL_OBJECTS =
 
 test4: CMakeFiles/test4.dir/test4.cpp.o
 test4: CMakeFiles/test4.dir/build.make
-test4: async_command_processor/libasync.so.0.0.88
+test4: async_command_processor/libasync.so.0.0.89
 test4: CMakeFiles/test4.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/travis/build/Alkud/OTUS_HOMEWORK_11/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable test4"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/test4.dir/link.txt --verbose=$(VERBOSE)

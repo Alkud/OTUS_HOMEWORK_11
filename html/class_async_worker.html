@@ -167,6 +167,8 @@ workingThreadCount &gt;&#160;</td><td class="memItemRight" valign="bottom"><a cl
 Static Protected Attributes</h2></td></tr>
 <tr class="memitem:ad77e1e371ab52f46715695f22f3b64d3"><td class="memItemLeft" align="right" valign="top">static std::mt19937&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_async_worker.html#ad77e1e371ab52f46715695f22f3b64d3">idGenerator</a> {workingThreadCount}</td></tr>
 <tr class="separator:ad77e1e371ab52f46715695f22f3b64d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a755ded8a8d0385d2da9740823e87dfdd"><td class="memItemLeft" align="right" valign="top">static std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_async_worker.html#a755ded8a8d0385d2da9740823e87dfdd">idGenLock</a> {}</td></tr>
+<tr class="separator:a755ded8a8d0385d2da9740823e87dfdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a227a569e2f426056bf137be96b58c4ba"></a>
@@ -576,6 +578,28 @@ template&lt;size_t workingThreadCount = 1u&gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">std::mt19937 <a class="el" href="class_async_worker.html">AsyncWorker</a>&lt; workingThreadCount &gt;::idGenerator {workingThreadCount}</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a755ded8a8d0385d2da9740823e87dfdd"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;size_t workingThreadCount = 1u&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::mutex <a class="el" href="class_async_worker.html">AsyncWorker</a>&lt; workingThreadCount &gt;::idGenLock {}</td>
         </tr>
       </table>
   </td>

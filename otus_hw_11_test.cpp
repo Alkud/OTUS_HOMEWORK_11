@@ -6,7 +6,6 @@
 #include "homework_11.h"
 #include "./async_command_processor/async.h"
 #include "./async_command_processor/async_command_processor.h"
-//#include "new_delete.h"
 
 #include <string>
 #include <iostream>
@@ -83,8 +82,6 @@ getProcessorOutput
 using SharedACP = std::shared_ptr<AsyncCommandProcessor<2>>;
 using HandleType = std::shared_ptr<SharedACP>;
 
-std::mutex mockConnectionLock{};
-std::list<HandleType> mockConnections{};
 
 void*
 mockConnect(
@@ -99,19 +96,20 @@ mockConnect(
     return nullptr;
   }  
 
+  auto mockHandle {async::connect(bulkSize)};
+
+  auto tmpCommandProcessor {reinterpret_cast<HandleType::element_type*>(mockHandle)};
+
   auto newCommandProcessor { std::make_shared<AsyncCommandProcessor<2>>(
           bulkSize, '{', '}', outputStream, errorStream, metricsStream
     )
   };
 
+  tmpCommandProcessor->swap(newCommandProcessor);
 
-  auto newHandle { std::make_shared<SharedACP>(newCommandProcessor)};
-
-  if (newCommandProcessor->connect() == true)
+  if ((*tmpCommandProcessor)->connect() == true)
   {
-    std::lock_guard<std::mutex> lockMockConnection{mockConnectionLock};
-    mockConnections.push_back(newHandle);
-    return reinterpret_cast<void*>(newHandle.get());
+    return mockHandle;
   }
   else
   {
@@ -159,7 +157,7 @@ BOOST_AUTO_TEST_CASE(homework_11_test)
   try
   {
     std::stringstream outputStream{};
-    std::stringstream errorStream{};    
+    std::stringstream errorStream{};
     std::stringstream metricsStream{};
     SharedGlobalMetrics metrics1{};
     SharedGlobalMetrics metrics2{};
@@ -197,6 +195,24 @@ BOOST_AUTO_TEST_CASE(homework_11_test)
     BOOST_FAIL("");
   }
 }
+
+BOOST_AUTO_TEST_CASE(missed_disconnect_test)
+{
+  try
+  {
+   BOOST_CHECK_NO_THROW(
+    {
+      auto handle {async::connect(123)};
+    }
+   );
+  }
+  catch (const std::exception& ex)
+  {
+    std::cerr << "missed_disconnect_test failed: " << ex.what() << std::endl;
+    BOOST_FAIL("");
+  }
+}
+
 
 BOOST_AUTO_TEST_CASE(multithread_connect_disconnect)
 {
